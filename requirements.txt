@@ -1,4 +1,8 @@
-# Add your requirements here like:
-# numpy
-# scipy>=0.9
-
+# These are the requirements for pyfrac:
+numpy
+scipy>=0.9
+matplotlib
+pyscaffold
+six
+sphinx
+sphinx_rtd_theme
