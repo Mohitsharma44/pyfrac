@@ -1,6 +1,6 @@
 # Temporary and binary files
 *~
-*.py[cod]
+*.py[cod~]
 *.so
 *.cfg
 !setup.cfg
