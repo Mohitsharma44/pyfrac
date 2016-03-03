@@ -15,6 +15,8 @@ import sys
 import atexit
 from pyfrac.utils import pyfraclogger
 
+from skimage import io, exposure, img_as_uint, img_as_float
+
 READY = "{ready}\n"
 
 
@@ -218,9 +220,6 @@ class RadConv(object):
                             self.logger.warning("Error writing metadata to file: " + str(e))
                     else:
                         pass
-                        # print(json.dumps(meta,
-                        #                 indent=4,
-                        #                 sort_keys=True))
                     inc = inc + 1
                 else:
                     self.logger.warning(str(file_) + " not supported")
@@ -316,66 +315,102 @@ class RadConv(object):
         -------
         None
         """
-        def _convert(metafile, grayfile):
-            with open(metafile, 'r') as f:
-                meta = json.loads(f.read())
+        def _gettemp(metafile, grayfile):
+            with open(metafile, 'r') as mfobj:
+                meta = json.loads(mfobj.read())
             im = imread(grayfile)
-            fname = meta[0]['FileName']
             temp_ref = float(meta[0]['ReflectedApparentTemperature'])
-            # Get Atmos Temp in Kelvin
-            temp_atm = float(meta[0]['AtmosphericTemperature']) + 273.15
-            plank_r1 = float(meta[0]['PlanckR1'])
-            plank_r2 = float(meta[0]['PlanckR2'])
-            plank_b = float(meta[0]['PlanckB'])
-            plank_o = float(meta[0]['PlanckO'])
-            plank_f = float(meta[0]['PlanckF'])
-            trans_atm_a1 = float(meta[0]['AtmosphericTransAlpha1'])
-            trans_atm_a2 = float(meta[0]['AtmosphericTransAlpha2'])
-            trans_atm_b1 = float(meta[0]['AtmosphericTransBeta1'])
-            trans_atm_b2 = float(meta[0]['AtmosphericTransBeta2'])
-            trans_atm_x = float(meta[0]['AtmosphericTransX'])
-            emmissivity = float(meta[0]['Emissivity'])
+            temp_atm = float(meta[0]['AtmosphericTemperature'])
             distance = float(meta[0]['ObjectDistance'])
-            humidity_rel = float(meta[0]['RelativeHumidity'])
+            humidity = float(meta[0]['RelativeHumidity'])
+            emmissivity = float(meta[0]['Emissivity'])
+            r1 = float(meta[0]['PlanckR1'])
+            r2 = float(meta[0]['PlanckR2'])
+            b = float(meta[0]['PlanckB'])
+            o = float(meta[0]['PlanckO'])
+            f = float(meta[0]['PlanckF'])
+            a1 = float(meta[0]['AtmosphericTransAlpha1'])
+            a2 = float(meta[0]['AtmosphericTransAlpha2'])
+            b1 = float(meta[0]['AtmosphericTransBeta1'])
+            b2 = float(meta[0]['AtmosphericTransBeta2'])
+            x = float(meta[0]['AtmosphericTransX'])
 
-            # Temperature range RAW values
-            maxtemp_raw = meta[0]['RawValueMedian'] + meta[0]['RawValueRange'] / 2
-            mintemp_raw = maxtemp_raw - meta[0]['RawValueRange']
-
-            #print("Max Temp Calculated: " + str(maxtemp_raw))
-            #print("Min Temp Calculated:" + str(mintemp_raw))
-
-            maxtemp_im = im.max()
-            mintemp_im = im.min()
+            # Raw temperature range from FLIR
+            raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
+            raw_min = raw_max - float(meta[0]['RawValueRange'])
 
             # Calculate atmospheric transmission
-            h20 = (humidity_rel / 100) * math.exp(1.5587 + 6.939e-2 * temp_atm -
-                                                  2.7816e-4 * math.pow(temp_atm, 2) + 6.8455e-7 * pow(temp_atm, 3))
+            h2o = (humidity / 100) * math.exp(1.5587 +
+                                              6.939e-2 *
+                                              temp_atm -
+                                              2.7816e-4 *
+                                              math.pow(temp_atm, 2) +
+                                              6.8455e-7 *
+                                              math.pow(temp_atm, 3))
+            tau = x * math.exp(-math.sqrt(distance) *
+                               (a1 + b1 * math.sqrt(h2o))) + \
+                (1 - x) * math.exp(-math.sqrt(distance) *
+                                   (a2 + b2 * math.sqrt(h2o)))
 
-            tau = trans_atm_x * math.exp(-math.sqrt(distance) * (trans_atm_a1 + trans_atm_b1 * math.sqrt(h20))) + (
-                1 - trans_atm_x) * math.exp(1 - trans_atm_x) * math.exp(-math.sqrt(distance) * (trans_atm_a2 + trans_atm_b2 * math.sqrt(h20)))
+            # Radiance from atmosphere
+            # The camera is reporting the ambient temp as -273.15 deg celsius
+            try:
+                raw_atm = r1 / (r2 * (math.exp(b / (temp_atm + 273.15)) - f)) - o
+            except ZeroDivisionError:
+                raw_atm = -o
+            # Radiance from reflected objects
+            raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
 
-            # Calculate amount of radiance from atmosphere
-            temp_atm_raw = plank_r1 / \
-                (plank_r2 * (math.exp(plank_b / (temp_atm + 273.15)) - plank_f)) - plank_o
+            # get displayed object temp max/min
+            raw_max_obj = (raw_max -
+                           (1 - tau) *
+                           raw_atm -
+                           (1 - emmissivity) *
+                           tau *
+                           raw_refl) / emmissivity / tau
+            raw_min_obj = (raw_min -
+                           (1 - tau) *
+                           raw_atm -
+                           (1 - emmissivity) *
+                           tau *
+                           raw_refl) / emmissivity / tau
 
-            temp_ref_raw = plank_r1 / \
-                (plank_r2 * (math.exp(plank_b / (temp_ref + 273.15)) - plank_f)) - plank_o
+            # Min temp
+            temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
+            # Max temp
+            temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
 
-            # Get Max and Min in degrees
-            maxobj_raw = (maxtemp_raw - (1 - tau) * temp_atm_raw - (1 - emmissivity)
-                          * tau * temp_ref_raw) / emmissivity / tau
-            minobj_raw = (mintemp_raw - (1 - tau) * temp_atm_raw - (1 - emmissivity)
-                          * tau * temp_ref_raw) / emmissivity / tau
-            mintemp = plank_b / \
-                math.log(plank_r1 / (plank_r2 * (minobj_raw + plank_o)) + plank_f) - 273.15
-            maxtemp = plank_b / \
-                math.log(plank_r1 / (plank_r2 * (maxobj_raw + plank_o)) + plank_f) - 273.15
+            # ------ Not using for now ------
+            # Convert every RAW-16-Bit Pixel with
+            # Planck's Law to a Temperature Grayscale value
+            #s_max = b / math.log(r1 / (r2 * (raw_max + o)) + f)
+            #s_min = b / math.log(r1 / (r2 * (raw_min + o)) + f)
+            #s_delta = s_max - s_min
+            # ------ Not using for now -------
 
-            #print("maxobj_raw: " + str(maxobj_raw))
-            print("maxtemp: " + str(maxtemp))
-            #print("minobj_raw: " + str(minobj_raw))
-            print("mintemp: " + str(mintemp))
+            # Convert every 16 bit pixel value to grayscale temp range
+            t_im = np.zeros_like(im)
+            raw_temp_pix = np.zeros_like(im)
+            raw_temp_pix = (im[:] -
+                            (1 - tau) *
+                            raw_atm -
+                            (1 - emmissivity) *
+                            tau *
+                            raw_refl) / emmissivity / tau
+            t_im = (b /
+                    np.log(r1 / (r2 * (raw_temp_pix[:] + o)) + f) -
+                    273.15)
+
+            csv_fname = os.path.join(
+                os.path.dirname(grayfile),
+                'csv', os.path.basename(grayfile[:-3] + 'csv'))
+            if not os.path.exists(os.path.join(
+                os.path.dirname(grayfile),
+                    'csv')):
+                os.mkdir(os.path.join(
+                    os.path.dirname(grayfile), 'csv'))
+            self.logger.info("Writing temp to csv file")
+            np.savetxt(csv_fname, t_im, delimiter=',')
 
         # Radiometric files on which functions can be performed
         if not self.radfiles and not self.grayfiles and not self.metafiles:
@@ -385,6 +420,6 @@ class RadConv(object):
                              filenames=filenames)
 
         if np.count_nonzero(self.grayfiles) > 0:
-            _vconvert = np.vectorize(_convert, cache=True)
-            _vconvert(self.metafiles[self.metafiles.nonzero()],
-                      self.grayfiles[self.grayfiles.nonzero()])
+            _vgettemp = np.vectorize(_gettemp, cache=True)
+            temps = _vgettemp(self.metafiles[self.metafiles.nonzero()],
+                              self.grayfiles[self.grayfiles.nonzero()])
