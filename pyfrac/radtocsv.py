@@ -15,8 +15,6 @@ import sys
 import atexit
 from pyfrac.utils import pyfraclogger
 
-from skimage import io, exposure, img_as_uint, img_as_float
-
 READY = "{ready}\n"
 
 
@@ -33,7 +31,7 @@ def _programCheck(func):
                 pass
         except OSError as e:
             if e.errno == os.errno.ENOENT:
-                print('Exiftool is not detected')
+                print('Exiftool is not detected. pyfrac will not exit')
                 sys.exit(1)
             else:
                 print('Something went wrong that was not anticipated')
@@ -311,6 +309,13 @@ class RadConv(object):
             Filenames to be read from the `base_dir`. This
             can be left as empty if using `batch = True`
 
+        For the formulae used for conversion, refer: 
+        http://sharmamohit.com/misc_files/toolkit_ic2_dig16.pdf
+
+        Currently, we are not taking atmospheric tranmission into
+        account for the calculations. But they can be easily
+        plugged in.
+
         Returns
         -------
         None
@@ -362,43 +367,44 @@ class RadConv(object):
             raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
 
             # get displayed object temp max/min
+            # -- Not using raw_atm and tau in th calculations. Uncomment them to use it
             raw_max_obj = (raw_max -
-                           (1 - tau) *
-                           raw_atm -
+                           #(1 - tau) *
+                           # raw_atm -
                            (1 - emmissivity) *
-                           tau *
+                           # tau *
                            raw_refl) / emmissivity / tau
             raw_min_obj = (raw_min -
-                           (1 - tau) *
-                           raw_atm -
+                           #(1 - tau) *
+                           # raw_atm -
                            (1 - emmissivity) *
-                           tau *
+                           # tau *
                            raw_refl) / emmissivity / tau
 
             # Min temp
             temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
             # Max temp
             temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
-
-            # ------ Not using for now ------
-            # Convert every RAW-16-Bit Pixel with
-            # Planck's Law to a Temperature Grayscale value
-            #s_max = b / math.log(r1 / (r2 * (raw_max + o)) + f)
-            #s_min = b / math.log(r1 / (r2 * (raw_min + o)) + f)
-            #s_delta = s_max - s_min
-            # ------ Not using for now -------
+            self.logger.info(os.path.basename(grayfile) +
+                             " temp range: " +
+                             str(temp_min) +
+                             " / " +
+                             str(temp_max))
 
             # Convert every 16 bit pixel value to grayscale temp range
+            # -- Not using tau and raw_atm in th calculations. Uncomment them to use it
             t_im = np.zeros_like(im)
+            # Radiance of the object
             raw_temp_pix = np.zeros_like(im)
             raw_temp_pix = (im[:] -
-                            (1 - tau) *
-                            raw_atm -
+                            # (1 - tau) *
+                            # raw_atm -
                             (1 - emmissivity) *
-                            tau *
+                            # tau *
                             raw_refl) / emmissivity / tau
+            # Temperature of the object
             t_im = (b /
-                    np.log(r1 / (r2 * (raw_temp_pix[:] + o)) + f) -
+                    np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
                     273.15)
 
             csv_fname = os.path.join(
@@ -410,6 +416,7 @@ class RadConv(object):
                 os.mkdir(os.path.join(
                     os.path.dirname(grayfile), 'csv'))
             self.logger.info("Writing temp to csv file")
+            imsave(csv_fname[:-3] + 'png', t_im)
             np.savetxt(csv_fname, t_im, delimiter=',')
 
         # Radiometric files on which functions can be performed
@@ -418,7 +425,7 @@ class RadConv(object):
                              batch=batch,
                              meta=True,
                              filenames=filenames)
-
+        # Convert to csv now
         if np.count_nonzero(self.grayfiles) > 0:
             _vgettemp = np.vectorize(_gettemp, cache=True)
             temps = _vgettemp(self.metafiles[self.metafiles.nonzero()],
