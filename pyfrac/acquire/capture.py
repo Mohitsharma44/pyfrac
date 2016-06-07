@@ -5,6 +5,7 @@ import re
 from pyfrac.utils.misc import ignored
 from pyfrac.utils import pyfraclogger
 import atexit
+import os
 
 class ICDA320:
     """
@@ -20,6 +21,9 @@ class ICDA320:
             port number of the telnet service on the A320
 
         """
+        with ignored(OSError):
+            os.mkdir('./ir_images')
+        self.basedir = './ir_images/'
         self.eof = "\r\n"
         self.prompt = "\>"
         self.tn = telnetlib.Telnet()
@@ -45,7 +49,9 @@ class ICDA320:
     def capture(self):
         self.tn.write("palette"+self.eof)
         self.read(self.tn.read_until(self.prompt))
-        self.tn.write("store -j %s.jpg"%str(time.time())+self.eof)
+        fname = str(time.time())
+        self.logger.info("Capturing "+fname)
+        self.tn.write("store -j %s.jpg"%fname+self.eof)
         self.read(self.tn.read_until(self.prompt))
 
     # Grab the file back to this device
@@ -71,8 +77,16 @@ class ICDA320:
         """
         def _getFile(fname):
             with ignored(Exception):
-                self.ftp.retrbinary('RETR '+fname, open(fname, 'wb').write)
-            
+                self.logger.info("Fetching "+str(fname))
+                self.ftp.retrbinary('RETR '+fname, open(
+                    os.path.join(self.basedir,fname), 'wb').write)
+                
+        def _removeFile(fname):
+            if os.path.isfile(os.path.join(self.basedir,fname)):
+                with ignored(Exception):
+                    self.logger.info("Removing "+str(fname))
+                    self.ftp.delete(fname)
+                
         dirlisting = []
         dirs = []
         self.ftp.cwd('/')
@@ -81,16 +95,18 @@ class ICDA320:
         for i in dirlisting:
             dirs.append(i.split(" ")[-1])
             
-        if patterns:
+        if pattern:
             files = [x for x in dirs if re.search(pattern, x)]
         else:
             files = [x for x in dirs if filename in x]
             
         #Download the Files
         for fname in files:
-            print fname
             _getFile(fname)
+            time.sleep(1)
+            _removeFile(fname)
 
+            
     def cleanup(self):
         self.ftp.quit()
         self.tn.close()
