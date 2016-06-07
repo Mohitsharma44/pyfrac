@@ -18,6 +18,10 @@ __pycache__/*
 .settings
 .idea
 
+# Project folders
+ir_images/*
+grayscale/*
+
 # Package files
 *.egg
 *.eggs/
