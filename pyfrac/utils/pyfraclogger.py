@@ -31,13 +31,13 @@ def pyfraclogger(loggername=None, every="midnight", tofile=True):
                                             '..',
                                             'logs'))
     print BASE_DIR
-    loggername=str(inspect.getouterframes(inspect.currentframe())[1][1])
+    loggername=str(inspect.getouterframes(inspect.currentframe())[1][1])[:-3]
     LOG_FNAME = os.path.join(BASE_DIR, loggername)
     logger = logging.getLogger(loggername)
 
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s -- %(message)s", datefmt="%d-%m-%Y %H:%M:%S")
+        "%(asctime)s - %(name)s - %(levelname)s -- %(message)s\n", datefmt="%d-%m-%Y %H:%M:%S")
 
     # Setup TimedRotatingFileHandler
     f_handler = logging.handlers.TimedRotatingFileHandler(

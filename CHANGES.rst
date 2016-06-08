@@ -18,3 +18,7 @@ Version 0.1
   - Write it to csv file.
 
 Note: The above method still needs to be verified experimentally.
+
+- Capture Thermographic Images
+  - Connect to the cam via telnet
+  - Capture and verify the download, then delete remote file

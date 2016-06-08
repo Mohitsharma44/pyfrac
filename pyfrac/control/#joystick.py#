@@ -16,11 +16,11 @@ from blessings import Terminal
 
 
 # Pan and Tilt IP
-PTip = '192.168.1.50'
+PTip = '192.168.1.6'
 # Pan and Tilt Port
 PTport = '4000'
 # SSH Machine
-HOST = '127.0.0.1'
+HOST = '128.122.72.97'
 
 # Pan Limit
 PMAX = 4000

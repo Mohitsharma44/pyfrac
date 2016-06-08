@@ -21,6 +21,7 @@ __pycache__/*
 # Project folders
 ir_images/*
 grayscale/*
+logs/*
 
 # Package files
 *.egg
