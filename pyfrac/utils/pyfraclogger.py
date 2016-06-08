@@ -8,9 +8,9 @@ implements a flexible event logging system.
 import logging
 import logging.handlers
 import os
+import inspect
 
-
-def pyfraclogger(loggername, every="midnight", tofile=True):
+def pyfraclogger(loggername=None, every="midnight", tofile=True):
     """
     This function will return a logger that will write the
     debug level logs to a file and print info level 
@@ -18,8 +18,6 @@ def pyfraclogger(loggername, every="midnight", tofile=True):
 
     Parameters
     ----------
-    loggername : str
-        Name of the `logger` to be created
     every : str, optional {'S', 'M', 'H', 'D', 'midnight'}
         Backup of logs `every` (the default is `midnight`)
     tofile: bool, Write logs to file or not  
@@ -33,6 +31,7 @@ def pyfraclogger(loggername, every="midnight", tofile=True):
                                             '..',
                                             'logs'))
     print BASE_DIR
+    loggername=str(inspect.getouterframes(inspect.currentframe())[1][1])
     LOG_FNAME = os.path.join(BASE_DIR, loggername)
     logger = logging.getLogger(loggername)
 
