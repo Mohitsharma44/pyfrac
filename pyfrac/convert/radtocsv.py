@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Author : Mohit Sharma
+# June 08 2016
+# NYU CUSP 2016
 """
 Converting radiometric images to csv files.
 """

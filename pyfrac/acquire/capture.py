@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# Author : Mohit Sharma
+# June 08 2016
+# NYU CUSP 2016
+
 import telnetlib
 import ftplib
 import time
@@ -37,16 +42,29 @@ class ICDA320:
         
     # Parse the output
     def read(self, output):
+        """
+        Parse the output from the camera
+        by filtering the padding and other sentinels
+        """
         return filter(lambda x: x not in ["", self.eof],
                       output)
 
     # Get cam version
     def version(self):
+        """
+        Get the version information
+        of the camera and its individual
+        components
+        """
         self.tn.write("version"+self.eof)
         self.read(self.tn.read_until(self.prompt))
     
     # Capture the image
     def capture(self):
+        """
+        Capture a single image from the FLIR camera
+        and store it locally in the home directory (`/`)
+        """
         self.tn.write("palette"+self.eof)
         self.read(self.tn.read_until(self.prompt))
         fname = str(time.time())
@@ -108,5 +126,9 @@ class ICDA320:
 
             
     def cleanup(self):
+        """
+        Safely close the ftp and telnet connection before
+        exiting
+        """
         self.ftp.quit()
         self.tn.close()
