@@ -2,7 +2,6 @@
 numpy
 scipy>=0.9
 matplotlib
-pyscaffold
 six
 sphinx
 sphinx_rtd_theme
