@@ -64,6 +64,11 @@ class ICDA320:
         """
         Capture a single image from the FLIR camera
         and store it locally in the home directory (`/`)
+
+        Returns:
+        --------
+        fname : str
+            Name of the most recent capture
         """
         self.tn.write("palette"+self.eof)
         self.read(self.tn.read_until(self.prompt))
@@ -71,6 +76,7 @@ class ICDA320:
         self.logger.info("Capturing "+fname)
         self.tn.write("store -j %s.jpg"%fname+self.eof)
         self.read(self.tn.read_until(self.prompt))
+        return fname
 
     # Grab the file back to this device
     def fetch(self, filename=None, pattern=None):
