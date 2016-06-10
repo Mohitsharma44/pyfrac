@@ -11,6 +11,7 @@ import time
 import logging
 from pyfrac.utils import pyfraclogger
 from pyfrac.utils.misc import ignored
+import traceback
 
 screen = curses.initscr()
 curses.noecho()
@@ -68,12 +69,12 @@ class KeyboardController:
             formatted reply of the executed command
         """
         with ignored(Exception):
-            self.logger.info("Executing: %s\033[F"%str(command))
+            self.logger.info("Executing: %s "%str(command))
             command = command+self.sentinel
             self.tn.write(command+" "+self.sentinel)
             self.tn.read_until(self.cursor)
             output = self.tn.read_until(self.sentinel)[1:]
-            self.logger.info("Reply    : %s\033[F"%output)
+            self.logger.info("Reply    : %s "%output.strip(self.sentinel))
             return output
     
     def resetPT(self):
@@ -102,7 +103,7 @@ class KeyboardController:
             command = "PP"+str(posn)
             self.execute(command)
         else:
-            self.logger.warning("Cannot go beyond Limits\033[F")
+            self.logger.warning("Cannot go beyond Limits ")
 
     def tilt(self, posn):
         """
@@ -122,7 +123,7 @@ class KeyboardController:
             command = "TP"+str(posn)
             self.execute(command)
         else:
-            self.logger.warning("Cannot go beyond Limits\033[F")
+            self.logger.warning("Cannot go beyond Limits ")
 
     def move(self):
         """
@@ -136,27 +137,27 @@ class KeyboardController:
         cur_tilt = 0
         cur_pan = [int(s) for s in self.execute("PP").split() if s.isdigit()][-1]
         cur_tilt = [int(s) for s in self.execute("TP").split() if s.isdigit()][-1]
-        self.logger.info("Pan Posn: "+str(cur_pan)+"\033[F")
-        self.logger.info("Tilt Posn: "+str(cur_tilt)+"\033[F")
+        self.logger.info("Pan Posn: "+str(cur_pan)+" ")
+        self.logger.info("Tilt Posn: "+str(cur_tilt)+" ")
         while True:
             event = screen.getch()
             if event == ord('q'): break
             elif event == curses.KEY_UP:
                 cur_tilt += 1
                 self.tilt(cur_tilt)
-                self.logger.info("Tilting UP\033[F")
+                self.logger.info("Tilting UP ")
             elif event == curses.KEY_DOWN:
                 cur_tilt -= 1
                 self.tilt(cur_tilt)
-                self.logger.info("Tilting DOWN\033[F")
+                self.logger.info("Tilting DOWN ")
             elif event == curses.KEY_LEFT:
-                self.logger.info("Panning LEFT\033[F")
+                self.logger.info("Panning LEFT ")
                 cur_pan -= 1
                 self.pan(cur_pan)
             elif event == curses.KEY_RIGHT:
                 cur_pan += 1
                 self.pan(cur_pan)
-                self.logger.info("Panning RIGHT\033[F")
+                self.logger.info("Panning RIGHT ")
             time.sleep(.05)
             curses.flushinp()
 
@@ -165,10 +166,7 @@ class KeyboardController:
         Make sure to close the telnet connection and curses window
         before exiting the program
         """
-        self.logger.info("Quitting Control\033[F")
+        self.logger.info("Quitting Control ")
         curses.endwin()
-        sys.exit(1)
-
-if __name__ == "__main__":
-    kc = KeyboardController()
-    kc.move()
+        traceback.print_exc()
+        #sys.exit(1)

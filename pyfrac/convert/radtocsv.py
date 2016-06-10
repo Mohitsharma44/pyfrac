@@ -66,7 +66,7 @@ class RadConv(object):
         self.metafiles = None
         self.basedir = basedir
         self.inc = 0
-        self.logger = pyfraclogger.pyfraclogger(tofile=False)
+        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         self.projectSetup()
         atexit.register(self.cleanup)
 

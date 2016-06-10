@@ -27,7 +27,8 @@ class ICDA320:
 
         """
         with ignored(OSError):
-            os.mkdir('./ir_images')
+            if not os.path.exists('./ir_images'):
+                os.mkdir('./ir_images')
         self.basedir = './ir_images/'
         self.eof = "\r\n"
         self.prompt = "\>"
@@ -36,8 +37,7 @@ class ICDA320:
         self.tn.open(host, port)
         self.tn.read_until(self.prompt)
         self.ftp.login("flir", "3vlig")
-        self.logger = pyfraclogger.pyfraclogger(loggername=__name__,
-                                                tofile=False)
+        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         atexit.register(self.cleanup)
         
     # Parse the output
@@ -70,8 +70,13 @@ class ICDA320:
         fname : str
             Name of the most recent capture
         """
-        self.tn.write("palette"+self.eof)
-        self.read(self.tn.read_until(self.prompt))
+        self.tn.write("rset .system.focus.autofast true"+self.eof)
+        self.logger.info("Performing AutoFocus using complete focus range")
+        self.tn.read_until(self.prompt)
+        time.sleep(6)
+        #self.tn.write("palette"+self.eof)
+        #palette = self.read(self.tn.read_until(self.prompt))
+        #self.logger.info("Using Palette: "+str(palette))
         fname = str(time.time())
         self.logger.info("Capturing "+fname)
         self.tn.write("store -j %s.jpg"%fname+self.eof)
