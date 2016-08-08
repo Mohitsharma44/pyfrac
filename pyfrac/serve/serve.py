@@ -44,6 +44,11 @@ def uploadFile(filename):
                                   os.path.abspath(filename))
                                  )])
     curl.setopt(curl.WRITEFUNCTION, response.write)
+    logger.info("Uploading file " + str(filename))
     curl.perform()
     curl.close()
+    if response.getvalue() == "OK":
+        logger.info("Successfully Uploaded")
+    else:
+        logger.warning("Cannot Upload: " + str(response.getvalue()))
     return response
