@@ -52,13 +52,16 @@ def tojpg(csvfile, patchfile):
     """
 
     patch = None
+    logger.debug("Reading Patchfile " + str(patchfile))
     with open(patchfile, "r") as pf:
         patch = pf.read()
 
+    logger.debug("Reading CSVfile " + str(csvfile))
     img = np.loadtxt(csvfile, delimiter=",")
 
     tags = re.findall('(TAG:[\d]+)([\n\d]+)+', patch)
     rectangles = {}
+    logger.info("Tagging points of interest and calculating avg temp")
     for tag in tags:
         coords = tag[1].strip('\n').splitlines()
         coords = map(lambda x: int(x) / 2, coords)
@@ -84,6 +87,8 @@ def tojpg(csvfile, patchfile):
 
         ax1.annotate(rects, (cx, cy), color='k', weight='bold',
                      fontsize=10, ha='left', va='bottom')
+
+    logger.info("Writing the image to " + str(os.path.expanduser("~/Pictures")))
 
     fig.savefig(os.path.join(os.path.expanduser("~/Pictures"),
                              os.path.basename(csvfile)[:-3] + "png"))
