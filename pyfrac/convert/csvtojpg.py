@@ -55,12 +55,15 @@ def tojpg(csvfile, patchfile):
     with open(patchfile, "r") as pf:
         patch = pf.read()
 
+    img = np.loadtxt(csvfile, delimiter=",")
+
     tags = re.findall('(TAG:[\d]+)([\n\d]+)+', patch)
     rectangles = {}
     for tag in tags:
         coords = tag[1].strip('\n').splitlines()
         coords = map(lambda x: int(x) / 2, coords)
-        rectangles.update({tag[0]: patches.Rectangle(
+        avg_temp = img[coords[0]: coords[2], coords[1]: coords[3]].mean()
+        rectangles.update({tag[0] + "- %.2f degC " % avg_temp: patches.Rectangle(
             (coords[0], coords[1]),
             coords[2] - coords[0],
             coords[3] - coords[1],
@@ -68,7 +71,6 @@ def tojpg(csvfile, patchfile):
             fill=False)
         })
 
-    img = np.loadtxt(csvfile, delimiter=",")
     fig = plt.figure()
     ax1 = fig.add_subplot(111, aspect="equal")
     cax = ax1.imshow(img, cmap="nipy_spectral")
