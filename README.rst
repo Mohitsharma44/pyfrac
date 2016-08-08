@@ -18,7 +18,15 @@ Python library for:
 
 - FLIR D48E, FLIR D100E pan and tilt modules
 
-- FLIR A310, FLIR A320 Thermographic cameras
+- Control Pan and Tilt using keyboard direction keys (`keyboard.py`) or using Joystick (`joystick.py`)
+
+**acquiring**:
+
+- FLIR A310, FLIR A320 (or any ICDA320 type) Thermographic cameras
+
+- Obtain images in radiometric jpeg format
+
+- Fetch and remove images from camera using ftp
 
 **converting**:
 
@@ -26,8 +34,8 @@ Python library for:
   or any other overlay that is obtained using FLIR Tools)
   
 - Obtaining temperature in degree Celcius from jpeg (TIFF) image
-  
-**TBD**
+
+- Obtaining per pixel temperature and creating a png and a csv file
 
 
 .. note::
