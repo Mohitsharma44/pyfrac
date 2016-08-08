@@ -2,7 +2,6 @@
 # Author : Mohit Sharma
 # June 08 2016
 # NYU CUSP 2016
-
 import telnetlib
 import ftplib
 import time
@@ -90,10 +89,18 @@ class ICDA320:
         self.tn.write("rset .system.focus.autofull true"+self.eof)
         self.logger.info("Performing AutoFocus")
         self.tn.read_until(self.prompt)
-        time.sleep(15)
+        while 1:
+            self.tn.write("rls .system.focus.state"+self.eof)
+            if self.tn.read_until(self.prompt).splitlines()[0].split()[1].strip('"') == "BUSY":
+                self.logger.debug("Waiting ... ")
+                time.sleep(1)
+            else:
+                break
+
         #self.tn.write("palette"+self.eof)
         #palette = self.read(self.tn.read_until(self.prompt))
         #self.logger.info("Using Palette: "+str(palette))
+        self.logger.info("AutoFocus Done ")
         fname = str(time.time())
         self.logger.info("Capturing "+fname)
         self.tn.write("store -j %s.jpg"%fname+self.eof)
