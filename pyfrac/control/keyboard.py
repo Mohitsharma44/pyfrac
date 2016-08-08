@@ -81,7 +81,7 @@ class KeyboardController:
         """
         Method to reset the pan and tilt's speed
         """
-        commands = ['ED', 'CI', 'PS500', 'TS500', 'LU']
+        commands = ['ED', 'CI', 'PS200', 'TS200', 'LU']
         for command in commands:
             self.execute(command)
 
@@ -170,3 +170,9 @@ class KeyboardController:
         curses.endwin()
         traceback.print_exc()
         #sys.exit(1)
+
+"""
+if __name__ == "__main__":
+    kc = KeyboardController()
+    kc.move()
+"""

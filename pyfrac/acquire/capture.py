@@ -58,7 +58,24 @@ class ICDA320:
         """
         self.tn.write("version"+self.eof)
         self.read(self.tn.read_until(self.prompt))
-    
+
+    # Zoom
+    def zoom(self, factor):
+        """
+        Zoom by a particular factor
+
+        Parameters:
+        -----------
+        factor : int
+            Magnification number. Should be an integer and
+            between 1 and 9
+
+        Returns: None
+        """
+
+        self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
+        self.read(self.tn.read_until(self.prompt))
+        
     # Capture the image
     def capture(self):
         """
@@ -70,10 +87,10 @@ class ICDA320:
         fname : str
             Name of the most recent capture
         """
-        self.tn.write("rset .system.focus.autofast true"+self.eof)
-        self.logger.info("Performing AutoFocus using complete focus range")
+        self.tn.write("rset .system.focus.autofull true"+self.eof)
+        self.logger.info("Performing AutoFocus")
         self.tn.read_until(self.prompt)
-        time.sleep(6)
+        time.sleep(15)
         #self.tn.write("palette"+self.eof)
         #palette = self.read(self.tn.read_until(self.prompt))
         #self.logger.info("Using Palette: "+str(palette))
