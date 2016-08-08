@@ -74,7 +74,44 @@ class ICDA320:
 
         self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
         self.read(self.tn.read_until(self.prompt))
+
+    #AutoFocus the scene
+    def focus(self, foctype):
+        """
+        Perform Full Focus of the current scene
+        Parameters:
+        foctype : str
+            Type of Focus to perform
+            currently only `full` focus is supported
+        """
+        if foctype.lower() == "full":
+            self.tn.write("rset .system.focus.autofull true"+self.eof)
+            self.logger.info("Performing AutoFocus")
+            self.tn.read_until(self.prompt)
+        else:
+            raise NotImplementedError(self.__class__.__name__ + ". Only full supported")
+
+    # Check if camera is done focussing and
+    # ready for next instruction
+    def ready(self):
+        """
+        Check if camera is ready
+        Returns:
+        status : bool
+            True if the camera is ready for next instructions
+        """
+        self.tn.write("rls .system.focus.state"+self.eof)
+        if self.tn.read_until(self.prompt).splitlines()[0].split()[1].strip('"') == "BUSY":
+            return False
+        else:
+            self.logger.info("AutoFocus Done ")
+            return True
+
+        #self.tn.write("palette"+self.eof)
+        #palette = self.read(self.tn.read_until(self.prompt))
+        #self.logger.info("Using Palette: "+str(palette))
         
+    
     # Capture the image
     def capture(self):
         """
@@ -86,21 +123,7 @@ class ICDA320:
         fname : str
             Name of the most recent capture
         """
-        self.tn.write("rset .system.focus.autofull true"+self.eof)
-        self.logger.info("Performing AutoFocus")
-        self.tn.read_until(self.prompt)
-        while 1:
-            self.tn.write("rls .system.focus.state"+self.eof)
-            if self.tn.read_until(self.prompt).splitlines()[0].split()[1].strip('"') == "BUSY":
-                self.logger.debug("Waiting ... ")
-                time.sleep(1)
-            else:
-                break
-
-        #self.tn.write("palette"+self.eof)
-        #palette = self.read(self.tn.read_until(self.prompt))
-        #self.logger.info("Using Palette: "+str(palette))
-        self.logger.info("AutoFocus Done ")
+        
         fname = str(time.time())
         self.logger.info("Capturing "+fname)
         self.tn.write("store -j %s.jpg"%fname+self.eof)

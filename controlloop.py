@@ -31,8 +31,14 @@ def runTask(sc):
             logger.info("Moving to position: "+str(position))
             keycontrol.pan(position.split(',')[0])
             keycontrol.tilt(position.split(',')[1])
+            while not keycontrol.ready():
+                logger.debug("Waiting for PT module ")
+                time.sleep(1)
             cam.zoom(int(position.split(',')[2]))
-            time.sleep(25)
+            cam.focus("full")
+            while not cam.ready():
+                logger.debug("Waiting for camera ")
+                time.sleep(1)
             fname = cam.capture()
             cam.fetch(filename="", pattern="jpg")
             #converter.tocsv(base_dir="./ir_images", batch=False, filenames=[fname+".jpg"])

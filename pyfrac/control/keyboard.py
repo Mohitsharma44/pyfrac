@@ -69,14 +69,30 @@ class KeyboardController:
             formatted reply of the executed command
         """
         with ignored(Exception):
-            self.logger.info("Executing: %s "%str(command))
+            self.logger.debug("Executing: %s "%str(command))
             command = command+self.sentinel
             self.tn.write(command+" "+self.sentinel)
             self.tn.read_until(self.cursor)
             output = self.tn.read_until(self.sentinel)[1:]
-            self.logger.info("Reply    : %s "%output.strip(self.sentinel))
+            self.logger.debug("Reply    : %s "%output.strip(self.sentinel))
             return output
-    
+
+    def ready(self):
+        """
+        Returns whether the pan and tilt
+        has finished executing previous pan or tilt command
+        Returns:
+        ready : bool
+            True if the module is ready
+        """
+
+        command = "B"
+        output = self.execute(command)
+        if output.strip().split()[1] == 'S(0,0)':
+            return True
+        else:
+            return False
+        
     def resetPT(self):
         """
         Method to reset the pan and tilt's speed
