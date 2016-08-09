@@ -1,7 +1,9 @@
 from contextlib import contextmanager
 from pyfrac.utils import pyfraclogger
 
-logger = pyfraclogger.pyfraclogger(tofile=False)
+logger = pyfraclogger.pyfraclogger(tofile=True)
+
+
 @contextmanager
 def ignored(*exception):
     try:
