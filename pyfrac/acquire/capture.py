@@ -75,7 +75,17 @@ class ICDA320:
         self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
         self.read(self.tn.read_until(self.prompt))
 
-    #AutoFocus the scene
+    #Non Uniformity Correction.
+    # Don't call it frequently.
+    def nuc(self):
+        """
+        Perform non unformity correction
+        """
+        self.tn.write("rset .image.services.nuc.commit true"+self.eof)
+        self.logger.info("Performing NUC")
+        self.tn.read_until(self.prompt)
+        
+    #Focus the scene
     def focus(self, foctype):
         """
         Perform Full Focus of the current scene
@@ -88,8 +98,12 @@ class ICDA320:
             self.tn.write("rset .system.focus.autofull true"+self.eof)
             self.logger.info("Performing AutoFocus")
             self.tn.read_until(self.prompt)
+        elif foctype.lower() == "fast":
+            self.tn.write("rset .system.focus.autofast true"+self.eof)
+            self.logger.info("Performing FastFocus")
+            self.tn.read_until(self.prompt)
         else:
-            raise NotImplementedError(self.__class__.__name__ + ". Only full supported")
+            raise NotImplementedError(self.__class__.__name__ + ". Only full/fast supported")
 
     # Check if camera is done focussing and
     # ready for next instruction
