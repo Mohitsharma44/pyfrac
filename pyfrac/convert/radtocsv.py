@@ -200,7 +200,7 @@ class RadConv(object):
             filenames = []
             dir_listing = os.listdir(os.path.abspath(self.basedir))
             filenames = [file_ for file_ in dir_listing if file_.endswith('jpg')]
-            
+
         for _, file_ in enumerate(filenames):
             abs_fpath = os.path.abspath(os.path.join(self.basedir,
                                                      file_))
@@ -213,7 +213,7 @@ class RadConv(object):
                     meta = json.loads(out)
                 except ValueError:
                     meta = None
-                    
+
                 if meta and "RawThermalImageType" in meta[0]:
                     # Array of all the Radiometric images
                     self.radfiles[inc] = str(abs_fpath)
@@ -225,7 +225,7 @@ class RadConv(object):
                                 file_[:-3] + "hdr")
                             # Array of all the metadata files being created
                             self.metafiles[inc] = str(metadata_fname)
-                            
+
                             with open(metadata_fname, 'w') as fo:
                                 fo.write(json.dumps(meta,
                                                     indent=4,
@@ -235,7 +235,7 @@ class RadConv(object):
                     self.logger.warning(str(file_) + " not supported")
             else:
                 self.logger.warning("No such file " + str(file_))
-                
+
     def tograyscale(self, base_dir, batch=False, meta=False, filenames=None):
         """
         Convert Radiometric jpeg(actual) image to grayscale jpeg
@@ -276,7 +276,7 @@ class RadConv(object):
                         'grayscale', os.path.basename(abs_fpath))
                     # Array of all grayscale images
                     self.grayfiles[self.inc] = str(grayscale_fname)
-                
+
                     self._execute(["-b",
                                    abs_fpath.encode('utf-8'),
                                    "-RawThermalImage",
@@ -325,7 +325,8 @@ class RadConv(object):
 
         Returns
         -------
-        None
+        csv_fname : str
+            path to converted csvfile
         """
         def _gettemp(metafile, grayfile):
             if os.path.isfile(grayfile) and os.path.isfile(metafile):
@@ -347,11 +348,11 @@ class RadConv(object):
                 b1 = float(meta[0]['AtmosphericTransBeta1'])
                 b2 = float(meta[0]['AtmosphericTransBeta2'])
                 x = float(meta[0]['AtmosphericTransX'])
-                
+
                 # Raw temperature range from FLIR
                 raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
                 raw_min = raw_max - float(meta[0]['RawValueRange'])
-                
+
                 # Calculate atmospheric transmission
                 h2o = (humidity / 100) * math.exp(1.5587 +
                                                   6.939e-2 *
@@ -361,7 +362,7 @@ class RadConv(object):
                                                   6.8455e-7 *
                                                   math.pow(temp_atm, 3))
                 tau = x * math.exp(-math.sqrt(distance) *
-                (a1 + b1 * math.sqrt(h2o))) + \
+                                   (a1 + b1 * math.sqrt(h2o))) + \
                     (1 - x) * math.exp(-math.sqrt(distance) *
                                        (a2 + b2 * math.sqrt(h2o)))
 
@@ -414,14 +415,15 @@ class RadConv(object):
                 t_im = (b /
                         np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
                         273.15)
-                
+
                 csv_fname = os.path.join(
                     os.path.dirname(grayfile),
                     'csv', os.path.basename(grayfile[:-3] + 'csv'))
                 self.logger.info("Writing temp to csv file")
                 imsave(csv_fname[:-3] + 'png', t_im)
                 np.savetxt(csv_fname, t_im, delimiter=',')
-                
+                return str(csv_fname)
+
         # Radiometric files on which functions can be performed
         if not self.radfiles and not self.grayfiles and not self.metafiles:
             self.tograyscale(self.basedir,
