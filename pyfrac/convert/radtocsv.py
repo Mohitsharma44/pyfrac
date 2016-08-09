@@ -100,23 +100,37 @@ class RadConv(object):
         -------
         None
         """
-        if self.running:
-            self.logger.info("exiftool is already running")
-            return
-        else:
-            self.fnull = open(os.devnull, 'w')
-            self.exifproc = subprocess.Popen(["exiftool",
-                                              "-stay_open",
-                                              "True",
-                                              "-@",
-                                              "-",
-                                              "-common_args",
-                                              "-n",
-                                              "-S"],
-                                             stdin=subprocess.PIPE,
-                                             stdout=subprocess.PIPE,
-                                             stderr=self.fnull,)
-            self.running = True
+        try:
+            if self.running:
+                self.logger.info("exiftool is already running")
+                return
+            else:
+                self.fnull = open(os.devnull, 'w')
+                self.exifproc = subprocess.Popen(["exiftool",
+                                                  "-stay_open",
+                                                  "True",
+                                                  "-@",
+                                                  "-",
+                                                  "-common_args",
+                                                  "-n",
+                                                  "-S"],
+                                                 stdin=subprocess.PIPE,
+                                                 stdout=subprocess.PIPE,
+                                                 stderr=self.fnull,)
+                self.running = True
+        except IOError:
+            """
+            Seen the BrokenPipe error a couple of times.
+            For now, whenever I see it, I restart the exifprocess.
+            The bug is definetly somwhere in reading the output
+            of execute command.
+            """
+            self.exifproc.kill()
+            self.running = False
+            self._exifProcess()
+
+    def forceKill(self):
+        self.exifproc.kill()
 
     def cleanup(self):
         if self.running:
@@ -161,7 +175,43 @@ class RadConv(object):
             out = stdout
         return out
 
-    def get_meta(self, base_dir, batch=False, tofile=False, filenames=None):
+    def _isCompatible(self, filename):
+        """
+        Check if the file is compatible
+        Parameters
+        ----------
+        filename : str
+            Relative or absolute path and filename to be
+            checked for compatibilty
+
+        Returns
+        -------
+        meta : dict
+            If compatible, returns deserialized json document containing
+            metadata about the file
+        False : bool
+            If file is not compatible (Non Radiometric JPEG)
+        """
+        abs_fpath = os.path.abspath(filename)
+        if os.path.exists(abs_fpath):
+            self.logger.info("Checking compatibility for " + str(os.path.basename(abs_fpath)))
+            out = self._execute(["-j",
+                                 abs_fpath.encode('utf-8'),
+                                     "-execute"])
+            try:
+                meta = json.loads(out)
+            except ValueError:
+                meta = None
+                
+            if meta and "RawThermalImageType" in meta[0]:
+                return meta
+            else:
+                self.logger.warning(str(os.path.basename(filename)) + " not supported")
+                logger.warning(str(meta))
+                return False
+        
+    
+    def get_meta(self, tofile=False, filename=None):
         """
         Obtain the Metadata of the Radiometric image.
 
@@ -172,99 +222,53 @@ class RadConv(object):
 
         Paramters
         ---------
-        base_dir : str
-            Base directory to read the file(s) from.
-        batch : bool
-            Batch process all the files from `base_dir`.
         tofile : bool
             Write metadata out to the file.
-        filenames: iterable
-            Filenames to be read from the `base_dir`. This
-            can be left as empty if using `batch = True`
+        filename: str
+            Relative or absolute path and filename
 
         Returns
         -------
-        None
+        metadata_fname : str
+            if `tofile` is True, metadata_fname will contain
+            path for file containing metadata
         """
-        inc = 0
-        # 1-D array for filenames
-        self.radfiles = np.zeros(shape=(
-            len(os.listdir(os.path.abspath(self.basedir))), 1),
-            dtype=np.dtype((str, 2048)))
-        # 1-D array for filenames containing metadata
-        self.metafiles = np.zeros(shape=(
-            len(os.listdir(os.path.abspath(self.basedir))), 1),
-            dtype=np.dtype((str, 2048)))
+        abs_fpath = os.path.abspath(filename)
+        if os.path.exists(abs_fpath):
+            meta = self._isCompatible(filename)
+            if meta and tofile:
+                with ignored(IOError):
+                    metadata_fname = os.path.join(
+                        os.path.dirname(abs_fpath),
+                        'metadata',
+                        abs_fpath[:-3] + "hdr")
+                    
+                    with open(metadata_fname, 'w') as fo:
+                        fo.write(json.dumps(meta,
+                                            indent=4,
+                                            sort_keys=True))
+                return metadata_fname
+        else:
+            self.logger.warning("No such file " + str(abs_fpath))
 
-        if batch:
-            filenames = []
-            dir_listing = os.listdir(os.path.abspath(self.basedir))
-            filenames = [file_ for file_ in dir_listing if file_.endswith('jpg')]
-
-        for _, file_ in enumerate(filenames):
-            abs_fpath = os.path.abspath(os.path.join(self.basedir,
-                                                     file_))
-            if os.path.exists(os.path.dirname(abs_fpath)):
-                self.logger.info("Obtaining metadata for " + str(file_))
-                out = self._execute(["-j",
-                                     abs_fpath.encode('utf-8'),
-                                     "-execute"])
-                try:
-                    meta = json.loads(out)
-                except ValueError:
-                    meta = None
-
-                if meta and "RawThermalImageType" in meta[0]:
-                    # Array of all the Radiometric images
-                    self.radfiles[inc] = str(abs_fpath)
-                    if tofile:
-                        with ignored(IOError):
-                            metadata_fname = os.path.join(
-                                os.path.dirname(abs_fpath),
-                                'metadata',
-                                file_[:-3] + "hdr")
-                            # Array of all the metadata files being created
-                            self.metafiles[inc] = str(metadata_fname)
-
-                            with open(metadata_fname, 'w') as fo:
-                                fo.write(json.dumps(meta,
-                                                    indent=4,
-                                                    sort_keys=True))
-                    inc = inc + 1
-                else:
-                    self.logger.warning(str(file_) + " not supported")
-            else:
-                self.logger.warning("No such file " + str(file_))
-
-    def tograyscale(self, base_dir, batch=False, meta=False, filenames=None):
+    def tograyscale(self, meta=False, filename=None):
         """
         Convert Radiometric jpeg(actual) image to grayscale jpeg
 
         Parameters
         ----------
-        base_dir: str
-            Base directory to read the file(s) from.
-        batch: bool
-            Batch process all the files from base_dir.
-            default is `False`
         meta: bool
             Obtain metadata for the Radiometric jpeg and write
             it to a file along with converted grayscale jpeg.
             Refer get_meta() method for more information.
             default is `True`
-        filenames: iterable
-            Filenames to be read from the `base_dir`. This can be
-            left as empty if using `batch = True`
+        filename: str
+            Filename to be read and converted to grayscale
 
         Returns
         -------
-        None
+        
         """
-        self.grayfiles = np.zeros(shape=(
-            len(os.listdir(os.path.abspath(self.basedir))), 1),
-            dtype=np.dtype((str, 2048)))
-        self.inc = 0
-
         def _convert(abs_fpath):
             if os.path.isfile(abs_fpath):
                 self.logger.info("Converting " +
@@ -274,47 +278,39 @@ class RadConv(object):
                     grayscale_fname = os.path.join(
                         os.path.dirname(abs_fpath),
                         'grayscale', os.path.basename(abs_fpath))
-                    # Array of all grayscale images
-                    self.grayfiles[self.inc] = str(grayscale_fname)
-
+                                        
                     self._execute(["-b",
                                    abs_fpath.encode('utf-8'),
                                    "-RawThermalImage",
                                    "-w",
                                    os.path.join(os.path.dirname(grayscale_fname), "%f.%e"),
                                    "-execute"])
-                    self.inc = self.inc + 1
-        # Radiometric files on which functions can be performed
-        if not self.radfiles:
-            self.get_meta(self.basedir,
-                          batch=batch,
-                          tofile=meta,
-                          filenames=filenames)
+                return grayscale_fname
 
-        if np.count_nonzero(self.radfiles) > 0:
-            _vconvert = np.vectorize(_convert, cache=True)
-            _vconvert(self.radfiles[self.radfiles.nonzero()])
+        if meta:
+            metafile = self.get_meta(tofile=True, filename=filename)
+        else:
+            metafile = os.path.abspath(filename)
+
+        if os.path.exists(metafile):
+            grayfile = _convert(metafile)
+            return grayfile
         else:
             self.logger.warning("No Radiometric images found.")
 
-    def tocsv(self, base_dir, batch=False, filenames=None):
+    def tocsv(self, metadatafile=None, grayscalefile=None):
         """
         Convert the grayscale image to actual temperatures and
         write it to csv file.
 
         Parameters
         ----------
-        base_dir : str
-            Base directory to read the grayscale images from.
-        batch : bool
-            Batch process all the files from `base_dir`.
-        tofile : bool
-            Write csv data out to the file.
-            default is True. If set as false, the csv data will
-            be written on stdout
-        filenames: iterable
-            Filenames to be read from the `base_dir`. This
-            can be left as empty if using `batch = True`
+        metadatafile: str
+            Relative or Absolute path for file containing 
+            Radiometric metadata. refer `get_meta()`
+        grayscalefile: str
+            Relative or Absolute path for file containing 
+            Radiometric grayscale image. refer `tograyscale()`
 
         For the formulae used for conversion, refer: 
         http://sharmamohit.com/misc_files/toolkit_ic2_dig16.pdf
@@ -328,110 +324,100 @@ class RadConv(object):
         csv_fname : str
             path to converted csvfile
         """
-        def _gettemp(metafile, grayfile):
-            if os.path.isfile(grayfile) and os.path.isfile(metafile):
-                with open(metafile, 'r') as mfobj:
-                    meta = json.loads(mfobj.read())
-                im = imread(grayfile)
-                temp_ref = float(meta[0]['ReflectedApparentTemperature'])
-                temp_atm = float(meta[0]['AtmosphericTemperature'])
-                distance = float(meta[0]['ObjectDistance'])
-                humidity = float(meta[0]['RelativeHumidity'])
-                emmissivity = float(meta[0]['Emissivity'])
-                r1 = float(meta[0]['PlanckR1'])
-                r2 = float(meta[0]['PlanckR2'])
-                b = float(meta[0]['PlanckB'])
-                o = float(meta[0]['PlanckO'])
-                f = float(meta[0]['PlanckF'])
-                a1 = float(meta[0]['AtmosphericTransAlpha1'])
-                a2 = float(meta[0]['AtmosphericTransAlpha2'])
-                b1 = float(meta[0]['AtmosphericTransBeta1'])
-                b2 = float(meta[0]['AtmosphericTransBeta2'])
-                x = float(meta[0]['AtmosphericTransX'])
+        metafile = os.path.abspath(metadatafile)
+        grayfile = os.path.abspath(grayscalefile)
+        if os.path.isfile(grayfile) and os.path.isfile(metafile):
+            with open(metafile, 'r') as mfobj:
+                meta = json.loads(mfobj.read())
+            im = imread(grayfile)
+            temp_ref = float(meta[0]['ReflectedApparentTemperature'])
+            temp_atm = float(meta[0]['AtmosphericTemperature'])
+            distance = float(meta[0]['ObjectDistance'])
+            humidity = float(meta[0]['RelativeHumidity'])
+            emmissivity = float(meta[0]['Emissivity'])
+            r1 = float(meta[0]['PlanckR1'])
+            r2 = float(meta[0]['PlanckR2'])
+            b = float(meta[0]['PlanckB'])
+            o = float(meta[0]['PlanckO'])
+            f = float(meta[0]['PlanckF'])
+            a1 = float(meta[0]['AtmosphericTransAlpha1'])
+            a2 = float(meta[0]['AtmosphericTransAlpha2'])
+            b1 = float(meta[0]['AtmosphericTransBeta1'])
+            b2 = float(meta[0]['AtmosphericTransBeta2'])
+            x = float(meta[0]['AtmosphericTransX'])
 
-                # Raw temperature range from FLIR
-                raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
-                raw_min = raw_max - float(meta[0]['RawValueRange'])
-
-                # Calculate atmospheric transmission
-                h2o = (humidity / 100) * math.exp(1.5587 +
-                                                  6.939e-2 *
-                                                  temp_atm -
-                                                  2.7816e-4 *
-                                                  math.pow(temp_atm, 2) +
-                                                  6.8455e-7 *
-                                                  math.pow(temp_atm, 3))
-                tau = x * math.exp(-math.sqrt(distance) *
-                                   (a1 + b1 * math.sqrt(h2o))) + \
-                    (1 - x) * math.exp(-math.sqrt(distance) *
-                                       (a2 + b2 * math.sqrt(h2o)))
-
-                # Radiance from atmosphere
-                # The camera is reporting the ambient temp as -273.15 deg celsius
-                try:
-                    raw_atm = r1 / (r2 * (math.exp(b / (temp_atm + 273.15)) - f)) - o
-                except ZeroDivisionError:
-                    raw_atm = -o
-                # Radiance from reflected objects
-                raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
-
-                # get displayed object temp max/min
-                # -- Not using raw_atm and tau in th calculations. Uncomment them to use it
-                raw_max_obj = (raw_max -
-                               #(1 - tau) *
-                               # raw_atm -
-                               (1 - emmissivity) *
-                               # tau *
-                               raw_refl) / emmissivity / tau
-                raw_min_obj = (raw_min -
-                               #(1 - tau) *
-                               # raw_atm -
-                               (1 - emmissivity) *
-                               # tau *
-                               raw_refl) / emmissivity / tau
-
-                # Min temp
-                temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
-                # Max temp
-                temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
-                self.logger.info(os.path.basename(grayfile) +
-                                 " temp range: " +
-                                 str(temp_min) +
-                                 " / " +
-                                 str(temp_max))
-
-                # Convert every 16 bit pixel value to grayscale temp range
-                # -- Not using tau and raw_atm in th calculations. Uncomment them to use it
-                t_im = np.zeros_like(im)
-                # Radiance of the object
-                raw_temp_pix = np.zeros_like(im)
-                raw_temp_pix = (im[:] -
-                                # (1 - tau) *
-                                # raw_atm -
-                                (1 - emmissivity) *
-                                # tau *
-                                raw_refl) / emmissivity / tau
-                # Temperature of the object
-                t_im = (b /
-                        np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
-                        273.15)
-
-                csv_fname = os.path.join(
-                    os.path.dirname(grayfile),
-                    'csv', os.path.basename(grayfile[:-3] + 'csv'))
-                self.logger.info("Writing temp to csv file")
-                imsave(csv_fname[:-3] + 'png', t_im)
-                np.savetxt(csv_fname, t_im, delimiter=',')
-                return str(csv_fname)
-
-        # Radiometric files on which functions can be performed
-        if not self.radfiles and not self.grayfiles and not self.metafiles:
-            self.tograyscale(self.basedir,
-                             batch=batch,
-                             meta=True,
-                             filenames=filenames)
-        # Convert to csv now
-        if np.count_nonzero(self.grayfiles) > 0:
-            _vgettemp = np.vectorize(_gettemp, cache=True)
-            temps = _vgettemp(self.metafiles[self.metafiles.nonzero()],
-                              self.grayfiles[self.grayfiles.nonzero()])
+            self.logger.info("Calculating temp per pixel")
+            # Raw temperature range from FLIR
+            raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
+            raw_min = raw_max - float(meta[0]['RawValueRange'])
+            
+            # Calculate atmospheric transmission
+            h2o = (humidity / 100) * math.exp(1.5587 +
+                                              6.939e-2 *
+                                              temp_atm -
+                                              2.7816e-4 *
+                                              math.pow(temp_atm, 2) +
+                                              6.8455e-7 *
+                                              math.pow(temp_atm, 3))
+            tau = x * math.exp(-math.sqrt(distance) *
+                               (a1 + b1 * math.sqrt(h2o))) + \
+                               (1 - x) * math.exp(-math.sqrt(distance) *
+                                                  (a2 + b2 * math.sqrt(h2o)))
+            
+            # Radiance from atmosphere
+            # The camera is reporting the ambient temp as -273.15 deg celsius
+            try:
+                raw_atm = r1 / (r2 * (math.exp(b / (temp_atm + 273.15)) - f)) - o
+            except ZeroDivisionError:
+                raw_atm = -o
+            # Radiance from reflected objects
+            raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
+            
+            # get displayed object temp max/min
+            # -- Not using raw_atm and tau in th calculations. Uncomment them to use it
+            raw_max_obj = (raw_max -
+                           #(1 - tau) *
+                           # raw_atm -
+                           (1 - emmissivity) *
+                           # tau *
+                           raw_refl) / emmissivity / tau
+            raw_min_obj = (raw_min -
+                           #(1 - tau) *
+                           # raw_atm -
+                           (1 - emmissivity) *
+                           # tau *
+                           raw_refl) / emmissivity / tau
+            
+            # Min temp
+            temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
+            # Max temp
+            temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
+            self.logger.info(os.path.basename(grayfile) +
+                             " temp range: " +
+                             str(temp_min) +
+                             " / " +
+                             str(temp_max))
+            
+            # Convert every 16 bit pixel value to grayscale temp range
+            # -- Not using tau and raw_atm in th calculations. Uncomment them to use it
+            t_im = np.zeros_like(im)
+            # Radiance of the object
+            raw_temp_pix = np.zeros_like(im)
+            raw_temp_pix = (im[:] -
+                            # (1 - tau) *
+                            # raw_atm -
+                            (1 - emmissivity) *
+                            # tau *
+                            raw_refl) / emmissivity / tau
+            # Temperature of the object
+            t_im = (b /
+                    np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
+                    273.15)
+            
+            csv_fname = os.path.join(
+                os.path.dirname(grayfile),
+                'csv', os.path.basename(grayfile[:-3] + 'csv'))
+            self.logger.info("Writing temp to csv file")
+            imsave(csv_fname[:-3] + 'png', t_im)
+            np.savetxt(csv_fname, t_im, delimiter=',')
+            return str(csv_fname)
