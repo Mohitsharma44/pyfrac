@@ -14,10 +14,8 @@ import cStringIO
 from pyfrac.utils import pyfraclogger
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
-curl = pycurl.Curl()
-response = cStringIO.StringIO()
 
-URL = "uowebsite.cloudapp.net"
+URL = "uowebsite.cloudapp.net/upload"
 ID = "5 MTC"
 
 
@@ -36,6 +34,9 @@ def uploadFile(filename):
         Use `.getvalue() to parse the response
         to string`
     """
+    curl = pycurl.Curl()
+    response = cStringIO.StringIO()
+
     curl.setopt(curl.POST, 1)
     curl.setopt(curl.URL, URL)
     curl.setopt(curl.HTTPHEADER, ['id: ' + ID])
