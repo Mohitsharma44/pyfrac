@@ -1,7 +1,7 @@
 from pyfrac.utils import pyfraclogger
 from pyfrac.control import keyboard
 from pyfrac.acquire import capture
-from pyfrac.convert import radtocsv
+from pyfrac.convert import newrad
 from pyfrac.serve import serve
 import os
 import time
@@ -10,7 +10,7 @@ import sched
 logger = pyfraclogger.pyfraclogger(tofile=True)
 cam = capture.ICDA320("192.168.1.4")
 keycontrol = keyboard.KeyboardController()
-converter = radtocsv.RadConv(basedir="./ir_images")
+converter = newrad.RadConv(basedir="./ir_images")
 converter._exifProcess()
 s = sched.scheduler(time.time, time.sleep)
 CONFIG_FILE = open("movement.conf", 'r')
@@ -51,8 +51,11 @@ def runTask():
 
             fname = cam.capture()
             cam.fetch(filename="", pattern="jpg")
-            csv_fname = converter.tocsv(base_dir="./ir_images",
-                                        batch=False, filenames=[fname + ".jpg"])
+            # Conversion
+            meta_fname = converter.get_meta(tofile=True, filename=fname)
+            gray_fname = converter.grayscale(meta=False, filename=fname)
+            csv_fname = converter.tocsv(meta_fname, gray_fname)
+            # Upload
             serve.uploadFile(os.path.abspath(csv_fname))
     except Exception as ex:
         logger.warning(str(ex))
