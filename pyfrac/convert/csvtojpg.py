@@ -66,7 +66,7 @@ def tojpg(csvfile, patchfile):
         coords = tag[1].strip('\n').splitlines()
         coords = map(lambda x: int(x) / 2, coords)
         avg_temp = img[coords[0]: coords[2], coords[1]: coords[3]].mean()
-        rectangles.update({tag[0] + "- %.2f degC " % avg_temp: patches.Rectangle(
+        rectangles.update({tag[0] + "\n  %.2f C " % avg_temp: patches.Rectangle(
             (coords[0], coords[1]),
             coords[2] - coords[0],
             coords[3] - coords[1],
@@ -77,7 +77,7 @@ def tojpg(csvfile, patchfile):
     fig = plt.figure()
     ax1 = fig.add_subplot(111, aspect="equal")
     cax = ax1.imshow(img, cmap="nipy_spectral")
-    cbar = fig.colorbar(cax, ticks=[img.min(), img.max()])
+    cbar = fig.colorbar(cax, ticks=[img.min(), img.max()], orientation="horizontal")
 
     for rects in rectangles:
         ax1.add_patch(rectangles[rects])
@@ -85,10 +85,12 @@ def tojpg(csvfile, patchfile):
         cx = rx + rectangles[rects].get_width()
         cy = ry + rectangles[rects].get_height()
 
-        ax1.annotate(rects, (cx, cy), color='k', weight='bold',
-                     fontsize=10, ha='left', va='bottom')
+        ax1.annotate(rects, (cx, cy), color='k', weight='normal',
+                     fontsize=8, ha='left', va='bottom')
 
-    logger.info("Writing the image to " + str(os.path.expanduser("~/Pictures")))
-
-    fig.savefig(os.path.join(os.path.expanduser("~/Pictures"),
-                             os.path.basename(csvfile)[:-3] + "png"))
+    outfile = os.path.join(os.path.expanduser("~/Pictures"),
+                           os.path.basename(csvfile)[:-3]+"png")
+    logger.info("Writing the image to " + str(outfile))
+    ax1.set_axis_off()
+    fig.savefig(outfile, bbox_inches='tight', pad_inches=0)
+    return outfile
