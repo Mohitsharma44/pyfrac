@@ -1,0 +1,288 @@
+09-08-2016 21:57:45 - radtocsv - INFO -- Checking compatibility for 1470779862.66.jpg 
+ [F
+09-08-2016 21:57:55 - radtocsv - INFO -- Checking compatibility for 1470779872.64.jpg 
+ [F
+09-08-2016 21:58:04 - radtocsv - INFO -- Checking compatibility for 1470779882.27.jpg 
+ [F
+09-08-2016 22:00:32 - radtocsv - INFO -- Checking compatibility for 1470780030.2.jpg 
+ [F
+09-08-2016 22:00:34 - radtocsv - INFO -- Converting 1470780030.2.jpg to grayscale 
+ [F
+09-08-2016 22:00:34 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:00:34 - radtocsv - INFO -- 1470780030.2.jpg temp range: 16.5079688003 / 41.6488952264 
+ [F
+09-08-2016 22:00:34 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:00:52 - radtocsv - INFO -- Checking compatibility for 1470780049.01.jpg 
+ [F
+09-08-2016 22:00:52 - radtocsv - INFO -- Converting 1470780049.01.jpg to grayscale 
+ [F
+09-08-2016 22:00:52 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:00:52 - radtocsv - INFO -- 1470780049.01.jpg temp range: 22.5675907314 / 43.4170920013 
+ [F
+09-08-2016 22:00:52 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:01:13 - radtocsv - INFO -- Checking compatibility for 1470780065.31.jpg 
+ [F
+09-08-2016 22:01:13 - radtocsv - INFO -- Converting 1470780065.31.jpg to grayscale 
+ [F
+09-08-2016 22:01:17 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:01:17 - radtocsv - INFO -- 1470780065.31.jpg temp range: 11.4303768157 / 42.4123295476 
+ [F
+09-08-2016 22:01:17 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:01:35 - radtocsv - INFO -- Checking compatibility for 1470780092.32.jpg 
+ [F
+09-08-2016 22:01:35 - radtocsv - INFO -- Converting 1470780092.32.jpg to grayscale 
+ [F
+09-08-2016 22:01:38 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:01:38 - radtocsv - INFO -- 1470780092.32.jpg temp range: 0.862448191556 / 47.0848620124 
+ [F
+09-08-2016 22:01:38 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:01:58 - radtocsv - INFO -- Checking compatibility for 1470780116.31.jpg 
+ [F
+09-08-2016 22:01:59 - radtocsv - INFO -- Converting 1470780116.31.jpg to grayscale 
+ [F
+09-08-2016 22:01:59 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:01:59 - radtocsv - INFO -- 1470780116.31.jpg temp range: 0.543450045967 / 41.5954546568 
+ [F
+09-08-2016 22:01:59 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:02:17 - radtocsv - INFO -- Checking compatibility for 1470780133.55.jpg 
+ [F
+09-08-2016 22:02:17 - radtocsv - INFO -- Converting 1470780133.55.jpg to grayscale 
+ [F
+09-08-2016 22:02:27 - radtocsv - INFO -- Checking compatibility for 1470780144.29.jpg 
+ [F
+09-08-2016 22:02:27 - radtocsv - WARNING -- 1470780144.29.jpg not supported 
+ [F
+09-08-2016 22:02:39 - radtocsv - INFO -- Checking compatibility for 1470780154.94.jpg 
+ [F
+09-08-2016 22:02:39 - radtocsv - INFO -- Converting 1470780154.94.jpg to grayscale 
+ [F
+09-08-2016 22:02:51 - radtocsv - INFO -- Checking compatibility for 1470780168.82.jpg 
+ [F
+09-08-2016 22:02:51 - radtocsv - WARNING -- 1470780168.82.jpg not supported 
+ [F
+09-08-2016 22:03:01 - radtocsv - INFO -- Checking compatibility for 1470780178.12.jpg 
+ [F
+09-08-2016 22:03:01 - radtocsv - INFO -- Converting 1470780178.12.jpg to grayscale 
+ [F
+09-08-2016 22:03:13 - radtocsv - INFO -- Shutting down all services 
+ [F
+09-08-2016 22:04:24 - radtocsv - INFO -- Checking compatibility for 1470780259.96.jpg 
+ [F
+09-08-2016 22:04:25 - radtocsv - INFO -- Converting 1470780259.96.jpg to grayscale 
+ [F
+09-08-2016 22:04:27 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:04:27 - radtocsv - INFO -- 1470780259.96.jpg temp range: 16.9546912835 / 41.4349927535 
+ [F
+09-08-2016 22:04:27 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:04:42 - radtocsv - INFO -- Checking compatibility for 1470780280.24.jpg 
+ [F
+09-08-2016 22:04:43 - radtocsv - INFO -- Converting 1470780280.24.jpg to grayscale 
+ [F
+09-08-2016 22:04:43 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:04:43 - radtocsv - INFO -- 1470780280.24.jpg temp range: 22.7993100666 / 42.5184795126 
+ [F
+09-08-2016 22:04:43 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:05:08 - radtocsv - INFO -- Checking compatibility for 1470780297.48.jpg 
+ [F
+09-08-2016 22:05:08 - radtocsv - INFO -- Converting 1470780297.48.jpg to grayscale 
+ [F
+09-08-2016 22:05:15 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:05:15 - radtocsv - INFO -- 1470780297.48.jpg temp range: 11.7366111409 / 42.0223281122 
+ [F
+09-08-2016 22:05:15 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:05:33 - radtocsv - INFO -- Checking compatibility for 1470780330.94.jpg 
+ [F
+09-08-2016 22:05:33 - radtocsv - INFO -- Converting 1470780330.94.jpg to grayscale 
+ [F
+09-08-2016 22:05:33 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:05:33 - radtocsv - INFO -- 1470780330.94.jpg temp range: 0.835910307244 / 46.7091475022 
+ [F
+09-08-2016 22:05:33 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:05:53 - radtocsv - INFO -- Checking compatibility for 1470780348.04.jpg 
+ [F
+09-08-2016 22:05:53 - radtocsv - INFO -- Converting 1470780348.04.jpg to grayscale 
+ [F
+09-08-2016 22:05:59 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:05:59 - radtocsv - INFO -- 1470780348.04.jpg temp range: 0.169775820679 / 41.4528322553 
+ [F
+09-08-2016 22:05:59 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:06:19 - radtocsv - INFO -- Checking compatibility for 1470780377.14.jpg 
+ [F
+09-08-2016 22:06:20 - radtocsv - INFO -- Converting 1470780377.14.jpg to grayscale 
+ [F
+09-08-2016 22:06:21 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:06:21 - radtocsv - INFO -- 1470780377.14.jpg temp range: 27.1484793808 / 41.3457561585 
+ [F
+09-08-2016 22:06:21 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:06:37 - radtocsv - INFO -- Checking compatibility for 1470780394.27.jpg 
+ [F
+09-08-2016 22:06:38 - radtocsv - INFO -- Converting 1470780394.27.jpg to grayscale 
+ [F
+09-08-2016 22:06:43 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:06:43 - radtocsv - INFO -- 1470780394.27.jpg temp range: 27.5114551215 / 41.9512856303 
+ [F
+09-08-2016 22:06:43 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:07:01 - radtocsv - INFO -- Checking compatibility for 1470780418.95.jpg 
+ [F
+09-08-2016 22:07:01 - radtocsv - INFO -- Converting 1470780418.95.jpg to grayscale 
+ [F
+09-08-2016 22:07:04 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:07:04 - radtocsv - INFO -- 1470780418.95.jpg temp range: 18.7218089533 / 35.960131618 
+ [F
+09-08-2016 22:07:04 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:07:22 - radtocsv - INFO -- Checking compatibility for 1470780439.42.jpg 
+ [F
+09-08-2016 22:07:22 - radtocsv - INFO -- Converting 1470780439.42.jpg to grayscale 
+ [F
+09-08-2016 22:07:22 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:07:22 - radtocsv - INFO -- 1470780439.42.jpg temp range: 7.40446782606 / 37.1679162431 
+ [F
+09-08-2016 22:07:22 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:07:47 - radtocsv - INFO -- Checking compatibility for 1470780455.83.jpg 
+ [F
+09-08-2016 22:07:47 - radtocsv - INFO -- Converting 1470780455.83.jpg to grayscale 
+ [F
+09-08-2016 22:07:49 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:07:49 - radtocsv - INFO -- 1470780455.83.jpg temp range: 0.46351446313 / 36.9458729794 
+ [F
+09-08-2016 22:07:49 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:08:05 - radtocsv - INFO -- Checking compatibility for 1470780482.7.jpg 
+ [F
+09-08-2016 22:08:05 - radtocsv - INFO -- Converting 1470780482.7.jpg to grayscale 
+ [F
+09-08-2016 22:08:05 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:08:05 - radtocsv - INFO -- 1470780482.7.jpg temp range: 0.623311016631 / 36.8346941888 
+ [F
+09-08-2016 22:08:05 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:08:23 - radtocsv - INFO -- Checking compatibility for 1470780500.22.jpg 
+ [F
+09-08-2016 22:08:24 - radtocsv - INFO -- Converting 1470780500.22.jpg to grayscale 
+ [F
+09-08-2016 22:08:28 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:08:28 - radtocsv - INFO -- 1470780500.22.jpg temp range: 7.23181542345 / 34.0961981 
+ [F
+09-08-2016 22:08:28 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:08:44 - radtocsv - INFO -- Checking compatibility for 1470780522.57.jpg 
+ [F
+09-08-2016 22:08:44 - radtocsv - INFO -- Converting 1470780522.57.jpg to grayscale 
+ [F
+09-08-2016 22:08:44 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:08:44 - radtocsv - INFO -- 1470780522.57.jpg temp range: 18.4587206233 / 39.8367108829 
+ [F
+09-08-2016 22:08:44 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:09:05 - radtocsv - INFO -- Checking compatibility for 1470780542.94.jpg 
+ [F
+09-08-2016 22:09:05 - radtocsv - INFO -- Converting 1470780542.94.jpg to grayscale 
+ [F
+09-08-2016 22:09:12 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:09:12 - radtocsv - INFO -- 1470780542.94.jpg temp range: 18.6341892258 / 42.4654159564 
+ [F
+09-08-2016 22:09:12 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:09:32 - radtocsv - INFO -- Checking compatibility for 1470780569.93.jpg 
+ [F
+09-08-2016 22:09:32 - radtocsv - INFO -- Converting 1470780569.93.jpg to grayscale 
+ [F
+09-08-2016 22:09:32 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:09:32 - radtocsv - INFO -- 1470780569.93.jpg temp range: 9.04072205508 / 33.963259521 
+ [F
+09-08-2016 22:09:32 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:09:54 - radtocsv - INFO -- Checking compatibility for 1470780585.02.jpg 
+ [F
+09-08-2016 22:09:54 - radtocsv - INFO -- Converting 1470780585.02.jpg to grayscale 
+ [F
+09-08-2016 22:09:59 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:09:59 - radtocsv - INFO -- 1470780585.02.jpg temp range: 1.20669664048 / 29.8221632149 
+ [F
+09-08-2016 22:09:59 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:10:14 - radtocsv - INFO -- Checking compatibility for 1470780612.61.jpg 
+ [F
+09-08-2016 22:10:14 - radtocsv - INFO -- Converting 1470780612.61.jpg to grayscale 
+ [F
+09-08-2016 22:10:14 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:10:14 - radtocsv - INFO -- 1470780612.61.jpg temp range: 0.942012645522 / 31.1740798768 
+ [F
+09-08-2016 22:10:15 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:10:30 - radtocsv - INFO -- Checking compatibility for 1470780628.16.jpg 
+ [F
+09-08-2016 22:10:30 - radtocsv - INFO -- Converting 1470780628.16.jpg to grayscale 
+ [F
+09-08-2016 22:10:30 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:10:30 - radtocsv - INFO -- 1470780628.16.jpg temp range: 8.84687236271 / 32.7982157973 
+ [F
+09-08-2016 22:10:30 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:10:49 - radtocsv - INFO -- Checking compatibility for 1470780647.23.jpg 
+ [F
+09-08-2016 22:10:49 - radtocsv - INFO -- Converting 1470780647.23.jpg to grayscale 
+ [F
+09-08-2016 22:10:56 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:10:56 - radtocsv - INFO -- 1470780647.23.jpg temp range: 27.128278413 / 33.4108668684 
+ [F
+09-08-2016 22:10:56 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:11:27 - radtocsv - INFO -- Checking compatibility for 1470780685.32.jpg 
+ [F
+09-08-2016 22:11:27 - radtocsv - INFO -- Converting 1470780685.32.jpg to grayscale 
+ [F
+09-08-2016 22:11:28 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:11:28 - radtocsv - INFO -- 1470780685.32.jpg temp range: 28.0536579593 / 35.8293166335 
+ [F
+09-08-2016 22:11:28 - radtocsv - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 22:11:51 - radtocsv - INFO -- Checking compatibility for 1470780709.02.jpg 
+ [F
+09-08-2016 22:11:51 - radtocsv - INFO -- Converting 1470780709.02.jpg to grayscale 
+ [F
+09-08-2016 22:11:52 - radtocsv - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 22:11:52 - radtocsv - INFO -- 1470780709.02.jpg temp range: 26.1745487586 / 35.8106168022 
+ [F
+09-08-2016 22:11:52 - radtocsv - INFO -- Writing temp to csv file 
+ [F

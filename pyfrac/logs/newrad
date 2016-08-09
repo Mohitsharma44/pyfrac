@@ -1,0 +1,1764 @@
+09-08-2016 20:19:32 - newrad - INFO -- Checking compatibility for 1470773970.89.jpg 
+ [F
+09-08-2016 20:19:34 - newrad - INFO -- Converting 1470773970.89.jpg to grayscale 
+ [F
+09-08-2016 20:19:34 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:19:34 - newrad - INFO -- 1470773970.89.jpg temp range: 16.0817037748 / 57.6960035442 
+ [F
+09-08-2016 20:19:34 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:19:52 - newrad - INFO -- Checking compatibility for 1470773990.03.jpg 
+ [F
+09-08-2016 20:19:52 - newrad - INFO -- Converting 1470773990.03.jpg to grayscale 
+ [F
+09-08-2016 20:19:53 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:19:53 - newrad - INFO -- 1470773990.03.jpg temp range: 28.6330421137 / 46.7946342196 
+ [F
+09-08-2016 20:19:53 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:20:14 - newrad - INFO -- Checking compatibility for 1470774012.3.jpg 
+ [F
+09-08-2016 20:20:14 - newrad - INFO -- Converting 1470774012.3.jpg to grayscale 
+ [F
+09-08-2016 20:20:14 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:20:14 - newrad - INFO -- 1470774012.3.jpg temp range: 15.6084110861 / 41.2207152773 
+ [F
+09-08-2016 20:20:14 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:20:38 - newrad - INFO -- Checking compatibility for 1470774034.63.jpg 
+ [F
+09-08-2016 20:20:39 - newrad - INFO -- Converting 1470774034.63.jpg to grayscale 
+ [F
+09-08-2016 20:20:40 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:20:40 - newrad - INFO -- 1470774034.63.jpg temp range: -2.71433279343 / 48.846245052 
+ [F
+09-08-2016 20:20:40 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:21:02 - newrad - INFO -- Checking compatibility for 1470774059.92.jpg 
+ [F
+09-08-2016 20:21:02 - newrad - INFO -- Converting 1470774059.92.jpg to grayscale 
+ [F
+09-08-2016 20:21:02 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:21:02 - newrad - INFO -- 1470774059.92.jpg temp range: -2.24505823018 / 40.7372095451 
+ [F
+09-08-2016 20:21:02 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:21:26 - newrad - INFO -- Checking compatibility for 1470774082.88.jpg 
+ [F
+09-08-2016 20:21:27 - newrad - INFO -- Converting 1470774082.88.jpg to grayscale 
+ [F
+09-08-2016 20:21:27 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:21:27 - newrad - INFO -- 1470774082.88.jpg temp range: 27.7527672778 / 42.1288148513 
+ [F
+09-08-2016 20:21:27 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:21:47 - newrad - INFO -- Checking compatibility for 1470774104.7.jpg 
+ [F
+09-08-2016 20:21:47 - newrad - INFO -- Converting 1470774104.7.jpg to grayscale 
+ [F
+09-08-2016 20:21:47 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:21:47 - newrad - INFO -- 1470774104.7.jpg temp range: 29.7432853625 / 44.1871749072 
+ [F
+09-08-2016 20:21:47 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:22:12 - newrad - INFO -- Checking compatibility for 1470774129.5.jpg 
+ [F
+09-08-2016 20:22:12 - newrad - INFO -- Converting 1470774129.5.jpg to grayscale 
+ [F
+09-08-2016 20:22:13 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:22:13 - newrad - INFO -- 1470774129.5.jpg temp range: 16.8655078204 / 41.0060608136 
+ [F
+09-08-2016 20:22:14 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:29:08 - newrad - INFO -- Checking compatibility for 1470774545.82.jpg 
+ [F
+09-08-2016 20:29:09 - newrad - INFO -- Converting 1470774545.82.jpg to grayscale 
+ [F
+09-08-2016 20:29:10 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:29:10 - newrad - INFO -- 1470774545.82.jpg temp range: 15.0874072439 / 59.6666442384 
+ [F
+09-08-2016 20:29:10 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:29:30 - newrad - INFO -- Checking compatibility for 1470774567.97.jpg 
+ [F
+09-08-2016 20:29:30 - newrad - INFO -- Converting 1470774567.97.jpg to grayscale 
+ [F
+09-08-2016 20:29:30 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:29:30 - newrad - INFO -- 1470774567.97.jpg temp range: 26.1337767007 / 49.1822401012 
+ [F
+09-08-2016 20:29:30 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:29:50 - newrad - INFO -- Checking compatibility for 1470774587.7.jpg 
+ [F
+09-08-2016 20:29:50 - newrad - INFO -- Converting 1470774587.7.jpg to grayscale 
+ [F
+09-08-2016 20:29:51 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:29:51 - newrad - INFO -- 1470774587.7.jpg temp range: 11.0521047001 / 43.8552225986 
+ [F
+09-08-2016 20:29:51 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:30:12 - newrad - INFO -- Checking compatibility for 1470774610.17.jpg 
+ [F
+09-08-2016 20:30:12 - newrad - INFO -- Converting 1470774610.17.jpg to grayscale 
+ [F
+09-08-2016 20:30:12 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:30:12 - newrad - INFO -- 1470774610.17.jpg temp range: -2.68665496293 / 48.3237276553 
+ [F
+09-08-2016 20:30:12 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:30:31 - newrad - INFO -- Checking compatibility for 1470774629.87.jpg 
+ [F
+09-08-2016 20:30:32 - newrad - INFO -- Converting 1470774629.87.jpg to grayscale 
+ [F
+09-08-2016 20:30:32 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:30:32 - newrad - INFO -- 1470774629.87.jpg temp range: -2.27258950919 / 41.0597598813 
+ [F
+09-08-2016 20:30:32 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:35:58 - newrad - INFO -- Checking compatibility for 1470774956.57.jpg 
+ [F
+09-08-2016 20:35:59 - newrad - INFO -- Converting 1470774956.57.jpg to grayscale 
+ [F
+09-08-2016 20:36:00 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:36:00 - newrad - INFO -- 1470774956.57.jpg temp range: 15.0646917737 / 57.0645527204 
+ [F
+09-08-2016 20:36:00 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:36:24 - newrad - INFO -- Checking compatibility for 1470774982.38.jpg 
+ [F
+09-08-2016 20:36:24 - newrad - INFO -- Converting 1470774982.38.jpg to grayscale 
+ [F
+09-08-2016 20:36:24 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:36:24 - newrad - INFO -- 1470774982.38.jpg temp range: 26.5814218943 / 47.866905429 
+ [F
+09-08-2016 20:36:24 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:36:49 - newrad - INFO -- Checking compatibility for 1470775007.04.jpg 
+ [F
+09-08-2016 20:36:49 - newrad - INFO -- Converting 1470775007.04.jpg to grayscale 
+ [F
+09-08-2016 20:36:49 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:36:49 - newrad - INFO -- 1470775007.04.jpg temp range: 11.4539685476 / 44.6921465248 
+ [F
+09-08-2016 20:36:49 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:37:10 - newrad - INFO -- Checking compatibility for 1470775028.05.jpg 
+ [F
+09-08-2016 20:37:10 - newrad - INFO -- Converting 1470775028.05.jpg to grayscale 
+ [F
+09-08-2016 20:37:10 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:37:10 - newrad - INFO -- 1470775028.05.jpg temp range: -3.35348821299 / 49.2661034754 
+ [F
+09-08-2016 20:37:10 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:37:31 - newrad - INFO -- Checking compatibility for 1470775049.84.jpg 
+ [F
+09-08-2016 20:37:32 - newrad - INFO -- Converting 1470775049.84.jpg to grayscale 
+ [F
+09-08-2016 20:37:32 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:37:32 - newrad - INFO -- 1470775049.84.jpg temp range: -2.79742170799 / 41.3279010144 
+ [F
+09-08-2016 20:37:32 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:37:54 - newrad - INFO -- Checking compatibility for 1470775069.61.jpg 
+ [F
+09-08-2016 20:37:54 - newrad - INFO -- Converting 1470775069.61.jpg to grayscale 
+ [F
+09-08-2016 20:37:54 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:37:54 - newrad - INFO -- 1470775069.61.jpg temp range: 25.8888187467 / 42.3415120695 
+ [F
+09-08-2016 20:37:54 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:38:16 - newrad - INFO -- Checking compatibility for 1470775092.06.jpg 
+ [F
+09-08-2016 20:38:16 - newrad - INFO -- Converting 1470775092.06.jpg to grayscale 
+ [F
+09-08-2016 20:38:17 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:38:17 - newrad - INFO -- 1470775092.06.jpg temp range: 28.8718948298 / 44.9352003347 
+ [F
+09-08-2016 20:38:17 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:38:36 - newrad - INFO -- Checking compatibility for 1470775113.93.jpg 
+ [F
+09-08-2016 20:38:36 - newrad - INFO -- Converting 1470775113.93.jpg to grayscale 
+ [F
+09-08-2016 20:38:36 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:38:36 - newrad - INFO -- 1470775113.93.jpg temp range: 19.8106932529 / 41.4349927535 
+ [F
+09-08-2016 20:38:36 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:38:55 - newrad - INFO -- Checking compatibility for 1470775133.27.jpg 
+ [F
+09-08-2016 20:38:55 - newrad - INFO -- Converting 1470775133.27.jpg to grayscale 
+ [F
+09-08-2016 20:38:55 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:38:55 - newrad - INFO -- 1470775133.27.jpg temp range: 4.80474499273 / 40.8806708198 
+ [F
+09-08-2016 20:38:55 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:39:16 - newrad - INFO -- Checking compatibility for 1470775154.08.jpg 
+ [F
+09-08-2016 20:39:16 - newrad - INFO -- Converting 1470775154.08.jpg to grayscale 
+ [F
+09-08-2016 20:39:16 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:39:16 - newrad - INFO -- 1470775154.08.jpg temp range: -2.65898635536 / 35.0036684866 
+ [F
+09-08-2016 20:39:16 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:39:38 - newrad - INFO -- Checking compatibility for 1470775175.97.jpg 
+ [F
+09-08-2016 20:39:38 - newrad - INFO -- Converting 1470775175.97.jpg to grayscale 
+ [F
+09-08-2016 20:39:38 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:39:38 - newrad - INFO -- 1470775175.97.jpg temp range: -1.75104125257 / 30.9206191383 
+ [F
+09-08-2016 20:39:38 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:40:00 - newrad - INFO -- Checking compatibility for 1470775196.69.jpg 
+ [F
+09-08-2016 20:40:00 - newrad - INFO -- Converting 1470775196.69.jpg to grayscale 
+ [F
+09-08-2016 20:40:00 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:40:00 - newrad - INFO -- 1470775196.69.jpg temp range: 5.88875394392 / 32.2787125418 
+ [F
+09-08-2016 20:40:00 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:40:20 - newrad - INFO -- Checking compatibility for 1470775218.03.jpg 
+ [F
+09-08-2016 20:40:20 - newrad - INFO -- Converting 1470775218.03.jpg to grayscale 
+ [F
+09-08-2016 20:40:21 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:40:21 - newrad - INFO -- 1470775218.03.jpg temp range: 19.3330260901 / 34.7774684996 
+ [F
+09-08-2016 20:40:21 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:40:39 - newrad - INFO -- Checking compatibility for 1470775237.91.jpg 
+ [F
+09-08-2016 20:40:40 - newrad - INFO -- Converting 1470775237.91.jpg to grayscale 
+ [F
+09-08-2016 20:40:40 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:40:40 - newrad - INFO -- 1470775237.91.jpg temp range: 18.4806709458 / 35.2482211502 
+ [F
+09-08-2016 20:40:40 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:40:59 - newrad - INFO -- Checking compatibility for 1470775256.96.jpg 
+ [F
+09-08-2016 20:40:59 - newrad - INFO -- Converting 1470775256.96.jpg to grayscale 
+ [F
+09-08-2016 20:40:59 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:40:59 - newrad - INFO -- 1470775256.96.jpg temp range: 6.41343024058 / 30.8815742188 
+ [F
+09-08-2016 20:40:59 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:41:18 - newrad - INFO -- Checking compatibility for 1470775276.02.jpg 
+ [F
+09-08-2016 20:41:18 - newrad - INFO -- Converting 1470775276.02.jpg to grayscale 
+ [F
+09-08-2016 20:41:19 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:41:19 - newrad - INFO -- 1470775276.02.jpg temp range: -1.47784205208 / 30.2353548456 
+ [F
+09-08-2016 20:41:19 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:41:44 - newrad - INFO -- Checking compatibility for 1470775297.23.jpg 
+ [F
+09-08-2016 20:41:44 - newrad - INFO -- Converting 1470775297.23.jpg to grayscale 
+ [F
+09-08-2016 20:41:46 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:41:46 - newrad - INFO -- 1470775297.23.jpg temp range: -2.63132696222 / 31.7955566906 
+ [F
+09-08-2016 20:41:46 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:42:11 - newrad - INFO -- Checking compatibility for 1470775326.39.jpg 
+ [F
+09-08-2016 20:42:11 - newrad - INFO -- Converting 1470775326.39.jpg to grayscale 
+ [F
+09-08-2016 20:42:11 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:42:11 - newrad - INFO -- 1470775326.39.jpg temp range: 7.15772112234 / 32.5868532944 
+ [F
+09-08-2016 20:42:11 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:42:36 - newrad - INFO -- Checking compatibility for 1470775353.48.jpg 
+ [F
+09-08-2016 20:42:36 - newrad - INFO -- Converting 1470775353.48.jpg to grayscale 
+ [F
+09-08-2016 20:42:37 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:42:37 - newrad - INFO -- 1470775353.48.jpg temp range: 28.2937750822 / 35.8853981514 
+ [F
+09-08-2016 20:42:37 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:43:02 - newrad - INFO -- Checking compatibility for 1470775379.93.jpg 
+ [F
+09-08-2016 20:43:02 - newrad - INFO -- Converting 1470775379.93.jpg to grayscale 
+ [F
+09-08-2016 20:43:03 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:43:03 - newrad - INFO -- 1470775379.93.jpg temp range: 29.940374909 / 34.645313935 
+ [F
+09-08-2016 20:43:03 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:43:26 - newrad - INFO -- Checking compatibility for 1470775401.38.jpg 
+ [F
+09-08-2016 20:43:26 - newrad - INFO -- Converting 1470775401.38.jpg to grayscale 
+ [F
+09-08-2016 20:43:26 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:43:26 - newrad - INFO -- 1470775401.38.jpg temp range: 27.471184339 / 40.1256001421 
+ [F
+09-08-2016 20:43:26 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:44:17 - newrad - INFO -- Checking compatibility for 1470775455.14.jpg 
+ [F
+09-08-2016 20:44:17 - newrad - INFO -- Converting 1470775455.14.jpg to grayscale 
+ [F
+09-08-2016 20:44:18 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:44:18 - newrad - INFO -- 1470775455.14.jpg temp range: 14.9282877395 / 58.1049170089 
+ [F
+09-08-2016 20:44:18 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:44:38 - newrad - INFO -- Checking compatibility for 1470775475.91.jpg 
+ [F
+09-08-2016 20:44:38 - newrad - INFO -- Converting 1470775475.91.jpg to grayscale 
+ [F
+09-08-2016 20:44:40 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:44:40 - newrad - INFO -- 1470775475.91.jpg temp range: 27.0878651767 / 48.103978032 
+ [F
+09-08-2016 20:44:40 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:45:06 - newrad - INFO -- Checking compatibility for 1470775503.9.jpg 
+ [F
+09-08-2016 20:45:06 - newrad - INFO -- Converting 1470775503.9.jpg to grayscale 
+ [F
+09-08-2016 20:45:06 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 20:45:06 - newrad - INFO -- 1470775503.9.jpg temp range: 11.642490731 / 43.9950995876 
+ [F
+09-08-2016 20:45:06 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 20:45:30 - newrad - INFO -- Checking compatibility for 1470775527.37.jpg 
+ [F
+09-08-2016 20:45:30 - newrad - INFO -- Converting 1470775527.37.jpg to grayscale 
+ [F
+09-08-2016 20:45:44 - newrad - INFO -- Checking compatibility for 1470775541.82.jpg 
+ [F
+09-08-2016 20:45:44 - newrad - WARNING -- 1470775541.82.jpg not supported 
+ [F
+09-08-2016 20:45:44 - newrad - INFO -- Converting 1470775541.82.jpg to grayscale 
+ [F
+09-08-2016 20:45:59 - newrad - INFO -- Checking compatibility for 1470775556.68.jpg 
+ [F
+09-08-2016 20:45:59 - newrad - WARNING -- 1470775556.68.jpg not supported 
+ [F
+09-08-2016 20:45:59 - newrad - INFO -- Converting 1470775556.68.jpg to grayscale 
+ [F
+09-08-2016 20:46:13 - newrad - INFO -- Checking compatibility for 1470775570.8.jpg 
+ [F
+09-08-2016 20:46:13 - newrad - WARNING -- 1470775570.8.jpg not supported 
+ [F
+09-08-2016 20:46:13 - newrad - INFO -- Converting 1470775570.8.jpg to grayscale 
+ [F
+09-08-2016 20:46:30 - newrad - INFO -- Checking compatibility for 1470775587.03.jpg 
+ [F
+09-08-2016 20:46:30 - newrad - WARNING -- 1470775587.03.jpg not supported 
+ [F
+09-08-2016 20:46:30 - newrad - INFO -- Converting 1470775587.03.jpg to grayscale 
+ [F
+09-08-2016 20:46:44 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 20:46:44 - newrad - WARNING -- 1470775601.94.jpg not supported 
+ [F
+09-08-2016 20:46:44 - newrad - INFO -- Converting 1470775601.94.jpg to grayscale 
+ [F
+09-08-2016 20:46:59 - newrad - INFO -- Checking compatibility for 1470775616.93.jpg 
+ [F
+09-08-2016 20:46:59 - newrad - WARNING -- 1470775616.93.jpg not supported 
+ [F
+09-08-2016 20:46:59 - newrad - INFO -- Converting 1470775616.93.jpg to grayscale 
+ [F
+09-08-2016 20:47:13 - newrad - INFO -- Checking compatibility for 1470775630.67.jpg 
+ [F
+09-08-2016 20:47:13 - newrad - WARNING -- 1470775630.67.jpg not supported 
+ [F
+09-08-2016 20:47:13 - newrad - INFO -- Converting 1470775630.67.jpg to grayscale 
+ [F
+09-08-2016 20:47:27 - newrad - INFO -- Checking compatibility for 1470775644.92.jpg 
+ [F
+09-08-2016 20:47:27 - newrad - WARNING -- 1470775644.92.jpg not supported 
+ [F
+09-08-2016 20:47:28 - newrad - INFO -- Converting 1470775644.92.jpg to grayscale 
+ [F
+09-08-2016 20:47:42 - newrad - INFO -- Checking compatibility for 1470775659.91.jpg 
+ [F
+09-08-2016 20:47:42 - newrad - WARNING -- 1470775659.91.jpg not supported 
+ [F
+09-08-2016 20:47:42 - newrad - INFO -- Converting 1470775659.91.jpg to grayscale 
+ [F
+09-08-2016 20:47:55 - newrad - INFO -- Checking compatibility for 1470775673.35.jpg 
+ [F
+09-08-2016 20:47:55 - newrad - WARNING -- 1470775673.35.jpg not supported 
+ [F
+09-08-2016 20:47:55 - newrad - INFO -- Converting 1470775673.35.jpg to grayscale 
+ [F
+09-08-2016 20:48:10 - newrad - INFO -- Checking compatibility for 1470775687.92.jpg 
+ [F
+09-08-2016 20:48:10 - newrad - WARNING -- 1470775687.92.jpg not supported 
+ [F
+09-08-2016 20:48:10 - newrad - INFO -- Converting 1470775687.92.jpg to grayscale 
+ [F
+09-08-2016 20:48:24 - newrad - INFO -- Checking compatibility for 1470775702.23.jpg 
+ [F
+09-08-2016 20:48:24 - newrad - WARNING -- 1470775702.23.jpg not supported 
+ [F
+09-08-2016 20:48:24 - newrad - INFO -- Converting 1470775702.23.jpg to grayscale 
+ [F
+09-08-2016 20:58:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 20:58:48 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 20:59:01 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:00:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:07 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:01:07 - newrad - WARNING -- 1470775601.94.hdr not supported 
+ [F
+09-08-2016 21:01:11 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:01:11 - newrad - WARNING -- 1470775601.94.hdr not supported 
+ [F
+09-08-2016 21:01:12 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:01:12 - newrad - WARNING -- 1470775601.94.hdr not supported 
+ [F
+09-08-2016 21:01:21 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:22 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:01:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:09 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:10 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:11 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:12 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:22 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:22 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:22 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:23 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:24 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:25 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:26 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:27 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:28 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:29 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:30 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:31 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:32 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:33 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:34 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:35 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:36 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:37 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:38 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:38 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:38 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:38 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:38 - newrad - INFO -- Checking compatibility for 1470775601.94.jpg 
+ [F
+09-08-2016 21:02:50 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:02:52 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:02:57 - newrad - INFO -- exiftool is already running 
+ [F
+09-08-2016 21:02:59 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:07:02 - newrad - INFO -- Checking compatibility for 1470775601.94.hdr 
+ [F
+09-08-2016 21:07:30 - newrad - INFO -- Shutting down all services 
+ [F
+09-08-2016 21:16:06 - newrad - INFO -- Checking compatibility for 1470777364.23.jpg 
+ [F
+09-08-2016 21:16:08 - newrad - INFO -- Converting 1470777364.23.jpg to grayscale 
+ [F
+09-08-2016 21:16:09 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:16:09 - newrad - INFO -- 1470777364.23.jpg temp range: 15.7664288642 / 48.5431044596 
+ [F
+09-08-2016 21:16:09 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:16:29 - newrad - INFO -- Checking compatibility for 1470777386.79.jpg 
+ [F
+09-08-2016 21:16:29 - newrad - INFO -- Converting 1470777386.79.jpg to grayscale 
+ [F
+09-08-2016 21:16:29 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:16:29 - newrad - INFO -- 1470777386.79.jpg temp range: 24.7382041952 / 49.6678986542 
+ [F
+09-08-2016 21:16:29 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:16:55 - newrad - INFO -- Checking compatibility for 1470777406.24.jpg 
+ [F
+09-08-2016 21:16:56 - newrad - INFO -- Converting 1470777406.24.jpg to grayscale 
+ [F
+09-08-2016 21:16:57 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:16:57 - newrad - INFO -- 1470777406.24.jpg temp range: 12.2993806612 / 45.4371809429 
+ [F
+09-08-2016 21:16:57 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:17:24 - newrad - INFO -- Checking compatibility for 1470777436.11.jpg 
+ [F
+09-08-2016 21:17:24 - newrad - INFO -- Converting 1470777436.11.jpg to grayscale 
+ [F
+09-08-2016 21:17:24 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:17:24 - newrad - INFO -- 1470777436.11.jpg temp range: -1.83317497669 / 50.235003622 
+ [F
+09-08-2016 21:17:24 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:17:44 - newrad - INFO -- Checking compatibility for 1470777461.83.jpg 
+ [F
+09-08-2016 21:17:44 - newrad - INFO -- Converting 1470777461.83.jpg to grayscale 
+ [F
+09-08-2016 21:17:44 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:17:44 - newrad - INFO -- 1470777461.83.jpg temp range: -1.28713023323 / 42.5007941979 
+ [F
+09-08-2016 21:17:44 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:18:05 - newrad - INFO -- Checking compatibility for 1470777482.6.jpg 
+ [F
+09-08-2016 21:18:05 - newrad - INFO -- Converting 1470777482.6.jpg to grayscale 
+ [F
+09-08-2016 21:18:05 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:18:05 - newrad - INFO -- 1470777482.6.jpg temp range: 26.9260612553 / 42.6422057724 
+ [F
+09-08-2016 21:18:05 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:18:26 - newrad - INFO -- Checking compatibility for 1470777503.32.jpg 
+ [F
+09-08-2016 21:18:26 - newrad - INFO -- Converting 1470777503.32.jpg to grayscale 
+ [F
+09-08-2016 21:18:26 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:18:26 - newrad - INFO -- 1470777503.32.jpg temp range: 28.5931827816 / 44.4137932509 
+ [F
+09-08-2016 21:18:26 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:18:45 - newrad - INFO -- Checking compatibility for 1470777523.19.jpg 
+ [F
+09-08-2016 21:18:46 - newrad - INFO -- Converting 1470777523.19.jpg to grayscale 
+ [F
+09-08-2016 21:18:47 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:18:47 - newrad - INFO -- 1470777523.19.jpg temp range: 19.4417844205 / 42.4300275582 
+ [F
+09-08-2016 21:18:47 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:19:07 - newrad - INFO -- Checking compatibility for 1470777545.16.jpg 
+ [F
+09-08-2016 21:19:07 - newrad - INFO -- Converting 1470777545.16.jpg to grayscale 
+ [F
+09-08-2016 21:19:08 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:19:08 - newrad - INFO -- 1470777545.16.jpg temp range: 6.01395449565 / 42.2174833853 
+ [F
+09-08-2016 21:19:08 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:19:30 - newrad - INFO -- Checking compatibility for 1470777566.24.jpg 
+ [F
+09-08-2016 21:19:30 - newrad - INFO -- Converting 1470777566.24.jpg to grayscale 
+ [F
+09-08-2016 21:19:32 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:19:32 - newrad - INFO -- 1470777566.24.jpg temp range: -1.64165474397 / 36.8717654562 
+ [F
+09-08-2016 21:19:32 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:19:56 - newrad - INFO -- Checking compatibility for 1470777593.42.jpg 
+ [F
+09-08-2016 21:19:56 - newrad - INFO -- Converting 1470777593.42.jpg to grayscale 
+ [F
+09-08-2016 21:19:57 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:19:57 - newrad - INFO -- 1470777593.42.jpg temp range: -1.31434830388 / 35.2670115599 
+ [F
+09-08-2016 21:19:58 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:20:17 - newrad - INFO -- Checking compatibility for 1470777615.32.jpg 
+ [F
+09-08-2016 21:20:17 - newrad - INFO -- Converting 1470777615.32.jpg to grayscale 
+ [F
+09-08-2016 21:20:18 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:20:18 - newrad - INFO -- 1470777615.32.jpg temp range: 5.96389519467 / 35.6047204499 
+ [F
+09-08-2016 21:20:18 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:20:47 - newrad - INFO -- Checking compatibility for 1470777644.72.jpg 
+ [F
+09-08-2016 21:20:47 - newrad - INFO -- Converting 1470777644.72.jpg to grayscale 
+ [F
+09-08-2016 21:20:47 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:20:47 - newrad - INFO -- 1470777644.72.jpg temp range: 18.19494196 / 40.5756129023 
+ [F
+09-08-2016 21:20:47 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:21:06 - newrad - INFO -- Checking compatibility for 1470777663.35.jpg 
+ [F
+09-08-2016 21:21:06 - newrad - INFO -- Converting 1470777663.35.jpg to grayscale 
+ [F
+09-08-2016 21:21:12 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:21:12 - newrad - INFO -- 1470777663.35.jpg temp range: 18.1729290799 / 40.6115418571 
+ [F
+09-08-2016 21:21:12 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:21:32 - newrad - INFO -- Checking compatibility for 1470777689.91.jpg 
+ [F
+09-08-2016 21:21:35 - newrad - INFO -- Converting 1470777689.91.jpg to grayscale 
+ [F
+09-08-2016 21:21:35 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:21:35 - newrad - INFO -- 1470777689.91.jpg temp range: 6.41343024058 / 31.7568147583 
+ [F
+09-08-2016 21:21:35 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:22:01 - newrad - INFO -- Checking compatibility for 1470777718.82.jpg 
+ [F
+09-08-2016 21:22:01 - newrad - INFO -- Converting 1470777718.82.jpg to grayscale 
+ [F
+09-08-2016 21:22:03 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:22:03 - newrad - INFO -- 1470777718.82.jpg temp range: -1.34157518625 / 30.4119681022 
+ [F
+09-08-2016 21:22:03 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:22:25 - newrad - INFO -- Checking compatibility for 1470777743.02.jpg 
+ [F
+09-08-2016 21:22:25 - newrad - INFO -- Converting 1470777743.02.jpg to grayscale 
+ [F
+09-08-2016 21:22:25 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:22:25 - newrad - INFO -- 1470777743.02.jpg temp range: -1.47784205208 / 31.1351232043 
+ [F
+09-08-2016 21:22:26 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:22:47 - newrad - INFO -- Checking compatibility for 1470777766.22.jpg 
+ [F
+09-08-2016 21:22:48 - newrad - INFO -- Converting 1470777766.22.jpg to grayscale 
+ [F
+09-08-2016 21:22:48 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:22:48 - newrad - INFO -- 1470777766.22.jpg temp range: 8.4092150134 / 31.8149226664 
+ [F
+09-08-2016 21:22:48 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:23:07 - newrad - INFO -- Checking compatibility for 1470777784.97.jpg 
+ [F
+09-08-2016 21:23:07 - newrad - INFO -- Converting 1470777784.97.jpg to grayscale 
+ [F
+09-08-2016 21:23:30 - newrad - INFO -- Checking compatibility for 1470777807.71.jpg 
+ [F
+09-08-2016 21:23:30 - newrad - WARNING -- 1470777807.71.jpg not supported 
+ [F
+09-08-2016 21:23:30 - newrad - INFO -- Converting 1470777807.71.jpg to grayscale 
+ [F
+09-08-2016 21:23:44 - newrad - INFO -- Checking compatibility for 1470777822.05.jpg 
+ [F
+09-08-2016 21:23:44 - newrad - WARNING -- 1470777822.05.jpg not supported 
+ [F
+09-08-2016 21:23:44 - newrad - INFO -- Converting 1470777822.05.jpg to grayscale 
+ [F
+09-08-2016 21:24:29 - newrad - INFO -- Checking compatibility for 1470777866.17.jpg 
+ [F
+09-08-2016 21:24:29 - newrad - WARNING -- 1470777866.17.jpg not supported 
+ [F
+09-08-2016 21:24:29 - newrad - INFO -- Converting 1470777866.17.jpg to grayscale 
+ [F
+09-08-2016 21:24:43 - newrad - INFO -- Checking compatibility for 1470777880.48.jpg 
+ [F
+09-08-2016 21:24:43 - newrad - WARNING -- 1470777880.48.jpg not supported 
+ [F
+09-08-2016 21:24:43 - newrad - INFO -- Converting 1470777880.48.jpg to grayscale 
+ [F
+09-08-2016 21:24:56 - newrad - INFO -- Checking compatibility for 1470777893.93.jpg 
+ [F
+09-08-2016 21:24:56 - newrad - WARNING -- 1470777893.93.jpg not supported 
+ [F
+09-08-2016 21:24:56 - newrad - INFO -- Converting 1470777893.93.jpg to grayscale 
+ [F
+09-08-2016 21:25:12 - newrad - INFO -- Checking compatibility for 1470777909.65.jpg 
+ [F
+09-08-2016 21:25:12 - newrad - WARNING -- 1470777909.65.jpg not supported 
+ [F
+09-08-2016 21:25:13 - newrad - INFO -- Converting 1470777909.65.jpg to grayscale 
+ [F
+09-08-2016 21:25:28 - newrad - INFO -- Checking compatibility for 1470777925.72.jpg 
+ [F
+09-08-2016 21:25:28 - newrad - WARNING -- 1470777925.72.jpg not supported 
+ [F
+09-08-2016 21:25:28 - newrad - INFO -- Converting 1470777925.72.jpg to grayscale 
+ [F
+09-08-2016 21:25:44 - newrad - INFO -- Checking compatibility for 1470777940.9.jpg 
+ [F
+09-08-2016 21:25:44 - newrad - WARNING -- 1470777940.9.jpg not supported 
+ [F
+09-08-2016 21:25:44 - newrad - INFO -- Converting 1470777940.9.jpg to grayscale 
+ [F
+09-08-2016 21:25:58 - newrad - INFO -- Checking compatibility for 1470777955.37.jpg 
+ [F
+09-08-2016 21:25:58 - newrad - WARNING -- 1470777955.37.jpg not supported 
+ [F
+09-08-2016 21:25:58 - newrad - INFO -- Converting 1470777955.37.jpg to grayscale 
+ [F
+09-08-2016 21:26:13 - newrad - INFO -- Checking compatibility for 1470777970.15.jpg 
+ [F
+09-08-2016 21:26:13 - newrad - WARNING -- 1470777970.15.jpg not supported 
+ [F
+09-08-2016 21:26:13 - newrad - INFO -- Converting 1470777970.15.jpg to grayscale 
+ [F
+09-08-2016 21:26:28 - newrad - INFO -- Checking compatibility for 1470777985.64.jpg 
+ [F
+09-08-2016 21:26:28 - newrad - WARNING -- 1470777985.64.jpg not supported 
+ [F
+09-08-2016 21:26:28 - newrad - INFO -- Converting 1470777985.64.jpg to grayscale 
+ [F
+09-08-2016 21:26:44 - newrad - INFO -- Checking compatibility for 1470778001.41.jpg 
+ [F
+09-08-2016 21:26:44 - newrad - WARNING -- 1470778001.41.jpg not supported 
+ [F
+09-08-2016 21:26:44 - newrad - INFO -- Converting 1470778001.41.jpg to grayscale 
+ [F
+09-08-2016 21:27:00 - newrad - INFO -- Checking compatibility for 1470778015.63.jpg 
+ [F
+09-08-2016 21:27:00 - newrad - WARNING -- 1470778015.63.jpg not supported 
+ [F
+09-08-2016 21:27:00 - newrad - INFO -- Converting 1470778015.63.jpg to grayscale 
+ [F
+09-08-2016 21:27:14 - newrad - INFO -- Checking compatibility for 1470778032.18.jpg 
+ [F
+09-08-2016 21:27:14 - newrad - WARNING -- 1470778032.18.jpg not supported 
+ [F
+09-08-2016 21:27:14 - newrad - INFO -- Converting 1470778032.18.jpg to grayscale 
+ [F
+09-08-2016 21:27:29 - newrad - INFO -- Checking compatibility for 1470778046.63.jpg 
+ [F
+09-08-2016 21:27:29 - newrad - WARNING -- 1470778046.63.jpg not supported 
+ [F
+09-08-2016 21:27:29 - newrad - INFO -- Converting 1470778046.63.jpg to grayscale 
+ [F
+09-08-2016 21:27:43 - newrad - INFO -- Checking compatibility for 1470778060.84.jpg 
+ [F
+09-08-2016 21:27:43 - newrad - WARNING -- 1470778060.84.jpg not supported 
+ [F
+09-08-2016 21:27:43 - newrad - INFO -- Converting 1470778060.84.jpg to grayscale 
+ [F
+09-08-2016 21:27:57 - newrad - INFO -- Checking compatibility for 1470778075.3.jpg 
+ [F
+09-08-2016 21:27:57 - newrad - WARNING -- 1470778075.3.jpg not supported 
+ [F
+09-08-2016 21:27:57 - newrad - INFO -- Converting 1470778075.3.jpg to grayscale 
+ [F
+09-08-2016 21:28:12 - newrad - INFO -- Checking compatibility for 1470778089.84.jpg 
+ [F
+09-08-2016 21:28:12 - newrad - WARNING -- 1470778089.84.jpg not supported 
+ [F
+09-08-2016 21:28:12 - newrad - INFO -- Converting 1470778089.84.jpg to grayscale 
+ [F
+09-08-2016 21:28:25 - newrad - INFO -- Checking compatibility for 1470778102.79.jpg 
+ [F
+09-08-2016 21:28:25 - newrad - WARNING -- 1470778102.79.jpg not supported 
+ [F
+09-08-2016 21:28:25 - newrad - INFO -- Converting 1470778102.79.jpg to grayscale 
+ [F
+09-08-2016 21:28:40 - newrad - INFO -- Checking compatibility for 1470778117.32.jpg 
+ [F
+09-08-2016 21:28:40 - newrad - WARNING -- 1470778117.32.jpg not supported 
+ [F
+09-08-2016 21:28:40 - newrad - INFO -- Converting 1470778117.32.jpg to grayscale 
+ [F
+09-08-2016 21:28:55 - newrad - INFO -- Checking compatibility for 1470778132.19.jpg 
+ [F
+09-08-2016 21:28:55 - newrad - WARNING -- 1470778132.19.jpg not supported 
+ [F
+09-08-2016 21:28:55 - newrad - INFO -- Converting 1470778132.19.jpg to grayscale 
+ [F
+09-08-2016 21:29:13 - newrad - INFO -- Checking compatibility for 1470778151.01.jpg 
+ [F
+09-08-2016 21:29:13 - newrad - WARNING -- 1470778151.01.jpg not supported 
+ [F
+09-08-2016 21:29:13 - newrad - INFO -- Converting 1470778151.01.jpg to grayscale 
+ [F
+09-08-2016 21:29:28 - newrad - INFO -- Checking compatibility for 1470778165.7.jpg 
+ [F
+09-08-2016 21:29:28 - newrad - WARNING -- 1470778165.7.jpg not supported 
+ [F
+09-08-2016 21:29:28 - newrad - INFO -- Converting 1470778165.7.jpg to grayscale 
+ [F
+09-08-2016 21:30:12 - newrad - INFO -- Checking compatibility for 1470778210.04.jpg 
+ [F
+09-08-2016 21:30:12 - newrad - WARNING -- 1470778210.04.jpg not supported 
+ [F
+09-08-2016 21:30:12 - newrad - INFO -- Converting 1470778210.04.jpg to grayscale 
+ [F
+09-08-2016 21:30:27 - newrad - INFO -- Checking compatibility for 1470778223.95.jpg 
+ [F
+09-08-2016 21:30:27 - newrad - WARNING -- 1470778223.95.jpg not supported 
+ [F
+09-08-2016 21:30:27 - newrad - INFO -- Converting 1470778223.95.jpg to grayscale 
+ [F
+09-08-2016 21:30:40 - newrad - INFO -- Checking compatibility for 1470778237.81.jpg 
+ [F
+09-08-2016 21:30:40 - newrad - WARNING -- 1470778237.81.jpg not supported 
+ [F
+09-08-2016 21:30:40 - newrad - INFO -- Converting 1470778237.81.jpg to grayscale 
+ [F
+09-08-2016 21:30:56 - newrad - INFO -- Checking compatibility for 1470778253.57.jpg 
+ [F
+09-08-2016 21:30:56 - newrad - WARNING -- 1470778253.57.jpg not supported 
+ [F
+09-08-2016 21:30:56 - newrad - INFO -- Converting 1470778253.57.jpg to grayscale 
+ [F
+09-08-2016 21:31:10 - newrad - INFO -- Checking compatibility for 1470778267.88.jpg 
+ [F
+09-08-2016 21:31:10 - newrad - WARNING -- 1470778267.88.jpg not supported 
+ [F
+09-08-2016 21:31:10 - newrad - INFO -- Converting 1470778267.88.jpg to grayscale 
+ [F
+09-08-2016 21:31:26 - newrad - INFO -- Checking compatibility for 1470778283.35.jpg 
+ [F
+09-08-2016 21:31:26 - newrad - WARNING -- 1470778283.35.jpg not supported 
+ [F
+09-08-2016 21:31:26 - newrad - INFO -- Converting 1470778283.35.jpg to grayscale 
+ [F
+09-08-2016 21:31:39 - newrad - INFO -- Checking compatibility for 1470778296.88.jpg 
+ [F
+09-08-2016 21:31:39 - newrad - WARNING -- 1470778296.88.jpg not supported 
+ [F
+09-08-2016 21:31:39 - newrad - INFO -- Converting 1470778296.88.jpg to grayscale 
+ [F
+09-08-2016 21:31:54 - newrad - INFO -- Checking compatibility for 1470778311.55.jpg 
+ [F
+09-08-2016 21:31:54 - newrad - WARNING -- 1470778311.55.jpg not supported 
+ [F
+09-08-2016 21:31:54 - newrad - INFO -- Converting 1470778311.55.jpg to grayscale 
+ [F
+09-08-2016 21:32:08 - newrad - INFO -- Checking compatibility for 1470778326.02.jpg 
+ [F
+09-08-2016 21:32:08 - newrad - WARNING -- 1470778326.02.jpg not supported 
+ [F
+09-08-2016 21:32:08 - newrad - INFO -- Converting 1470778326.02.jpg to grayscale 
+ [F
+09-08-2016 21:32:22 - newrad - INFO -- Checking compatibility for 1470778340.48.jpg 
+ [F
+09-08-2016 21:32:22 - newrad - WARNING -- 1470778340.48.jpg not supported 
+ [F
+09-08-2016 21:32:22 - newrad - INFO -- Converting 1470778340.48.jpg to grayscale 
+ [F
+09-08-2016 21:32:36 - newrad - INFO -- Checking compatibility for 1470778354.18.jpg 
+ [F
+09-08-2016 21:32:36 - newrad - WARNING -- 1470778354.18.jpg not supported 
+ [F
+09-08-2016 21:32:36 - newrad - INFO -- Converting 1470778354.18.jpg to grayscale 
+ [F
+09-08-2016 21:32:51 - newrad - INFO -- Checking compatibility for 1470778368.79.jpg 
+ [F
+09-08-2016 21:32:51 - newrad - WARNING -- 1470778368.79.jpg not supported 
+ [F
+09-08-2016 21:32:51 - newrad - INFO -- Converting 1470778368.79.jpg to grayscale 
+ [F
+09-08-2016 21:33:07 - newrad - INFO -- Checking compatibility for 1470778384.94.jpg 
+ [F
+09-08-2016 21:33:07 - newrad - WARNING -- 1470778384.94.jpg not supported 
+ [F
+09-08-2016 21:33:07 - newrad - INFO -- Converting 1470778384.94.jpg to grayscale 
+ [F
+09-08-2016 21:35:39 - newrad - INFO -- Checking compatibility for 1470778537.01.jpg 
+ [F
+09-08-2016 21:35:40 - newrad - INFO -- Converting 1470778537.01.jpg to grayscale 
+ [F
+09-08-2016 21:35:42 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:35:42 - newrad - INFO -- 1470778537.01.jpg temp range: 15.7664288642 / 46.160670625 
+ [F
+09-08-2016 21:35:42 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:35:59 - newrad - INFO -- Checking compatibility for 1470778556.07.jpg 
+ [F
+09-08-2016 21:35:59 - newrad - INFO -- Converting 1470778556.07.jpg to grayscale 
+ [F
+09-08-2016 21:35:59 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:35:59 - newrad - INFO -- 1470778556.07.jpg temp range: 21.2731353302 / 48.2392527955 
+ [F
+09-08-2016 21:35:59 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:36:14 - newrad - INFO -- Checking compatibility for 1470778572.06.jpg 
+ [F
+09-08-2016 21:36:17 - newrad - INFO -- Converting 1470778572.06.jpg to grayscale 
+ [F
+09-08-2016 21:36:17 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:36:17 - newrad - INFO -- 1470778572.06.jpg temp range: 9.97997498134 / 45.4544550393 
+ [F
+09-08-2016 21:36:17 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:36:34 - newrad - INFO -- Checking compatibility for 1470778591.45.jpg 
+ [F
+09-08-2016 21:36:34 - newrad - INFO -- Converting 1470778591.45.jpg to grayscale 
+ [F
+09-08-2016 21:36:41 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:36:41 - newrad - INFO -- 1470778591.45.jpg temp range: -0.124978267849 / 49.1486796239 
+ [F
+09-08-2016 21:36:41 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:36:57 - newrad - INFO -- Checking compatibility for 1470778614.96.jpg 
+ [F
+09-08-2016 21:36:58 - newrad - INFO -- Converting 1470778614.96.jpg to grayscale 
+ [F
+09-08-2016 21:36:58 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:36:58 - newrad - INFO -- 1470778614.96.jpg temp range: 0.169775820679 / 43.3819747863 
+ [F
+09-08-2016 21:36:58 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:37:18 - newrad - INFO -- Checking compatibility for 1470778635.36.jpg 
+ [F
+09-08-2016 21:37:18 - newrad - INFO -- Converting 1470778635.36.jpg to grayscale 
+ [F
+09-08-2016 21:37:19 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:37:19 - newrad - INFO -- 1470778635.36.jpg temp range: 27.7527672778 / 42.3238013355 
+ [F
+09-08-2016 21:37:20 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:37:43 - newrad - INFO -- Checking compatibility for 1470778653.15.jpg 
+ [F
+09-08-2016 21:37:43 - newrad - INFO -- Converting 1470778653.15.jpg to grayscale 
+ [F
+09-08-2016 21:37:43 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:37:43 - newrad - INFO -- 1470778653.15.jpg temp range: 28.2337952068 / 43.8552225986 
+ [F
+09-08-2016 21:37:43 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:38:00 - newrad - INFO -- Checking compatibility for 1470778677.32.jpg 
+ [F
+09-08-2016 21:38:00 - newrad - INFO -- Converting 1470778677.32.jpg to grayscale 
+ [F
+09-08-2016 21:38:00 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:38:00 - newrad - INFO -- 1470778677.32.jpg temp range: 18.304933966 / 39.5290059924 
+ [F
+09-08-2016 21:38:00 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:38:19 - newrad - INFO -- Checking compatibility for 1470778696.64.jpg 
+ [F
+09-08-2016 21:38:19 - newrad - INFO -- Converting 1470778696.64.jpg to grayscale 
+ [F
+09-08-2016 21:38:21 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:38:21 - newrad - INFO -- 1470778696.64.jpg temp range: 6.5876462165 / 39.5652474015 
+ [F
+09-08-2016 21:38:21 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:38:37 - newrad - INFO -- Checking compatibility for 1470778714.8.jpg 
+ [F
+09-08-2016 21:38:37 - newrad - INFO -- Converting 1470778714.8.jpg to grayscale 
+ [F
+09-08-2016 21:38:37 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:38:37 - newrad - INFO -- 1470778714.8.jpg temp range: -0.0176768551727 / 38.0519411695 
+ [F
+09-08-2016 21:38:37 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:38:54 - newrad - INFO -- Checking compatibility for 1470778730.57.jpg 
+ [F
+09-08-2016 21:38:54 - newrad - INFO -- Converting 1470778730.57.jpg to grayscale 
+ [F
+09-08-2016 21:38:54 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:38:54 - newrad - INFO -- 1470778730.57.jpg temp range: -0.555544459184 / 36.6120208109 
+ [F
+09-08-2016 21:38:54 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:39:14 - newrad - INFO -- Checking compatibility for 1470778748.86.jpg 
+ [F
+09-08-2016 21:39:15 - newrad - INFO -- Converting 1470778748.86.jpg to grayscale 
+ [F
+09-08-2016 21:39:18 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:39:18 - newrad - INFO -- 1470778748.86.jpg temp range: 6.63736059877 / 35.960131618 
+ [F
+09-08-2016 21:39:18 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:39:33 - newrad - INFO -- Checking compatibility for 1470778771.01.jpg 
+ [F
+09-08-2016 21:39:33 - newrad - INFO -- Converting 1470778771.01.jpg to grayscale 
+ [F
+09-08-2016 21:39:33 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:39:33 - newrad - INFO -- 1470778771.01.jpg temp range: 16.5751058573 / 37.5554896314 
+ [F
+09-08-2016 21:39:33 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:39:51 - newrad - INFO -- Checking compatibility for 1470778789.49.jpg 
+ [F
+09-08-2016 21:39:52 - newrad - INFO -- Converting 1470778789.49.jpg to grayscale 
+ [F
+09-08-2016 21:39:53 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:39:53 - newrad - INFO -- 1470778789.49.jpg temp range: 18.3708713636 / 41.862424664 
+ [F
+09-08-2016 21:39:53 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:40:16 - newrad - INFO -- Checking compatibility for 1470778814.01.jpg 
+ [F
+09-08-2016 21:40:16 - newrad - INFO -- Converting 1470778814.01.jpg to grayscale 
+ [F
+09-08-2016 21:40:16 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:40:16 - newrad - INFO -- 1470778814.01.jpg temp range: 7.99395007188 / 32.8174110953 
+ [F
+09-08-2016 21:40:17 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:40:37 - newrad - INFO -- Checking compatibility for 1470778833.7.jpg 
+ [F
+09-08-2016 21:40:37 - newrad - INFO -- Converting 1470778833.7.jpg to grayscale 
+ [F
+09-08-2016 21:40:39 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:40:39 - newrad - INFO -- 1470778833.7.jpg temp range: -0.0713106445144 / 30.1567700301 
+ [F
+09-08-2016 21:40:39 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:40:56 - newrad - INFO -- Checking compatibility for 1470778852.5.jpg 
+ [F
+09-08-2016 21:40:57 - newrad - INFO -- Converting 1470778852.5.jpg to grayscale 
+ [F
+09-08-2016 21:40:57 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:40:57 - newrad - INFO -- 1470778852.5.jpg temp range: -0.339988294579 / 30.9206191383 
+ [F
+09-08-2016 21:40:57 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:41:16 - newrad - INFO -- Checking compatibility for 1470778873.57.jpg 
+ [F
+09-08-2016 21:41:16 - newrad - INFO -- Converting 1470778873.57.jpg to grayscale 
+ [F
+09-08-2016 21:41:16 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:41:16 - newrad - INFO -- 1470778873.57.jpg temp range: 6.91030275845 / 32.8174110953 
+ [F
+09-08-2016 21:41:16 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:41:36 - newrad - INFO -- Checking compatibility for 1470778893.66.jpg 
+ [F
+09-08-2016 21:41:36 - newrad - INFO -- Converting 1470778893.66.jpg to grayscale 
+ [F
+09-08-2016 21:41:38 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:41:38 - newrad - INFO -- 1470778893.66.jpg temp range: 27.2897808754 / 34.7397254687 
+ [F
+09-08-2016 21:41:38 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:42:03 - newrad - INFO -- Checking compatibility for 1470778920.61.jpg 
+ [F
+09-08-2016 21:42:03 - newrad - INFO -- Converting 1470778920.61.jpg to grayscale 
+ [F
+09-08-2016 21:42:03 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:42:03 - newrad - INFO -- 1470778920.61.jpg temp range: 28.1937903479 / 35.8106168022 
+ [F
+09-08-2016 21:42:03 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:42:20 - newrad - INFO -- Checking compatibility for 1470778936.78.jpg 
+ [F
+09-08-2016 21:42:20 - newrad - INFO -- Converting 1470778936.78.jpg to grayscale 
+ [F
+09-08-2016 21:42:20 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:42:20 - newrad - INFO -- 1470778936.78.jpg temp range: 26.601725276 / 39.6558032135 
+ [F
+09-08-2016 21:42:20 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:43:05 - newrad - INFO -- Checking compatibility for 1470778983.15.jpg 
+ [F
+09-08-2016 21:43:05 - newrad - INFO -- Converting 1470778983.15.jpg to grayscale 
+ [F
+09-08-2016 21:43:07 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:43:07 - newrad - INFO -- 1470778983.15.jpg temp range: 15.9467097348 / 46.6920432864 
+ [F
+09-08-2016 21:43:07 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:43:29 - newrad - INFO -- Checking compatibility for 1470779004.76.jpg 
+ [F
+09-08-2016 21:43:29 - newrad - INFO -- Converting 1470779004.76.jpg to grayscale 
+ [F
+09-08-2016 21:43:29 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:43:29 - newrad - INFO -- 1470779004.76.jpg temp range: 20.8880447918 / 49.1822401012 
+ [F
+09-08-2016 21:43:30 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:43:44 - newrad - INFO -- Checking compatibility for 1470779022.4.jpg 
+ [F
+09-08-2016 21:43:45 - newrad - INFO -- Converting 1470779022.4.jpg to grayscale 
+ [F
+09-08-2016 21:43:45 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:43:45 - newrad - INFO -- 1470779022.4.jpg temp range: 10.3387172407 / 47.1019137464 
+ [F
+09-08-2016 21:43:46 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:44:07 - newrad - INFO -- Checking compatibility for 1470779044.6.jpg 
+ [F
+09-08-2016 21:44:07 - newrad - INFO -- Converting 1470779044.6.jpg to grayscale 
+ [F
+09-08-2016 21:44:07 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:44:07 - newrad - INFO -- 1470779044.6.jpg temp range: 1.60220353954 / 49.3666683297 
+ [F
+09-08-2016 21:44:07 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:44:26 - newrad - INFO -- Checking compatibility for 1470779060.83.jpg 
+ [F
+09-08-2016 21:44:26 - newrad - INFO -- Converting 1470779060.83.jpg to grayscale 
+ [F
+09-08-2016 21:44:27 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:44:27 - newrad - INFO -- 1470779060.83.jpg temp range: 1.94351751365 / 43.1006787921 
+ [F
+09-08-2016 21:44:27 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:44:51 - newrad - INFO -- Checking compatibility for 1470779089.12.jpg 
+ [F
+09-08-2016 21:44:51 - newrad - INFO -- Converting 1470779089.12.jpg to grayscale 
+ [F
+09-08-2016 21:44:53 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:44:53 - newrad - INFO -- 1470779089.12.jpg temp range: 24.2620010402 / 42.6598708307 
+ [F
+09-08-2016 21:44:53 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:45:14 - newrad - INFO -- Checking compatibility for 1470779111.31.jpg 
+ [F
+09-08-2016 21:45:17 - newrad - INFO -- Converting 1470779111.31.jpg to grayscale 
+ [F
+09-08-2016 21:45:20 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:45:20 - newrad - INFO -- 1470779111.31.jpg temp range: 28.0736878765 / 43.7502117887 
+ [F
+09-08-2016 21:45:20 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:45:36 - newrad - INFO -- Checking compatibility for 1470779134.47.jpg 
+ [F
+09-08-2016 21:45:37 - newrad - INFO -- Converting 1470779134.47.jpg to grayscale 
+ [F
+09-08-2016 21:45:37 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:45:37 - newrad - INFO -- 1470779134.47.jpg temp range: 18.8093525534 / 38.7289145883 
+ [F
+09-08-2016 21:45:37 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:45:58 - newrad - INFO -- Checking compatibility for 1470779153.99.jpg 
+ [F
+09-08-2016 21:45:58 - newrad - INFO -- Converting 1470779153.99.jpg to grayscale 
+ [F
+09-08-2016 21:46:00 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:46:00 - newrad - INFO -- 1470779153.99.jpg temp range: 8.11628208245 / 39.0022733943 
+ [F
+09-08-2016 21:46:00 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:46:16 - newrad - INFO -- Checking compatibility for 1470779173.75.jpg 
+ [F
+09-08-2016 21:46:16 - newrad - INFO -- Converting 1470779173.75.jpg to grayscale 
+ [F
+09-08-2016 21:46:16 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:46:16 - newrad - INFO -- 1470779173.75.jpg temp range: 0.888977871324 / 37.9968823438 
+ [F
+09-08-2016 21:46:16 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:46:33 - newrad - INFO -- Checking compatibility for 1470779190.3.jpg 
+ [F
+09-08-2016 21:46:33 - newrad - INFO -- Converting 1470779190.3.jpg to grayscale 
+ [F
+09-08-2016 21:46:36 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:46:36 - newrad - INFO -- 1470779190.3.jpg temp range: 0.968517754078 / 37.1679162431 
+ [F
+09-08-2016 21:46:36 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:46:53 - newrad - INFO -- Checking compatibility for 1470779210.85.jpg 
+ [F
+09-08-2016 21:46:53 - newrad - INFO -- Converting 1470779210.85.jpg to grayscale 
+ [F
+09-08-2016 21:46:53 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:46:53 - newrad - INFO -- 1470779210.85.jpg temp range: 6.81114618842 / 37.2418378527 
+ [F
+09-08-2016 21:46:53 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:47:13 - newrad - INFO -- Checking compatibility for 1470779227.94.jpg 
+ [F
+09-08-2016 21:47:13 - newrad - INFO -- Converting 1470779227.94.jpg to grayscale 
+ [F
+09-08-2016 21:47:15 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:47:15 - newrad - INFO -- 1470779227.94.jpg temp range: 18.1288888163 / 41.0776543122 
+ [F
+09-08-2016 21:47:15 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:47:30 - newrad - INFO -- Checking compatibility for 1470779247.35.jpg 
+ [F
+09-08-2016 21:47:30 - newrad - INFO -- Converting 1470779247.35.jpg to grayscale 
+ [F
+09-08-2016 21:47:30 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:47:30 - newrad - INFO -- 1470779247.35.jpg temp range: 18.7437019828 / 41.1670870819 
+ [F
+09-08-2016 21:47:30 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:47:50 - newrad - INFO -- Checking compatibility for 1470779264.77.jpg 
+ [F
+09-08-2016 21:47:51 - newrad - INFO -- Converting 1470779264.77.jpg to grayscale 
+ [F
+09-08-2016 21:47:57 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:47:57 - newrad - INFO -- 1470779264.77.jpg temp range: 8.04290247609 / 33.3535703694 
+ [F
+09-08-2016 21:47:57 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:48:16 - newrad - INFO -- Checking compatibility for 1470779293.59.jpg 
+ [F
+09-08-2016 21:48:16 - newrad - INFO -- Converting 1470779293.59.jpg to grayscale 
+ [F
+09-08-2016 21:48:17 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:48:17 - newrad - INFO -- 1470779293.59.jpg temp range: 0.436852654723 / 30.0387885781 
+ [F
+09-08-2016 21:48:17 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:48:36 - newrad - INFO -- Checking compatibility for 1470779313.83.jpg 
+ [F
+09-08-2016 21:48:36 - newrad - INFO -- Converting 1470779313.83.jpg to grayscale 
+ [F
+09-08-2016 21:48:40 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:48:40 - newrad - INFO -- 1470779313.83.jpg temp range: 0.436852654723 / 30.5687230418 
+ [F
+09-08-2016 21:48:40 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:48:58 - newrad - INFO -- Checking compatibility for 1470779335.63.jpg 
+ [F
+09-08-2016 21:48:58 - newrad - INFO -- Converting 1470779335.63.jpg to grayscale 
+ [F
+09-08-2016 21:48:58 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:48:58 - newrad - INFO -- 1470779335.63.jpg temp range: 7.40446782606 / 33.0475025079 
+ [F
+09-08-2016 21:48:58 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:49:18 - newrad - INFO -- Checking compatibility for 1470779355.83.jpg 
+ [F
+09-08-2016 21:49:18 - newrad - INFO -- Converting 1470779355.83.jpg to grayscale 
+ [F
+09-08-2016 21:49:21 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:49:21 - newrad - INFO -- 1470779355.83.jpg temp range: 27.6723893161 / 33.7350061036 
+ [F
+09-08-2016 21:49:22 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:49:41 - newrad - INFO -- Checking compatibility for 1470779378.48.jpg 
+ [F
+09-08-2016 21:49:41 - newrad - INFO -- Converting 1470779378.48.jpg to grayscale 
+ [F
+09-08-2016 21:49:41 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:49:41 - newrad - INFO -- 1470779378.48.jpg temp range: 28.2137946062 / 35.3421428099 
+ [F
+09-08-2016 21:49:41 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:49:57 - newrad - INFO -- Checking compatibility for 1470779395.24.jpg 
+ [F
+09-08-2016 21:49:58 - newrad - INFO -- Converting 1470779395.24.jpg to grayscale 
+ [F
+09-08-2016 21:49:59 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:49:59 - newrad - INFO -- 1470779395.24.jpg temp range: 26.3781775013 / 36.2213229891 
+ [F
+09-08-2016 21:49:59 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:50:44 - newrad - INFO -- Checking compatibility for 1470779442.15.jpg 
+ [F
+09-08-2016 21:50:44 - newrad - INFO -- Converting 1470779442.15.jpg to grayscale 
+ [F
+09-08-2016 21:50:45 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:50:45 - newrad - INFO -- 1470779442.15.jpg temp range: 16.1940575666 / 43.258986262 
+ [F
+09-08-2016 21:50:45 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:51:01 - newrad - INFO -- Checking compatibility for 1470779457.97.jpg 
+ [F
+09-08-2016 21:51:01 - newrad - INFO -- Converting 1470779457.97.jpg to grayscale 
+ [F
+09-08-2016 21:51:04 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:51:04 - newrad - INFO -- 1470779457.97.jpg temp range: 21.4438254719 / 45.8338893457 
+ [F
+09-08-2016 21:51:04 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:51:20 - newrad - INFO -- Checking compatibility for 1470779477.43.jpg 
+ [F
+09-08-2016 21:51:20 - newrad - INFO -- Converting 1470779477.43.jpg to grayscale 
+ [F
+09-08-2016 21:51:21 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:51:21 - newrad - INFO -- 1470779477.43.jpg temp range: 11.3595662409 / 43.557461708 
+ [F
+09-08-2016 21:51:21 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:51:41 - newrad - INFO -- Checking compatibility for 1470779495.34.jpg 
+ [F
+09-08-2016 21:51:41 - newrad - INFO -- Converting 1470779495.34.jpg to grayscale 
+ [F
+09-08-2016 21:51:43 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:51:43 - newrad - INFO -- 1470779495.34.jpg temp range: 0.888977871324 / 48.3237276553 
+ [F
+09-08-2016 21:51:43 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:51:59 - newrad - INFO -- Checking compatibility for 1470779516.72.jpg 
+ [F
+09-08-2016 21:51:59 - newrad - INFO -- Converting 1470779516.72.jpg to grayscale 
+ [F
+09-08-2016 21:51:59 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:51:59 - newrad - INFO -- 1470779516.72.jpg temp range: 0.436852654723 / 42.2174833853 
+ [F
+09-08-2016 21:52:00 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:52:24 - newrad - INFO -- Checking compatibility for 1470779534.22.jpg 
+ [F
+09-08-2016 21:52:24 - newrad - INFO -- Converting 1470779534.22.jpg to grayscale 
+ [F
+09-08-2016 21:52:30 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:52:30 - newrad - INFO -- 1470779534.22.jpg temp range: 23.5123036567 / 42.2883722225 
+ [F
+09-08-2016 21:52:30 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:52:47 - newrad - INFO -- Checking compatibility for 1470779564.32.jpg 
+ [F
+09-08-2016 21:52:47 - newrad - INFO -- Converting 1470779564.32.jpg to grayscale 
+ [F
+09-08-2016 21:52:47 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:52:47 - newrad - INFO -- 1470779564.32.jpg temp range: 27.792934031 / 42.8187427651 
+ [F
+09-08-2016 21:52:47 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:53:06 - newrad - INFO -- Checking compatibility for 1470779583.58.jpg 
+ [F
+09-08-2016 21:53:06 - newrad - INFO -- Converting 1470779583.58.jpg to grayscale 
+ [F
+09-08-2016 21:53:06 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:53:06 - newrad - INFO -- 1470779583.58.jpg temp range: 18.4148055934 / 37.9601622781 
+ [F
+09-08-2016 21:53:06 - newrad - INFO -- Writing temp to csv file 
+ [F
+09-08-2016 21:53:23 - newrad - INFO -- Checking compatibility for 1470779600.35.jpg 
+ [F
+09-08-2016 21:53:23 - newrad - INFO -- Converting 1470779600.35.jpg to grayscale 
+ [F
+09-08-2016 21:53:23 - newrad - INFO -- Calculating temp per pixel 
+ [F
+09-08-2016 21:53:23 - newrad - INFO -- 1470779600.35.jpg temp range: 8.14072890429 / 38.7836363451 
+ [F
+09-08-2016 21:53:23 - newrad - INFO -- Writing temp to csv file 
+ [F
