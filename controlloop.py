@@ -17,7 +17,7 @@ CONFIG_FILE = "movement.conf"
 IR_IMAGE_DIR = "./ir_images"
 
 def initialize():
-    cam.focus("full")
+    #cam.focus("full")
     positions = []
     converter._exifProcess()
     with open(CONFIG_FILE, 'r') as c_handler:
@@ -30,12 +30,12 @@ def initialize():
 
 def runTask(positions):
     try:
-        logger.info("Performing NUC and Full Focus")
+        logger.info("Performing NUC")
         cam.nuc()
-        cam.focus("full")
-        while not cam.ready():
-            logger.debug("Performing Full Focus")
-            time.sleep(1)
+        #cam.focus("full")
+        #while not cam.ready():
+        #    logger.debug("Performing Full Focus")
+        #    time.sleep(1)
         for position in positions:
             try:
                 logger.info("Moving to position: " + str(position))
@@ -64,7 +64,7 @@ def runTask(positions):
                     time.sleep(1)
 
                 #cam.zoom(int(zoom_fac))
-                cam.focus("fast")
+                cam.focus("full")
                     
                 while not cam.ready():
                     logger.debug("Waiting for camera ")
