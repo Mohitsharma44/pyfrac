@@ -15,7 +15,7 @@ class ICDA320:
     """
     Class of Telnet commands for FLIR A320 Camera
     """
-    def __init__(self, host, port=23):
+    def __init__(self, host, port, ir_image_dir):
         """
         Parameters:
         -----------
@@ -25,10 +25,10 @@ class ICDA320:
             port number of the telnet service on the A320
 
         """
-        with ignored(OSError):
-            if not os.path.exists('./ir_images'):
-                os.mkdir('./ir_images')
-        self.basedir = './ir_images/'
+        #with ignored(OSError):
+        #    if not os.path.exists(ir_image_dir):
+        #        os.mkdir('./ir_images')
+        self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
         self.tn = telnetlib.Telnet()
