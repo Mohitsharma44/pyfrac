@@ -37,8 +37,8 @@ def pyfraclogger(loggername=None, every="midnight", tofile=True):
         "%(asctime)s - %(name)s - %(levelname)s -- %(message)s \n \033[F", datefmt="%d-%m-%Y %H:%M:%S")
 
     # Setup TimedRotatingFileHandler
-    f_handler = logging.handlers.TimedRotatingFileHandler(
-        LOG_FNAME, when=every, interval=1, backupCount=5)
+    f_handler = logging.handlers.RotatingFileHandler(
+        LOG_FNAME, mode='a', maxBytes=1*1024*1024, backupCount=2)
     f_handler.suffix = "%b-%d-%Y %H:%M:%S.log"
     f_handler.setFormatter(formatter)
 
