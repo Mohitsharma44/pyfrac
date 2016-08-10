@@ -76,13 +76,20 @@ def runTask(positions):
 
                 # Conversion
                 meta_fname = converter.get_meta(tofile=True, filename=os.path.join(IR_IMAGE_DIR, fname))
+                time.sleep(1)
                 gray_fname = converter.tograyscale(meta=False, filename=os.path.join(IR_IMAGE_DIR, fname))
+                time.sleep(1)
                 logger.info(str(meta_fname))
                 logger.info(str(gray_fname))
+
                 csv_fname = converter.tocsv(meta_fname, gray_fname)
-                png_fname = csvtojpg.tojpg(csv_fname, patchfile)
-                # Upload
-                serve.uploadFile(os.path.abspath(png_fname))
+                if csv_fname:
+                    png_fname = csvtojpg.tojpg(csv_fname, patchfile)
+
+                    # Upload
+                    serve.uploadFile(os.path.abspath(png_fname))
+                else:
+                    logger.error("no csv to png performed")
             except Exception as ex:
                 logger.warning(str(ex))
     except Exception as ex:

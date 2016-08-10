@@ -198,6 +198,7 @@ class RadConv(object):
             out = self._execute(["-j",
                                  abs_fpath.encode('utf-8'),
                                      "-execute"])
+            
             try:
                 meta = json.loads(out)
             except ValueError:
@@ -248,6 +249,8 @@ class RadConv(object):
                                             indent=4,
                                             sort_keys=True))
                 return metadata_fname
+            else:
+                self.logger.warning("No Metadata obtained")
         else:
             self.logger.warning("No such file " + str(abs_fpath))
 
@@ -324,100 +327,106 @@ class RadConv(object):
         csv_fname : str
             path to converted csvfile
         """
-        metafile = os.path.abspath(metadatafile)
-        grayfile = os.path.abspath(grayscalefile)
-        if os.path.isfile(grayfile) and os.path.isfile(metafile):
-            with open(metafile, 'r') as mfobj:
-                meta = json.loads(mfobj.read())
-            im = imread(grayfile)
-            temp_ref = float(meta[0]['ReflectedApparentTemperature'])
-            temp_atm = float(meta[0]['AtmosphericTemperature'])
-            distance = float(meta[0]['ObjectDistance'])
-            humidity = float(meta[0]['RelativeHumidity'])
-            emmissivity = float(meta[0]['Emissivity'])
-            r1 = float(meta[0]['PlanckR1'])
-            r2 = float(meta[0]['PlanckR2'])
-            b = float(meta[0]['PlanckB'])
-            o = float(meta[0]['PlanckO'])
-            f = float(meta[0]['PlanckF'])
-            a1 = float(meta[0]['AtmosphericTransAlpha1'])
-            a2 = float(meta[0]['AtmosphericTransAlpha2'])
-            b1 = float(meta[0]['AtmosphericTransBeta1'])
-            b2 = float(meta[0]['AtmosphericTransBeta2'])
-            x = float(meta[0]['AtmosphericTransX'])
+        try:
+            metafile = os.path.abspath(metadatafile)
+            grayfile = os.path.abspath(grayscalefile)
+            if os.path.isfile(grayfile) and os.path.isfile(metafile):
+                with open(metafile, 'r') as mfobj:
+                    meta = json.loads(mfobj.read())
+                im = imread(grayfile)
+                temp_ref = float(meta[0]['ReflectedApparentTemperature'])
+                temp_atm = float(meta[0]['AtmosphericTemperature'])
+                distance = float(meta[0]['ObjectDistance'])
+                humidity = float(meta[0]['RelativeHumidity'])
+                emmissivity = float(meta[0]['Emissivity'])
+                r1 = float(meta[0]['PlanckR1'])
+                r2 = float(meta[0]['PlanckR2'])
+                b = float(meta[0]['PlanckB'])
+                o = float(meta[0]['PlanckO'])
+                f = float(meta[0]['PlanckF'])
+                a1 = float(meta[0]['AtmosphericTransAlpha1'])
+                a2 = float(meta[0]['AtmosphericTransAlpha2'])
+                b1 = float(meta[0]['AtmosphericTransBeta1'])
+                b2 = float(meta[0]['AtmosphericTransBeta2'])
+                x = float(meta[0]['AtmosphericTransX'])
+                
+                self.logger.info("Calculating temp per pixel")
+                # Raw temperature range from FLIR
+                raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
+                raw_min = raw_max - float(meta[0]['RawValueRange'])
+                
+                # Calculate atmospheric transmission
+                h2o = (humidity / 100) * math.exp(1.5587 +
+                                                  6.939e-2 *
+                                                  temp_atm -
+                                                  2.7816e-4 *
+                                                  math.pow(temp_atm, 2) +
+                                                  6.8455e-7 *
+                                                  math.pow(temp_atm, 3))
+                tau = x * math.exp(-math.sqrt(distance) *
+                (a1 + b1 * math.sqrt(h2o))) + \
+                    (1 - x) * math.exp(-math.sqrt(distance) *
+                                       (a2 + b2 * math.sqrt(h2o)))
+                
+                # Radiance from atmosphere
+                # The camera is reporting the ambient temp as -273.15 deg celsius
+                try:
+                    raw_atm = r1 / (r2 * (math.exp(b / (temp_atm + 273.15)) - f)) - o
+                except ZeroDivisionError:
+                    raw_atm = -o
+                # Radiance from reflected objects
+                raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
+                    
+                # get displayed object temp max/min
+                # -- Not using raw_atm and tau in th calculations. Uncomment them to use it
+                raw_max_obj = (raw_max -
+                               #(1 - tau) *
+                               # raw_atm -
+                               (1 - emmissivity) *
+                               # tau *
+                               raw_refl) / emmissivity / tau
+                raw_min_obj = (raw_min -
+                               #(1 - tau) *
+                               # raw_atm -
+                               (1 - emmissivity) *
+                               # tau *
+                               raw_refl) / emmissivity / tau
+            
+                # Min temp
+                temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
+                # Max temp
+                temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
+                self.logger.info(os.path.basename(grayfile) +
+                                 " temp range: " +
+                                 str(temp_min) +
+                                 " / " +
+                                 str(temp_max))
+            
+                # Convert every 16 bit pixel value to grayscale temp range
+                # -- Not using tau and raw_atm in th calculations. Uncomment them to use it
+                t_im = np.zeros_like(im)
+                # Radiance of the object
+                raw_temp_pix = np.zeros_like(im)
+                raw_temp_pix = (im[:] -
+                                # (1 - tau) *
+                                # raw_atm -
+                                (1 - emmissivity) *
+                                # tau *
+                                raw_refl) / emmissivity / tau
+                # Temperature of the object
+                t_im = (b /
+                        np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
+                        273.15)
+                
+                csv_fname = os.path.join(
+                    os.path.dirname(grayfile),
+                    'csv', os.path.basename(grayfile[:-3] + 'csv'))
+                self.logger.info("Writing temp to csv file")
+                imsave(csv_fname[:-3] + 'png', t_im)
+                np.savetxt(csv_fname, t_im, delimiter=',')
+                return str(csv_fname)
 
-            self.logger.info("Calculating temp per pixel")
-            # Raw temperature range from FLIR
-            raw_max = float(meta[0]['RawValueMedian']) + float(meta[0]['RawValueRange']) / 2
-            raw_min = raw_max - float(meta[0]['RawValueRange'])
-            
-            # Calculate atmospheric transmission
-            h2o = (humidity / 100) * math.exp(1.5587 +
-                                              6.939e-2 *
-                                              temp_atm -
-                                              2.7816e-4 *
-                                              math.pow(temp_atm, 2) +
-                                              6.8455e-7 *
-                                              math.pow(temp_atm, 3))
-            tau = x * math.exp(-math.sqrt(distance) *
-                               (a1 + b1 * math.sqrt(h2o))) + \
-                               (1 - x) * math.exp(-math.sqrt(distance) *
-                                                  (a2 + b2 * math.sqrt(h2o)))
-            
-            # Radiance from atmosphere
-            # The camera is reporting the ambient temp as -273.15 deg celsius
-            try:
-                raw_atm = r1 / (r2 * (math.exp(b / (temp_atm + 273.15)) - f)) - o
-            except ZeroDivisionError:
-                raw_atm = -o
-            # Radiance from reflected objects
-            raw_refl = r1 / (r2 * (math.exp(b / (temp_ref + 273.15)) - f)) - o
-            
-            # get displayed object temp max/min
-            # -- Not using raw_atm and tau in th calculations. Uncomment them to use it
-            raw_max_obj = (raw_max -
-                           #(1 - tau) *
-                           # raw_atm -
-                           (1 - emmissivity) *
-                           # tau *
-                           raw_refl) / emmissivity / tau
-            raw_min_obj = (raw_min -
-                           #(1 - tau) *
-                           # raw_atm -
-                           (1 - emmissivity) *
-                           # tau *
-                           raw_refl) / emmissivity / tau
-            
-            # Min temp
-            temp_min = b / math.log(r1 / (r2 * (raw_min_obj + o)) + f) - 273.15
-            # Max temp
-            temp_max = b / math.log(r1 / (r2 * (raw_max_obj + o)) + f) - 273.15
-            self.logger.info(os.path.basename(grayfile) +
-                             " temp range: " +
-                             str(temp_min) +
-                             " / " +
-                             str(temp_max))
-            
-            # Convert every 16 bit pixel value to grayscale temp range
-            # -- Not using tau and raw_atm in th calculations. Uncomment them to use it
-            t_im = np.zeros_like(im)
-            # Radiance of the object
-            raw_temp_pix = np.zeros_like(im)
-            raw_temp_pix = (im[:] -
-                            # (1 - tau) *
-                            # raw_atm -
-                            (1 - emmissivity) *
-                            # tau *
-                            raw_refl) / emmissivity / tau
-            # Temperature of the object
-            t_im = (b /
-                    np.log(r1 / (r2 * (raw_temp_pix + o)) + f) -
-                    273.15)
-            
-            csv_fname = os.path.join(
-                os.path.dirname(grayfile),
-                'csv', os.path.basename(grayfile[:-3] + 'csv'))
-            self.logger.info("Writing temp to csv file")
-            imsave(csv_fname[:-3] + 'png', t_im)
-            np.savetxt(csv_fname, t_im, delimiter=',')
-            return str(csv_fname)
+            else:
+                self.logger.warning("Metadatafile or Grayscalefile does not exist")
+        except Exception as ex:
+            logger.warning("Error in tocsv: "+str(ex))
