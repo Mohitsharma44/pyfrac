@@ -77,7 +77,7 @@ def tojpg(csvfile, patchfile):
     fig = plt.figure()
     ax1 = fig.add_subplot(111, aspect="equal")
     cax = ax1.imshow(img, cmap="nipy_spectral")
-    cbar = fig.colorbar(cax, ticks=[img.min(), img.max()], orientation="horizontal")
+    cbar = fig.colorbar(cax, ticks=[img.min(), img.max()], orientation="vertical")
 
     for rects in rectangles:
         ax1.add_patch(rectangles[rects])
