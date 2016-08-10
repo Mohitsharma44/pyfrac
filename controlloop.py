@@ -7,14 +7,15 @@ from pyfrac.utils import misc
 import os
 import time
 
+CONFIG_FILE = "movement.conf"
+IR_IMAGE_DIR = "/home/pi/Pictures/pyfrac_images"
+
 logger = pyfraclogger.pyfraclogger(tofile=True)
 
-cam = capture.ICDA320("192.168.1.4")
+cam = capture.ICDA320(host="192.168.1.4", port=23, ir_image_dir=IR_IMAGE_DIR)
 keycontrol = keyboard.KeyboardController()
-converter = radtocsv.RadConv(basedir="./ir_images")
+converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
 
-CONFIG_FILE = "movement.conf"
-IR_IMAGE_DIR = "./ir_images"
 
 def initialize():
     #cam.focus("full")
