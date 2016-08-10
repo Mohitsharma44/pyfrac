@@ -27,9 +27,7 @@ def pyfraclogger(loggername=None, every="midnight", tofile=True):
     logger
         logger object with filehandler for debug level logs  and streamhandler for info level
     """
-    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                            '..',
-                                            'logs'))
+    BASE_DIR = '/home/pi/devel/pyfrac_logs/'
     loggername=str(inspect.getouterframes(inspect.currentframe())[1][1]).split('/')[-1][:-3]
     LOG_FNAME = os.path.join(BASE_DIR, loggername)
     logger = logging.getLogger(loggername)
