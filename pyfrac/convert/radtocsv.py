@@ -208,7 +208,7 @@ class RadConv(object):
                 return meta
             else:
                 self.logger.warning(str(os.path.basename(filename)) + " not supported")
-                logger.warning(str(meta))
+                self.logger.warning(str(meta))
                 return False
         
     
@@ -429,4 +429,4 @@ class RadConv(object):
             else:
                 self.logger.warning("Metadatafile or Grayscalefile does not exist")
         except Exception as ex:
-            logger.warning("Error in tocsv: "+str(ex))
+            self.logger.warning("Error in tocsv: "+str(ex))

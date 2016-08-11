@@ -10,6 +10,7 @@ from pyfrac.utils.misc import ignored
 from pyfrac.utils import pyfraclogger
 import atexit
 import os
+import errno
 
 class ICDA320:
     """
@@ -31,14 +32,50 @@ class ICDA320:
         self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
-        self.tn = telnetlib.Telnet()
-        self.ftp = ftplib.FTP(host)
-        self.tn.open(host, port)
+        self.ftp = self._openFTP(host, username="flir", password="3vlig")
+        self.tn = self._openTelnet(host, port)
         self.tn.read_until(self.prompt)
-        self.ftp.login("flir", "3vlig")
         self.logger = pyfraclogger.pyfraclogger(tofile=True)
         atexit.register(self.cleanup)
+
+    def _openTelnet(self, host, port):
+        """
+        Open Telnet connection with the host
+        Parameters
+        ----------
+        host : str
+            ip address of the host to connect to
+        port : int
+            port number to connect to
+
+        Returns
+        -------
+        tn : telnet object
+        """
+        tn = telnetlib.Telnet()
+        tn.open(host, port)
+        return tn
         
+    def _openFTP(self, host, username, password):
+        """
+        Open FTP connection with the host
+        Parameters
+        ----------
+        host : str
+            ip address of the host to connect to
+        username : str
+            username to login to host with
+        password : str
+            password to login to host with
+
+        Returns
+        -------
+        ftp : ftp object
+        """
+        ftp = ftplib.FTP(host, username, password)
+        ftp.login(username, password)
+        return ftp
+    
     # Parse the output
     def read(self, output):
         """
@@ -166,16 +203,14 @@ class ICDA320:
             If the fetching was unsuccessful.
         """
         def _getFile(fname):
-            with ignored(Exception):
-                self.logger.info("Fetching "+str(fname))
-                self.ftp.retrbinary('RETR '+fname, open(
-                    os.path.join(self.basedir,fname), 'wb').write)
+            self.logger.info("Fetching "+str(fname))
+            self.ftp.retrbinary('RETR '+fname, open(
+                os.path.join(self.basedir,fname), 'wb').write)
                 
         def _removeFile(fname):
             if os.path.isfile(os.path.join(self.basedir,fname)):
-                with ignored(Exception):
-                    self.logger.info("Removing "+str(fname))
-                    self.ftp.delete(fname)
+                self.logger.info("Removing "+str(fname))
+                self.ftp.delete(fname)
                 
         dirlisting = []
         dirs = []
@@ -189,12 +224,30 @@ class ICDA320:
             files = [x for x in dirs if re.search(pattern, x)]
         else:
             files = [x for x in dirs if filename in x]
-            
+
+        retry = True
         #Download the Files
-        for fname in files:
-            _getFile(fname)
-            time.sleep(1)
-            _removeFile(fname)
+        while retry:
+            for fname in files:
+                try:
+                    _getFile(fname)
+                    time.sleep(1)
+                    _removeFile(fname)
+                    retry = False
+                except ftplib.all_errors, e:
+                    self.logger.warning("Reconnecting to FTPclient: "+repr(e))
+                    retry = True
+                    # Try to quit FTP
+                    try:
+                        self.ftp.quit()
+                        self.ftp = None
+                    except Exception, e:
+                        # Dont care
+                        self.logger.warning("Cannot close FTP "+repr(e))
+                    finally:
+                        self.ftp = self._openFTP(host, "flir", "3vlig")
+                except Exception, e:
+                    self.logger.warning("Error getting/ removing files from camera: "+repr(e))
 
             
     def cleanup(self):

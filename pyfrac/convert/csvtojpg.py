@@ -88,8 +88,8 @@ def tojpg(csvfile, patchfile):
         ax1.annotate(rects, (cx, cy), color='k', weight='normal',
                      fontsize=8, ha='left', va='bottom')
 
-    outfile = os.path.join(os.path.expanduser("~/Pictures"),
-                           os.path.basename(csvfile)[:-3]+"png")
+    outfile = os.path.join(os.path.expanduser("~/Pictures/pyfrac_images"),
+                           os.path.basename(csvfile)[:-4]+"_web.png")
     logger.info("Writing the image to " + str(outfile))
     ax1.set_axis_off()
     fig.savefig(outfile, bbox_inches='tight', pad_inches=0)
