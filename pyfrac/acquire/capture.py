@@ -214,9 +214,24 @@ class ICDA320:
                 
         dirlisting = []
         dirs = []
-        self.ftp.cwd('/')
-        self.ftp.dir(dirlisting.append)
-        
+        try:
+            self.ftp.cwd('/')
+            self.ftp.dir(dirlisting.append)
+        except ftplib.all_errors, e:
+            self.logger.warning("Reconnecting to FTPclient: "+repr(e))
+            retry = True
+            # Try to quit FTP
+            try:
+                self.ftp.quit()
+                self.ftp = None
+            except Exception, e:
+                # Dont care
+                self.logger.warning("Cannot close FTP "+repr(e))
+            finally:
+                self.ftp = self._openFTP(host, "flir", "3vlig")
+        except Exception, e:
+            self.logger.warning("Error in getting dirlisting from ftpclient: "+repr(e))
+
         for i in dirlisting:
             dirs.append(i.split(" ")[-1])
             
