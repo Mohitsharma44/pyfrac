@@ -39,74 +39,75 @@ def initialize():
 # def runTask(sc):
 
 
-def runTask(positions):
-    try:
-        # Create an iterator cycle for the positions
-        position_cycle = cycle(positions)
-        position = position_cycle.next()
-        logger.info("Performing NUC")
-        cam.nuc()
-        #cam.focus("full")
-        #while not cam.ready():
-        #    logger.debug("Performing Full Focus")
-        #    time.sleep(1)
-        logger.info("Moving to position: " + str(position))
-        pan_pos = position.split('_')[0]
-        tilt_pos = position.split('_')[1].split(',')[0]
-        patchfile = misc.getPatchLoc(pan_pos,tilt_pos)
-        
-        # ---- Hacky way to remove p and n from pan and tilt
-        # and replace them with + / - signs
-        if "p" in pan_pos:
-            pan_pos = pan_pos.strip("p")
-        elif "n" in pan_pos:
-            pan_pos = "-"+pan_pos.strip("n")
-        if "p" in tilt_pos:
-            tilt_pos = tilt_pos.strip("p")
-        elif "n" in pan_pos:
-            tilt_pos = "-"+tilt_pos.strip("n")
-        # ----
-        
-        zoom_fac = position.split(',')[1]
-        keycontrol.pan(pan_pos)
-        keycontrol.tilt(tilt_pos)
-        
-        while not keycontrol.ready():
-            logger.debug("Waiting for PT module ")
-            time.sleep(1)
-                
-        #cam.zoom(int(zoom_fac))
-        cam.focus("full")
-        
-        while not cam.ready():
-            logger.debug("Waiting for camera ")
-            time.sleep(1)
-
-        fname = cam.capture()
-        fname = fname+".jpg"
-        cam.fetch(filename="", pattern="jpg")
-        
-        # Conversion
-        meta_fname = converter.get_meta(tofile=True, filename=os.path.join(IR_IMAGE_DIR, fname))
-        time.sleep(1)
-        gray_fname = converter.tograyscale(meta=False, filename=os.path.join(IR_IMAGE_DIR, fname))
-        time.sleep(1)
-        logger.info(str(meta_fname))
-        logger.info(str(gray_fname))
+def runTask(pos_cycle):
+    while True:
+        try:
+            # Create an iterator cycle for the positions
+            position = pos_cycle.next()
+            logger.info("Performing NUC")
+            cam.nuc()
+            #cam.focus("full")
+            #while not cam.ready():
+            #    logger.debug("Performing Full Focus")
+            #    time.sleep(1)
+            logger.info("Moving to position: " + str(position))
+            pan_pos = position.split('_')[0]
+            tilt_pos = position.split('_')[1].split(',')[0]
+            patchfile = misc.getPatchLoc(pan_pos,tilt_pos)
             
-        csv_fname = converter.tocsv(meta_fname, gray_fname)
-        if csv_fname:
-            png_fname = csvtojpg.tojpg(csv_fname, patchfile)
-                
-            # Upload
-            serve.uploadFile(os.path.abspath(png_fname))
-        else:
-            logger.error("no csv to png performed")
+            # ---- Hacky way to remove p and n from pan and tilt
+            # and replace them with + / - signs
+            if "p" in pan_pos:
+                pan_pos = pan_pos.strip("p")
+            elif "n" in pan_pos:
+                pan_pos = "-"+pan_pos.strip("n")
+            if "p" in tilt_pos:
+                tilt_pos = tilt_pos.strip("p")
+            elif "n" in pan_pos:
+                tilt_pos = "-"+tilt_pos.strip("n")
+            # ----
+        
+            zoom_fac = position.split(',')[1]
+            keycontrol.pan(pan_pos)
+            keycontrol.tilt(tilt_pos)
+            
+            while not keycontrol.ready():
+                logger.debug("Waiting for PT module ")
+                time.sleep(1)
+            
+            #cam.zoom(int(zoom_fac))
+            cam.focus("full")
+            
+            while not cam.ready():
+                logger.debug("Waiting for camera ")
+                time.sleep(1)
 
-    except Exception as ex:
-        logger.error(str(ex))
+            fname = cam.capture()
+            fname = fname+".jpg"
+            cam.fetch(filename="", pattern="jpg")
+        
+            # Conversion
+            meta_fname = converter.get_meta(tofile=True, filename=os.path.join(IR_IMAGE_DIR, fname))
+            time.sleep(1)
+            gray_fname = converter.tograyscale(meta=False, filename=os.path.join(IR_IMAGE_DIR, fname))
+            time.sleep(1)
+            logger.info(str(meta_fname))
+            logger.info(str(gray_fname))
+            
+            csv_fname = converter.tocsv(meta_fname, gray_fname)
+            if csv_fname:
+                png_fname = csvtojpg.tojpg(csv_fname, patchfile)
+                
+                # Upload
+                serve.uploadFile(os.path.abspath(png_fname))
+            else:
+                logger.error("no csv to png performed")
+
+        except Exception as ex:
+            logger.error(str(ex))
 
 
 if __name__ == "__main__":
     positions = initialize()
-    runTask(positions)
+    position_cycle = cycle(positions)
+    runTask(position_cycle)

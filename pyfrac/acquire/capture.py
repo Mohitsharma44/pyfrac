@@ -31,19 +31,19 @@ class ICDA320:
         #with ignored(OSError):
         #    if not os.path.exists(ir_image_dir):
         #        os.mkdir('./ir_images')
+        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         self.TELNET_HOST = tn_host
         self.TELNET_PORT = tn_port
         self.FTP_HOST = ftp_host
         self.FTP_PORT = ftp_port
         self.FTP_USERNAME = ftp_username
-        self.FTP_PASSWORD = ftp_uassword
+        self.FTP_PASSWORD = ftp_password
         self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
         self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
         self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
         self.tn.read_until(self.prompt)
-        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         atexit.register(self.cleanup)
 
     def _openTelnet(self, host, port):
@@ -121,7 +121,7 @@ class ICDA320:
         ftp = ftp if ftp else self.ftp
         ftp.quit()
 
-    def _keepConnectionAlive(sock, idle_after_sec=1, interval_sec=3, max_fails=5):
+    def _keepConnectionAlive(self, sock, idle_after_sec=1, interval_sec=3, max_fails=5):
         """
         Keep the socket alive
         
@@ -143,7 +143,7 @@ class ICDA320:
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, interval_sec)
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPCNT, max_fails)
 
-    def _checkTelnetConnection(tnsock=None):
+    def _checkTelnetConnection(self, tnsock=None):
         """
         Check the telnet connection is alive or not
         
@@ -158,13 +158,13 @@ class ICDA320:
         """
         try:
             tnsock.sock.sendall(IAC + NOP)
-            logger.debug("Detected Telnet connection is alive")
+            self.logger.debug("Detected Telnet connection is alive")
             return True
         except Exception:
-            logger.warning("Detected Telnet connection is dead")
+            self.logger.warning("Detected Telnet connection is dead")
             return False
 
-    def _checkFTPConnection(ftp=None):
+    def _checkFTPConnection(self, ftp=None):
         """
         Check the FTP connection is alive or not
         
@@ -180,10 +180,10 @@ class ICDA320:
         ftp = ftp if ftp else self.ftp
         try:
             ftp.voidcmd("NOOP")
-            logger.debug("Detected FTP connection is alive")
+            self.logger.debug("Detected FTP connection is alive")
             return True
         except Exception:
-            logger.warning("Detected FTP connection is dead")
+            self.logger.warning("Detected FTP connection is dead")
             return False
         
     
@@ -376,15 +376,15 @@ class ICDA320:
                 self._resetFTPConnection(self.ftp)
                 _enumerateCamFiles()
 
-        def _downloadCamFiles(files)    
-        if self._checkFTPConnection():
-            for fname in files:
-                _getFile(fname)
-                time.sleep(1)
-                _removeFile(fname)
-        else:
-            self._resetFTPConnection(self.ftp)
-            _downloadCamFiles(files)
+        def _downloadCamFiles(files):    
+            if self._checkFTPConnection():
+                for fname in files:
+                    _getFile(fname)
+                    time.sleep(1)
+                    _removeFile(fname)
+            else:
+                self._resetFTPConnection(self.ftp)
+                _downloadCamFiles(files)
 
         try:
             # List all the files on the camera        
@@ -400,7 +400,7 @@ class ICDA320:
             # Download the files
             _downloadCamFiles(files)
         except Exception as e:
-            logger.error("Error in fetching: "+str(e))
+            self.logger.error("Error in fetching: "+str(e))
                     
     def cleanup(self):
         """

@@ -36,6 +36,7 @@ class KeyboardController(object):
     FLIR E series pan and tilt using the Keyboard
     """
     def __init__(self, pt_ip, pt_port):
+        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         self.PT_IP = pt_ip
         self.PT_PORT = pt_port
         self.cursor = "*"
@@ -50,7 +51,6 @@ class KeyboardController(object):
         screen.addstr(0, int(screen.getmaxyx()[0]),
                       "This is a sample curses script\n",
                       curses.A_REVERSE)
-        self.logger = pyfraclogger.pyfraclogger(tofile=True)
         self.resetPT()
 
     def _openTelnet(self, host, port):
@@ -70,7 +70,7 @@ class KeyboardController(object):
         self.logger.info("Opening Telnet connection")
         tn = telnetlib.Telnet()
         tn.open(host, port)
-        self.tn.read_until(self.cursor+self.sentinel)
+        tn.read_until(self.cursor+self.sentinel)
         # Keep Telnet socket Alive!
         self._keepConnectionAlive(tn.sock)
         return tn
@@ -88,72 +88,46 @@ class KeyboardController(object):
         """
         self.logger.warning("Closing Telnet connection")
         tn = tn if tn else self.tn
-        tn.write('\x1d'+self.eof)
+        tn.write('\x1d'+self.sentinel)
         tn.close()
 
-    def _keepConnectionAlive(sock, idle_after_sec=1, interval_sec=3, max_fails=5):
-        """                                                                                                                                                                                                 
-        Keep the socket alive                                                                                                                                                                              
-                                                                                                                                                                                                            
-        Parameters                                                                                                                                                                                          
-        ----------                                                                                                                                                                                          
-        sock: TCP socket                                                                                                                                                                                    
-        idle_after_sec: int                                                                                                                                                                                 
-            activate after `idle_after` seconds of idleness                                                                                                                                                 
-            default: 1                                                                                                                                                                                      
-        interval_sec: int                                                                                                                                                                                   
-            interval between which keepalive ping is to be sent                                                                                                                                             
-            default: 3                                                                                                                                                                                      
-        max_fails: int                                                                                                                                                                                      
-            maximum keep alive attempts before closing the socket                                                                                                                                           
-            default: 5                                                                                                                                                                                      
+    def _keepConnectionAlive(self, sock, idle_after_sec=1, interval_sec=3, max_fails=5):
         """
+        Keep the socket alive                                                  
+
+        Parameters                                                             
+        ----------                                                                     sock: TCP socket                                                               idle_after_sec: int                                                                activate after `idle_after` seconds of idleness                                default: 1                                                                 interval_sec: int                                                                  interval between which keepalive ping is to be sent                            default: 3                                                                 max_fails: int                                                                     maximum keep alive attempts before closing the socket                          default: 5                                                                                                                                                """
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPIDLE, idle_after_sec)
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, interval_sec)
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPCNT, max_fails)
 
-    def _checkTelnetConnection(tnsock=None):
-        """                                                                                                                                                                                                 
-        Check the telnet connection is alive or not                                                                                                                                                         
-                                                                                                                                                                                                            
-        Parameters                                                                                                                                                                                          
-        ----------                                                                                                                                                                                          
-        tnsock: Telnet socket                                                                                                                                                                               
-                                                                                                                                                                                                            
-        Returns                                                                                                                                                                                             
-        -------                                                                                                                                                                                             
-        True: bool                                                                                                                                                                                          
-             if the connection is alive                                                                                                                                                                     
-        """
+    def _checkTelnetConnection(self, tnsock=None):
+        """                                                                            Check the telnet connection is alive or not                            
+
+        Parameters                                                                     ----------                                                                     tnsock: Telnet socket                                                  
+
+        Returns                                                                        -------                                                                        True: bool                                                                          if the connection is alive                                                """
         try:
-            tnsock.sock.sendall(IAC + NOP)
-            logger.debug("Detected Telnet connection is alive")
+            tnsock.sendall(IAC + NOP)
+            self.logger.debug("Detected Telnet connection is alive")
             return True
         except Exception:
-            logger.warning("Detected Telnet connection is dead")
+            self.logger.warning("Detected Telnet connection is dead")
             return False
 
 
     def _resetTelnetConnection(self, tn=None):
-        """                                                                                                                                                                                                 
-        Close the telnet connection and                                                                                                                                                                     
-        Reopen them                                                                                                                                                                                         
-                                                                                                                                                                                                            
-        Parameters                                                                                                                                                                                          
-        ----------                                                                                                                                                                                          
-        tn: Telnet object                                                                                                                                                                                   
-            Optional. If not passed, it will close and reopen                                                                                                                                               
-            the existing telnet connection                                                                                                                                                                  
-                                                                                                                                                                                                            
-        ..Note: This will make all the old telnet objects point                                                                                                                                             
-             to the new object                                                                                                                                                                              
-        """
+        """                                                                    
+        Close the Telnet connection and
+        Reopen them                                                            
+
+        Parameters                                                                     ----------                                                                     tn: Telnet object                                                                  Optional. If not passed, it will close and reopen                              the existing telnet connection                                             ..Note: This will make all the old telnet objects point                             to the new object                                                         """
         self.logger.warning("Restarting Telnet connection")
         self._closeTelnet(tn)
         self.tn = None
         time.sleep(1)
-        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
+        self.tn = self._openTelnet(self.PT_IP, self.PT_PORT)
         
     def execute(self, command):
         """
@@ -171,7 +145,7 @@ class KeyboardController(object):
         output : str
             formatted reply of the executed command
         """
-        if self_checkTelnetConnection():
+        if self._checkTelnetConnection(self.tn.sock):
             with ignored(Exception):
                 self.logger.debug("Executing: %s "%str(command))
                 command = command+self.sentinel
