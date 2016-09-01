@@ -125,6 +125,7 @@ class RadConv(object):
             The bug is definetly somwhere in reading the output
             of execute command.
             """
+            self.logger.warning("Restarting exifprocess")
             self.exifproc.kill()
             self.running = False
             self._exifProcess()
@@ -270,7 +271,8 @@ class RadConv(object):
 
         Returns
         -------
-        
+        grayfile: str
+            path of the grayfile
         """
         def _convert(abs_fpath):
             if os.path.isfile(abs_fpath):
