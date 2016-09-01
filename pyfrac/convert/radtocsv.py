@@ -289,14 +289,13 @@ class RadConv(object):
                                    os.path.join(os.path.dirname(grayscale_fname), "%f.%e"),
                                    "-execute"])
                 return grayscale_fname
-
         if meta:
-            metafile = self.get_meta(tofile=True, filename=filename)
-        else:
-            metafile = os.path.abspath(filename)
-
-        if os.path.exists(metafile):
-            grayfile = _convert(metafile)
+            self.get_meta(tofile=True, filename=filename)
+        
+        orig_file = os.path.abspath(filename)
+        
+        if os.path.exists(orig_file):
+            grayfile = _convert(orig_file)
             return grayfile
         else:
             self.logger.warning("No Radiometric images found.")
