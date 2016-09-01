@@ -13,15 +13,17 @@ IR_IMAGE_DIR = "/home/pi/Pictures/pyfrac_images"
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
 
-cam = capture.ICDA320(tnHost="192.168.1.4",
-                      tnPort=23,
-                      ftpHost="192.168.1.4",
-                      ftpPort=21,
-                      ftpUsername="flir",
-                      ftpPassword="3vlig",
+cam = capture.ICDA320(tn_host="192.168.1.4",
+                      tn_port=23,
+                      ftp_host="192.168.1.4",
+                      ftp_port=21,
+                      ftp_username="flir",
+                      ftp_password="3vlig",
                       ir_image_dir=IR_IMAGE_DIR)
 
-keycontrol = keyboard.KeyboardController()
+keycontrol = keyboard.KeyboardController(pt_ip="192.168.1.6",
+                                         pt_port=4000)
+
 converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
 
 
