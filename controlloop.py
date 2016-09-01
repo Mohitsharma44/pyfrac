@@ -15,7 +15,7 @@ logger = pyfraclogger.pyfraclogger(tofile=True)
 
 cam = capture.ICDA320(tnHost="192.168.1.4",
                       tnPort=23,
-                      ftpHost="192.168.1.6",
+                      ftpHost="192.168.1.4",
                       ftpPort=21,
                       ftpUsername="flir",
                       ftpPassword="3vlig",
