@@ -57,7 +57,7 @@ def tojpg(csvfile, patchfile):
         patch = pf.read()
 
     logger.debug("Reading CSVfile " + str(csvfile))
-    img = np.loadtxt(csvfile, delimiter=",")
+    img = np.genfromtxt(csvfile, delimiter=",")
 
     tags = re.findall('(TAG:[\d]+)([\n\d]+)+', patch)
     rectangles = {}
@@ -93,4 +93,5 @@ def tojpg(csvfile, patchfile):
     logger.info("Writing the image to " + str(outfile))
     ax1.set_axis_off()
     fig.savefig(outfile, bbox_inches='tight', pad_inches=0)
+    del img
     return outfile
