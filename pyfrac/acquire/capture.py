@@ -3,11 +3,13 @@
 # June 08 2016
 # NYU CUSP 2016
 import telnetlib
+from telnetlib import IAC, NOP
 import ftplib
 import time
 import re
 from pyfrac.utils.misc import ignored
 from pyfrac.utils import pyfraclogger
+import socket
 import atexit
 import os
 import errno
@@ -16,7 +18,7 @@ class ICDA320:
     """
     Class of Telnet commands for FLIR A320 Camera
     """
-    def __init__(self, host, port, ir_image_dir):
+    def __init__(self, tn_host, tn_port, ftp_host, ftp_port, ftp_username, ftp_password, ir_image_dir):
         """
         Parameters:
         -----------
@@ -29,11 +31,17 @@ class ICDA320:
         #with ignored(OSError):
         #    if not os.path.exists(ir_image_dir):
         #        os.mkdir('./ir_images')
+        self.TELNET_HOST = tn_host
+        self.TELNET_PORT = tn_port
+        self.FTP_HOST = ftp_host
+        self.FTP_PORT = ftp_port
+        self.FTP_USERNAME = ftp_username
+        self.FTP_PASSWORD = ftp_uassword
         self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
-        self.ftp = self._openFTP(host, username="flir", password="3vlig")
-        self.tn = self._openTelnet(host, port)
+        self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
         self.tn.read_until(self.prompt)
         self.logger = pyfraclogger.pyfraclogger(tofile=True)
         atexit.register(self.cleanup)
@@ -52,8 +60,11 @@ class ICDA320:
         -------
         tn : telnet object
         """
+        self.logger.info("Opening Telnet connection")
         tn = telnetlib.Telnet()
         tn.open(host, port)
+        # Keep Telnet socket Alive!
+        self._keepConnectionAlive(tn.sock)
         return tn
         
     def _openFTP(self, host, username, password):
@@ -72,10 +83,149 @@ class ICDA320:
         -------
         ftp : ftp object
         """
+        self.logger.info("Opening FTP connection")
         ftp = ftplib.FTP(host, username, password)
         ftp.login(username, password)
+        # Keep FTP socket Alive!
+        self._keepConnectionAlive(ftp.sock)
         return ftp
+
+    def _closeTelnet(self, tn=None):
+        """
+        Close the telnet connection.
+
+        Parameters
+        ----------
+        tn: Telnet object
+            Optional. If not passes, it will close the
+            existing telnet connection
+
+        """
+        self.logger.warning("Closing Telnet connection")
+        tn = tn if tn else self.tn
+        tn.write('\x1d'+self.eof)
+        tn.close()
+
+    def _closeFTP(self, ftp=None):
+        """
+        Close the ftp connection.
+
+        Parameters
+        ----------
+        ftp: FTP object
+            Optional. If not passes, it will close the
+            existing ftp connection
+
+        """
+        self.logger.warning("Closing FTP connection")
+        ftp = ftp if ftp else self.ftp
+        ftp.quit()
+
+    def _keepConnectionAlive(sock, idle_after_sec=1, interval_sec=3, max_fails=5):
+        """
+        Keep the socket alive
+        
+        Parameters
+        ----------
+        sock: TCP socket
+        idle_after_sec: int
+            activate after `idle_after` seconds of idleness
+            default: 1
+        interval_sec: int
+            interval between which keepalive ping is to be sent
+            default: 3
+        max_fails: int
+            maximum keep alive attempts before closing the socket
+            default: 5
+        """
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPIDLE, idle_after_sec)
+        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, interval_sec)
+        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPCNT, max_fails)
+
+    def _checkTelnetConnection(tnsock=None):
+        """
+        Check the telnet connection is alive or not
+        
+        Parameters
+        ----------
+        tnsock: Telnet socket
+        
+        Returns
+        -------
+        True: bool
+             if the connection is alive
+        """
+        try:
+            tnsock.sock.sendall(IAC + NOP)
+            logger.debug("Detected Telnet connection is alive")
+            return True
+        except Exception:
+            logger.warning("Detected Telnet connection is dead")
+            return False
+
+    def _checkFTPConnection(ftp=None):
+        """
+        Check the FTP connection is alive or not
+        
+        Parameters
+        ----------
+        ftp: FTP object
+
+        Returns
+        -------
+        True: bool
+            if the connection is alive
+        """
+        ftp = ftp if ftp else self.ftp
+        try:
+            ftp.voidcmd("NOOP")
+            logger.debug("Detected FTP connection is alive")
+            return True
+        except Exception:
+            logger.warning("Detected FTP connection is dead")
+            return False
+        
     
+    def _resetTelnetConnection(self, tn=None):
+        """
+        Close the telnet connection and
+        Reopen them
+
+        Parameters
+        ----------
+        tn: Telnet object
+            Optional. If not passed, it will close and reopen
+            the existing telnet connection
+        
+        ..Note: This will make all the old telnet objects point
+             to the new object
+        """
+        self.logger.warning("Restarting Telnet connection")
+        self._closeTelnet(tn)
+        self.tn = None
+        time.sleep(1)
+        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
+
+    def _resetFTPConnection(self, ftp=None):
+        """
+        Close the FTP connection and
+        Reopen them
+
+        Parameters
+        ----------
+        ftp: FTP object
+            Optional. If not passed, it will close and reopen
+            the existing ftp connection
+        
+        ..Note: This will make all the old FTP objects point
+             to the new object
+        """
+        self.logger.warning("Restarting FTP connection")
+        self.ftp.quit()
+        time.sleep(1)
+        self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+        
     # Parse the output
     def read(self, output):
         """
@@ -108,7 +258,7 @@ class ICDA320:
 
         Returns: None
         """
-
+        self.logger.debug("Zooming: "+str(factor)+"x")
         self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
         self.read(self.tn.read_until(self.prompt))
 
@@ -155,7 +305,7 @@ class ICDA320:
         if self.tn.read_until(self.prompt).splitlines()[0].split()[1].strip('"') == "BUSY":
             return False
         else:
-            self.logger.info("AutoFocus Done ")
+            self.logger.debug("AutoFocus Done ")
             return True
 
         #self.tn.write("palette"+self.eof)
@@ -202,6 +352,10 @@ class ICDA320:
         Exception: str
             If the fetching was unsuccessful.
         """
+        dirlisting = []
+        dirs = []
+        files = []
+
         def _getFile(fname):
             self.logger.info("Fetching "+str(fname))
             self.ftp.retrbinary('RETR '+fname, open(
@@ -212,59 +366,42 @@ class ICDA320:
                 self.logger.info("Removing "+str(fname))
                 self.ftp.delete(fname)
                 
-        dirlisting = []
-        dirs = []
-        try:
-            self.ftp.cwd('/')
-            self.ftp.dir(dirlisting.append)
-        except ftplib.all_errors, e:
-            self.logger.warning("Reconnecting to FTPclient: "+repr(e))
-            retry = True
-            # Try to quit FTP
-            try:
-                self.ftp.quit()
-                self.ftp = None
-            except Exception, e:
-                # Dont care
-                self.logger.warning("Cannot close FTP "+repr(e))
-            finally:
-                self.ftp = self._openFTP(host, "flir", "3vlig")
-        except Exception, e:
-            self.logger.warning("Error in getting dirlisting from ftpclient: "+repr(e))
+        def _enumerateCamFiles():
+            if self._checkFTPConnection():            
+                self.ftp.cwd('/')
+                self.ftp.dir(dirlisting.append)
+                return dirlisting
+            else:
+                # Reset the ftp connection and re-enumerate all files
+                self._resetFTPConnection(self.ftp)
+                _enumerateCamFiles()
 
-        for i in dirlisting:
-            dirs.append(i.split(" ")[-1])
-            
-        if pattern:
-            files = [x for x in dirs if re.search(pattern, x)]
-        else:
-            files = [x for x in dirs if filename in x]
-
-        retry = True
-        #Download the Files
-        while retry:
+        def _downloadCamFiles(files)    
+        if self._checkFTPConnection():
             for fname in files:
-                try:
-                    _getFile(fname)
-                    time.sleep(1)
-                    _removeFile(fname)
-                    retry = False
-                except ftplib.all_errors, e:
-                    self.logger.warning("Reconnecting to FTPclient: "+repr(e))
-                    retry = True
-                    # Try to quit FTP
-                    try:
-                        self.ftp.quit()
-                        self.ftp = None
-                    except Exception, e:
-                        # Dont care
-                        self.logger.warning("Cannot close FTP "+repr(e))
-                    finally:
-                        self.ftp = self._openFTP(host, "flir", "3vlig")
-                except Exception, e:
-                    self.logger.warning("Error getting/ removing files from camera: "+repr(e))
+                _getFile(fname)
+                time.sleep(1)
+                _removeFile(fname)
+        else:
+            self._resetFTPConnection(self.ftp)
+            _downloadCamFiles(files)
 
-            
+        try:
+            # List all the files on the camera        
+            for i in _enumerateCamFiles():
+                dirs.append(i.split(" ")[-1])
+
+            # create a list of all the files to be fetched
+            if pattern:
+                files = [x for x in dirs if re.search(pattern, x)]
+            else:
+                files = [x for x in dirs if filename in x]
+
+            # Download the files
+            _downloadCamFiles(files)
+        except Exception as e:
+            logger.error("Error in fetching: "+str(e))
+                    
     def cleanup(self):
         """
         Safely close the ftp and telnet connection before
