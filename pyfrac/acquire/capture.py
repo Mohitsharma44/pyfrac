@@ -121,7 +121,7 @@ class ICDA320:
         ftp = ftp if ftp else self.ftp
         ftp.quit()
 
-    def _keepConnectionAlive(self, sock, idle_after_sec=1, interval_sec=3, max_fails=5):
+    def _keepConnectionAlive(self, sock, idle_after_sec=1, interval_sec=1, max_fails=60):
         """
         Keep the socket alive
         
