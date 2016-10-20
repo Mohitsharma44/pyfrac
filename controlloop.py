@@ -9,7 +9,8 @@ import time
 from itertools import cycle
 
 CONFIG_FILE = "movement.conf"
-IR_IMAGE_DIR = "/home/pi/Pictures/pyfrac_images"
+#IR_IMAGE_DIR = "/home/pi/Pictures/pyfrac_images"
+IR_IMAGE_DIR = "/media/pi/Seagate Backup Plus Drive/radiometric"
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
 
@@ -24,8 +25,8 @@ cam = capture.ICDA320(tn_host="192.168.1.4",
 keycontrol = keyboard.KeyboardController(pt_ip="192.168.1.6",
                                          pt_port=4000)
 
-converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
 
+converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
 
 def initialize():
     #cam.focus("full")
@@ -95,18 +96,17 @@ def runTask(pos_cycle):
             logger.info(str(gray_fname))
             
             csv_fname = converter.tocsv(meta_fname, gray_fname)
-            if csv_fname:
-                png_fname = csvtojpg.tojpg(csv_fname, patchfile)
+            #if csv_fname:
+            #    png_fname = csvtojpg.tojpg(csv_fname, patchfile)
                 
                 # Upload
-                serve.uploadFile(os.path.abspath(png_fname))
-            else:
-                logger.error("no csv to png performed")
+            #    serve.uploadFile(os.path.abspath(png_fname))
+            #else:
+            #    logger.error("no csv to png performed")
 
         except Exception as ex:
             logger.error(str(ex))
-
-
+            
 if __name__ == "__main__":
     positions = initialize()
     position_cycle = cycle(positions)
