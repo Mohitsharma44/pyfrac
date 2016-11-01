@@ -9,8 +9,7 @@ import time
 from itertools import cycle
 
 CONFIG_FILE = "movement.conf"
-#IR_IMAGE_DIR = "/home/pi/Pictures/pyfrac_images"
-IR_IMAGE_DIR = "/media/pi/Seagate Backup Plus Drive/radiometric"
+IR_IMAGE_DIR = "/home/pi/Pictures/"
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
 
@@ -26,12 +25,12 @@ keycontrol = keyboard.KeyboardController(pt_ip="192.168.1.6",
                                          pt_port=4000)
 
 
-converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
+#converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
 
 def initialize():
     #cam.focus("full")
     positions = []
-    converter._exifProcess()
+    #converter._exifProcess()
     with open(CONFIG_FILE, 'r') as c_handler:
         positions = c_handler.readlines()
     logger.info("Total positions: " + str(len(positions) + 1))
@@ -88,19 +87,21 @@ def runTask(pos_cycle):
             cam.fetch(filename="", pattern="jpg")
         
             # Conversion
-            meta_fname = converter.get_meta(tofile=True, filename=os.path.join(IR_IMAGE_DIR, fname))
-            time.sleep(1)
-            gray_fname = converter.tograyscale(meta=False, filename=os.path.join(IR_IMAGE_DIR, fname))
-            time.sleep(1)
-            logger.info(str(meta_fname))
-            logger.info(str(gray_fname))
+            #meta_fname = converter.get_meta(tofile=True, filename=os.path.join(IR_IMAGE_DIR, fname))
+            #time.sleep(1)
+            #gray_fname = converter.tograyscale(meta=False, filename=os.path.join(IR_IMAGE_DIR, fname))
+            #time.sleep(1)
+            #logger.info(str(meta_fname))
+            #logger.info(str(gray_fname))
             
-            csv_fname = converter.tocsv(meta_fname, gray_fname)
+            #csv_fname = converter.tocsv(meta_fname, gray_fname)
             #if csv_fname:
             #    png_fname = csvtojpg.tojpg(csv_fname, patchfile)
                 
-                # Upload
-            #    serve.uploadFile(os.path.abspath(png_fname))
+            # Upload all files in IR_IMAGE_DIR
+            for filename in os.listdir(IR_IMAGE_DIR):
+                if serve.uploadFile(os.path.join(IR_IMAGE_DIR, filename)):
+                    os.remove(os.path.join(IR_IMAGE_DIR, filename))
             #else:
             #    logger.error("no csv to png performed")
 

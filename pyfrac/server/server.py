@@ -7,10 +7,10 @@ import time
 import os
 import json
 import subprocess
-from pyfrac.utils import pyfrac_logger
+from pyfrac.utils import pyfraclogger
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
-UPLOAD_DATA_DIR = '/media/pi/Seagate Backup Plus Drive'
+UPLOAD_DATA_DIR = '/media/pi/Seagate Backup Plus Drive/radiometric/'
 
 define('port', default=8888, help='Run the server on the given port', type=int)
 
@@ -32,12 +32,12 @@ class UploadHandler(tornado.web.RequestHandler):
         self.file1 = self.request.files['file1'][0]
         self.orig_fname = self.file1['filename']
         try:
-            with open(UPLOAD_DATA_DIR+self.orig_fname, 'w') as f:
+            with open(os.path.join(UPLOAD_DATA_DIR, self.orig_fname), 'w') as f:
                 f.write(self.file1['body'])
         except Exception as e:
-            print "Exception in writing data: "+str(e)
+            logger.warning("Exception in writing data: "+str(e))
         logger.info("Received: "+str(self.orig_fname))
-        self.write('Upload Successful')
+        self.write('OK')
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -45,7 +45,7 @@ class Application(tornado.web.Application):
         settings = {
             'template_path': os.path.join(base_dir, 'templates'),
             'static_path': os.path.join(base_dir, 'static'),
-            'debug':True,
+            'debug':False,
         }
 
         tornado.web.Application.__init__(self, [
@@ -54,7 +54,7 @@ class Application(tornado.web.Application):
 
 def main():
     tornado.options.parse_command_line()
-    print 'Server Listening on Port: ',options.port
+    logger.info('Server Listening on Port: '+str(options.port))
     Application().listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
