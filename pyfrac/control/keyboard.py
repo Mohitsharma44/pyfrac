@@ -42,7 +42,7 @@ class KeyboardController(object):
         self.cursor = "*"
         self.sentinel = "\r\n"
         self.tn = self._openTelnet(self.PT_IP, self.PT_PORT)
-        atexit.register(self.exit_gracefully)
+        atexit.register(self.cleanup)
         
         # Allow Screen Scrolling
         screen.scrollok(1)
@@ -258,12 +258,13 @@ class KeyboardController(object):
             time.sleep(.05)
             curses.flushinp()
 
-    def exit_gracefully(self):
+    def cleanup(self):
         """
         Make sure to close the telnet connection and curses window
         before exiting the program
         """
         self.logger.info("Quitting Control ")
+        self._closeTelnet(self.tn)
         curses.endwin()
         traceback.print_exc()
         #sys.exit(1)
