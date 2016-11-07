@@ -7,9 +7,11 @@ import time
 import os
 import json
 import subprocess
-from pyfrac.utils import pyfraclogger
+import logging
+#from pyfrac.utils import pyfraclogger
 
-logger = pyfraclogger.pyfraclogger(tofile=True)
+# Set up our own handler
+logger = logging.getLogger('tornado.application')
 UPLOAD_DATA_DIR = '/media/pi/Seagate Backup Plus Drive/radiometric/'
 
 define('port', default=8888, help='Run the server on the given port', type=int)
