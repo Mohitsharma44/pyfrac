@@ -11,21 +11,28 @@ from itertools import cycle
 CONFIG_FILE = "movement.conf"
 IR_IMAGE_DIR = "/home/pi/Pictures/"
 
+
 logger = pyfraclogger.pyfraclogger(tofile=True)
 
-cam = capture.ICDA320(tn_host="192.168.1.4",
-                      tn_port=23,
-                      ftp_host="192.168.1.4",
-                      ftp_port=21,
-                      ftp_username="flir",
-                      ftp_password="3vlig",
-                      ir_image_dir=IR_IMAGE_DIR)
+def getCamObj():
+    cam = capture.ICDA320(tn_host="192.168.1.4",
+                          tn_port=23,
+                          ftp_host="192.168.1.4",
+                          ftp_port=21,
+                          ftp_username="flir",
+                          ftp_password="3vlig",
+                          ir_image_dir=IR_IMAGE_DIR)
+    return cam
 
-keycontrol = keyboard.KeyboardController(pt_ip="192.168.1.6",
-                                         pt_port=4000)
+def getKeyObj():
+    keycontrol = keyboard.KeyboardController(pt_ip="192.168.1.6",
+                                             pt_port=4000)
 
+    return keycontrol
 
 #converter = radtocsv.RadConv(basedir=IR_IMAGE_DIR)
+cam = getCamObj()
+keycontrol = getKeyObj()
 
 def initialize():
     #cam.focus("full")
@@ -42,6 +49,8 @@ def initialize():
 def runTask(pos_cycle):
     while True:
         try:
+            global cam
+            global keycontrol
             # Create an iterator cycle for the positions
             position = pos_cycle.next()
             logger.info("Performing NUC")
@@ -102,11 +111,19 @@ def runTask(pos_cycle):
             for filename in os.listdir(IR_IMAGE_DIR):
                 if serve.uploadFile(os.path.join(IR_IMAGE_DIR, filename)):
                     os.remove(os.path.join(IR_IMAGE_DIR, filename))
+                    logger.info("Removing: "+str(os.path.join(IR_IMAGE_DIR, filename)))
             #else:
             #    logger.error("no csv to png performed")
 
         except Exception as ex:
-            logger.error(str(ex))
+            logger.critical("Controlloop: "+str(ex))
+            if cam:
+                cam.cleanup()
+            if keycontrol:
+                keycontrol.cleanup()
+            cam = getCamObj()
+            keycontrol = getKeyObj()
+            time.sleep(5)
             
 if __name__ == "__main__":
     positions = initialize()
