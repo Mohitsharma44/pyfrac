@@ -42,9 +42,10 @@ class ICDA320:
         self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
-        self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
-        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
-        self.tn.read_until(self.prompt)
+        self.ftp = None
+        self.tn = None
+        self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+        self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
         atexit.register(self.cleanup)
 
     def _openTelnet(self, host, port):
@@ -63,13 +64,14 @@ class ICDA320:
         """
         try:
             self.logger.info("Opening Telnet connection")
-            tn = telnetlib.Telnet()
-            tn.open(host, port)
+            self.tn = telnetlib.Telnet()
+            self.tn.open(host, port)
+            self.tn.read_until(self.prompt)
             # Keep Telnet socket Alive!
-            self._keepConnectionAlive(tn.sock)
-            return tn
+            self._keepConnectionAlive(self.tn.sock)
+            #return self.tn
         except Exception as ex:
-            self.logger.critical("Cannot open Telnet connection: ", str(ex))
+            self.logger.critical("Cannot open Telnet connection: "+ str(ex))
 
     def _openFTP(self, host, username, password):
         """
@@ -89,13 +91,13 @@ class ICDA320:
         """
         try:
             self.logger.info("Opening FTP connection")
-            ftp = ftplib.FTP(host, username, password)
-            ftp.login(username, password)
+            self.ftp = ftplib.FTP(host, username, password)
+            self.ftp.login(username, password)
             # Keep FTP socket Alive!
-            self._keepConnectionAlive(ftp.sock)
-            return ftp
+            self._keepConnectionAlive(self.ftp.sock)
+            #return self.ftp
         except Exception as ex:
-            self.logger.critical("Cannot open FTP connection: ", str(ex))
+            self.logger.critical("Cannot open FTP connection: "+ str(ex))
 
     def _closeTelnet(self):
         """
@@ -157,11 +159,15 @@ class ICDA320:
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             try:
-                self.tn.sock.sendall(IAC + NOP)
-                self.logger.debug("Detected Telnet connection is alive")
-                return func(self, *args, **kwargs)
-            except Exception:
-                self.logger.warning("Detected Telnet connection is dead")
+                if self.tn.sock:
+                    self.tn.sock.send(IAC+NOP+self.eof)
+                    self.tn.read_until(self.prompt)
+                    self.logger.debug("Detected Telnet connection is alive")
+                    return func(self, *args, **kwargs)
+                else:
+                    self._resetTelnetConnection()
+            except Exception as ex:
+                self.logger.warning("Detected Telnet connection is dead: "+ str(ex))
                 self._resetTelnetConnection()
                 return wrapper(self, *args, **kwargs)
         return wrapper
@@ -180,9 +186,9 @@ class ICDA320:
             try:
                 self.ftp.voidcmd("NOOP")
                 self.logger.debug("Detected FTP connection is alive")
-                return func(*args, **kwargs)
-            except Exception:
-                self.logger.warning("Detected FTP connection is dead")
+                return func(self, *args, **kwargs)
+            except Exception as ex:
+                self.logger.warning("Detected FTP connection is dead: "+ str(ex))
                 self._resetFTPConnection()
                 return wrapper(self, *args, **kwargs)
         return wrapper
@@ -196,12 +202,12 @@ class ICDA320:
         """
         try:
             self.logger.warning("Restarting Telnet connection")
-            self._closeTelnet(self.tn)
+            self._closeTelnet()
             self.tn = None
             time.sleep(1)
-            self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
+            self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
         except Exception as ex:
-            self.logger.critical("Cannot reset telnet connection: ", str(ex))
+            self.logger.critical("Cannot reset telnet connection: "+ str(ex))
 
     def _resetFTPConnection(self):
         """
@@ -212,12 +218,12 @@ class ICDA320:
         """
         try:
             self.logger.warning("Restarting FTP connection")
-            self.ftp.quit()
+            self._closeFTP()
             self.ftp = None
             time.sleep(1)
-            self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+            self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
         except Exception as ex:
-            self.logger.critical("Cannot reset FTP connection: ", str(ex))
+            self.logger.critical("Cannot reset FTP connection: "+ str(ex))
 
     # Parse the output
     def read(self, output):
@@ -225,6 +231,7 @@ class ICDA320:
         Parse the output from the camera
         by filtering the padding and other sentinels
         """
+        print("READ CALLED: " + str(output))
         return filter(lambda x: x not in ["", self.eof],
                       output)
 
@@ -240,7 +247,7 @@ class ICDA320:
             self.tn.write("version"+self.eof)
             self.read(self.tn.read_until(self.prompt))
         except Exception as ex:
-            self.logger.warning("Cannot obtain version: ", str(ex))
+            self.logger.warning("Cannot obtain version: "+ str(ex))
 
     # Zoom
     @_checkTelnetConnection
@@ -261,7 +268,7 @@ class ICDA320:
             self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
             self.read(self.tn.read_until(self.prompt))
         except Exception as ex:
-            self.logger.warning("Cannot zoom: ", str(ex))
+            self.logger.warning("Cannot zoom: "+ str(ex))
 
     #Non Uniformity Correction.
     # Don't call it frequently.
@@ -275,7 +282,7 @@ class ICDA320:
             self.logger.info("Performing NUC")
             self.tn.read_until(self.prompt)
         except Exception as ex:
-            self.logger.warning("Cannot perform NUC: ", str(ex))
+            self.logger.warning("Cannot perform NUC: "+ str(ex))
 
     #Focus the scene
     @_checkTelnetConnection
@@ -299,7 +306,7 @@ class ICDA320:
             else:
                 raise NotImplementedError(self.__class__.__name__ + ". Only full/fast supported")
         except Exception as ex:
-            self.logger.warning("Cannot perform Focus: ", str(ex))
+            self.logger.warning("Cannot perform Focus: "+ str(ex))
 
     # Check if camera is done focussing and
     # ready for next instruction
@@ -346,7 +353,7 @@ class ICDA320:
             self.read(self.tn.read_until(self.prompt))
             return fname
         except Exception as ex:
-            self.logger.warning("Cannot capture the image: ", str(ex))
+            self.logger.warning("Cannot capture the image: "+ str(ex))
 
     # Grab the file back to this device
     @_checkFTPConnection
@@ -409,7 +416,7 @@ class ICDA320:
             # Download the files
             _downloadCamFiles(files)
         except Exception as e:
-            self.logger.error("Error in fetching: "+str(e))
+            self.logger.error("Error in fetching: "+ str(e))
 
     def cleanup(self):
         """
@@ -417,8 +424,10 @@ class ICDA320:
         exiting
         """
         try:
-            self.ftp.quit()
-            self.tn.close()
+            self._closeFTP()
+            self.ftp=None
+            self._closeTelnet()
+            self.tn=None
         except Exception:
             # Connection Broken, don't do anything
             pass
