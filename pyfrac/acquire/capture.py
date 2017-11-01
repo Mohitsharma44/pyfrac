@@ -183,7 +183,7 @@ class ICDA320:
                 return func(*args, **kwargs)
             except Exception:
                 self.logger.warning("Detected FTP connection is dead")
-                self._resetFTPconnection()
+                self._resetFTPConnection()
                 return wrapper(self, *args, **kwargs)
         return wrapper
 
