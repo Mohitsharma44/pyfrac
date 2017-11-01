@@ -325,18 +325,22 @@ class ICDA320:
 
     # Capture the image
     @_checkTelnetConnection
-    def capture(self):
+    def capture(self, img_name=""):
         """
         Capture a single image from the FLIR camera
         and store it locally in the home directory (`/`)
-
+        Parameters
+        ----------
+        img_name: str
+            string to be prepended to the image file
+        
         Returns:
         --------
         fname : str
             Name of the most recent capture
         """
         try:
-            fname = str(time.time())
+            fname = str(img_name) + str(time.time())
             self.logger.info("Capturing "+fname)
             self.tn.write("store -j %s.jpg"%fname+self.eof)
             self.read(self.tn.read_until(self.prompt))
