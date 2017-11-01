@@ -229,6 +229,7 @@ class ICDA320:
                       output)
 
     # Get cam version
+    @_checkTelnetConnection
     def version(self):
         """
         Get the version information
@@ -242,6 +243,7 @@ class ICDA320:
             self.logger.warning("Cannot obtain version: ", str(ex))
 
     # Zoom
+    @_checkTelnetConnection
     def zoom(self, factor):
         """
         Zoom by a particular factor
@@ -263,6 +265,7 @@ class ICDA320:
 
     #Non Uniformity Correction.
     # Don't call it frequently.
+    @_checkTelnetConnection
     def nuc(self):
         """
         Perform non unformity correction
@@ -275,6 +278,7 @@ class ICDA320:
             self.logger.warning("Cannot perform NUC: ", str(ex))
 
     #Focus the scene
+    @_checkTelnetConnection
     def focus(self, foctype):
         """
         Perform Full Focus of the current scene
@@ -299,6 +303,7 @@ class ICDA320:
 
     # Check if camera is done focussing and
     # ready for next instruction
+    @_checkTelnetConnection
     def ready(self):
         """
         Check if camera is ready
@@ -319,6 +324,7 @@ class ICDA320:
 
 
     # Capture the image
+    @_checkTelnetConnection
     def capture(self):
         """
         Capture a single image from the FLIR camera
@@ -339,6 +345,7 @@ class ICDA320:
             self.logger.warning("Cannot capture the image: ", str(ex))
 
     # Grab the file back to this device
+    @_checkFTPConnection
     def fetch(self, filename=None, pattern=None):
         """
         Download the file(s) from the Camera
@@ -374,24 +381,15 @@ class ICDA320:
                 self.ftp.delete(fname)
 
         def _enumerateCamFiles():
-            if self._checkFTPConnection():
-                self.ftp.cwd('/')
-                self.ftp.dir(dirlisting.append)
-                return dirlisting
-            else:
-                # Reset the ftp connection and re-enumerate all files
-                self._resetFTPConnection(self.ftp)
-                _enumerateCamFiles()
+            self.ftp.cwd('/')
+            self.ftp.dir(dirlisting.append)
+            return dirlisting
 
         def _downloadCamFiles(files):
-            if self._checkFTPConnection():
-                for fname in files:
-                    _getFile(fname)
-                    time.sleep(1)
-                    _removeFile(fname)
-            else:
-                self._resetFTPConnection(self.ftp)
-                _downloadCamFiles(files)
+            for fname in files:
+                _getFile(fname)
+                time.sleep(1)
+                _removeFile(fname)
 
         try:
             # List all the files on the camera
