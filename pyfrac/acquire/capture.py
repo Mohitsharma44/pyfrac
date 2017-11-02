@@ -3,16 +3,17 @@
 # June 08 2016
 # NYU CUSP 2016
 import telnetlib
-from telnetlib import IAC, NOP
 import ftplib
 import time
 import re
-from pyfrac.utils.misc import ignored
-from pyfrac.utils import pyfraclogger
 import socket
 import atexit
 import os
 import errno
+from telnetlib import IAC, NOP
+from functools import wraps
+from pyfrac.utils.misc import ignored
+from pyfrac.utils import pyfraclogger
 
 class ICDA320:
     """
@@ -41,9 +42,10 @@ class ICDA320:
         self.basedir = ir_image_dir
         self.eof = "\r\n"
         self.prompt = "\>"
-        self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
-        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
-        self.tn.read_until(self.prompt)
+        self.ftp = None
+        self.tn = None
+        self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+        self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
         atexit.register(self.cleanup)
 
     def _openTelnet(self, host, port):
@@ -60,13 +62,17 @@ class ICDA320:
         -------
         tn : telnet object
         """
-        self.logger.info("Opening Telnet connection")
-        tn = telnetlib.Telnet()
-        tn.open(host, port)
-        # Keep Telnet socket Alive!
-        self._keepConnectionAlive(tn.sock)
-        return tn
-        
+        try:
+            self.logger.info("Opening Telnet connection")
+            self.tn = telnetlib.Telnet()
+            self.tn.open(host, port)
+            self.tn.read_until(self.prompt)
+            # Keep Telnet socket Alive!
+            self._keepConnectionAlive(self.tn.sock)
+            #return self.tn
+        except Exception as ex:
+            self.logger.critical("Cannot open Telnet connection: "+ str(ex))
+
     def _openFTP(self, host, username, password):
         """
         Open FTP connection with the host
@@ -83,48 +89,45 @@ class ICDA320:
         -------
         ftp : ftp object
         """
-        self.logger.info("Opening FTP connection")
-        ftp = ftplib.FTP(host, username, password)
-        ftp.login(username, password)
-        # Keep FTP socket Alive!
-        self._keepConnectionAlive(ftp.sock)
-        return ftp
+        try:
+            self.logger.info("Opening FTP connection")
+            self.ftp = ftplib.FTP(host, username, password)
+            self.ftp.login(username, password)
+            # Keep FTP socket Alive!
+            self._keepConnectionAlive(self.ftp.sock)
+            #return self.ftp
+        except Exception as ex:
+            self.logger.critical("Cannot open FTP connection: "+ str(ex))
 
-    def _closeTelnet(self, tn=None):
+    def _closeTelnet(self):
         """
         Close the telnet connection.
 
-        Parameters
-        ----------
-        tn: Telnet object
-            Optional. If not passes, it will close the
-            existing telnet connection
-
         """
-        self.logger.warning("Closing Telnet connection")
-        tn = tn if tn else self.tn
-        tn.write('\x1d'+self.eof)
-        tn.close()
+        try:
+            self.logger.warning("Closing Telnet connection")
+            self.tn.write('\x1d'+self.eof)
+            self.tn.close()
+        except:
+            # Telnet connection was broken, Don't do anything
+            pass
 
-    def _closeFTP(self, ftp=None):
+    def _closeFTP(self):
         """
         Close the ftp connection.
 
-        Parameters
-        ----------
-        ftp: FTP object
-            Optional. If not passes, it will close the
-            existing ftp connection
-
         """
-        self.logger.warning("Closing FTP connection")
-        ftp = ftp if ftp else self.ftp
-        ftp.quit()
+        try:
+            self.logger.warning("Closing FTP connection")
+            self.ftp.quit()
+        except:
+            # FTP connection was broken, Don't do anything
+            pass
 
     def _keepConnectionAlive(self, sock, idle_after_sec=1, interval_sec=1, max_fails=60):
         """
         Keep the socket alive
-        
+
         Parameters
         ----------
         sock: TCP socket
@@ -143,109 +146,111 @@ class ICDA320:
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, interval_sec)
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_KEEPCNT, max_fails)
 
-    def _checkTelnetConnection(self, tnsock=None):
+    def _checkTelnetConnection(func):
         """
-        Check the telnet connection is alive or not
-        
-        Parameters
-        ----------
-        tnsock: Telnet socket
-        
-        Returns
-        -------
-        True: bool
-             if the connection is alive
-        """
-        try:
-            tnsock.sock.sendall(IAC + NOP)
-            self.logger.debug("Detected Telnet connection is alive")
-            return True
-        except Exception:
-            self.logger.warning("Detected Telnet connection is dead")
-            return False
+        Check the telnet connection is alive or not.
+        This method should not be called outside the class
+        This method should be used as a `decorator` to make sure
+        that the connection to the camera is active. If not active, it will
+        call the `_resetTelnetConnection` which will take care of
+        closing and re-opening the telnet connection
 
-    def _checkFTPConnection(self, ftp=None):
+        """
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            try:
+                if self.tn.sock:
+                    self.tn.sock.send(IAC+NOP+self.eof)
+                    self.tn.read_until(self.prompt)
+                    self.logger.debug("Detected Telnet connection is alive")
+                    return func(self, *args, **kwargs)
+                else:
+                    self._resetTelnetConnection()
+            except Exception as ex:
+                self.logger.warning("Detected Telnet connection is dead: "+ str(ex))
+                self._resetTelnetConnection()
+                return wrapper(self, *args, **kwargs)
+        return wrapper
+
+    def _checkFTPConnection(func):
         """
         Check the FTP connection is alive or not
-        
-        Parameters
-        ----------
-        ftp: FTP object
-
-        Returns
-        -------
-        True: bool
-            if the connection is alive
+        This method should not be called outside the class
+        This method should be used as a `decorator` to make sure
+        that the connection to the camera is active. If not active, it will
+        call the `_resetFTPConnection` which will take care of
+        closing and re-opening the FTP connection
         """
-        ftp = ftp if ftp else self.ftp
-        try:
-            ftp.voidcmd("NOOP")
-            self.logger.debug("Detected FTP connection is alive")
-            return True
-        except Exception:
-            self.logger.warning("Detected FTP connection is dead")
-            return False
-        
-    
-    def _resetTelnetConnection(self, tn=None):
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            try:
+                self.ftp.voidcmd("NOOP")
+                self.logger.debug("Detected FTP connection is alive")
+                return func(self, *args, **kwargs)
+            except Exception as ex:
+                self.logger.warning("Detected FTP connection is dead: "+ str(ex))
+                self._resetFTPConnection()
+                return wrapper(self, *args, **kwargs)
+        return wrapper
+
+    def _resetTelnetConnection(self):
         """
         Close the telnet connection and
-        Reopen them
-
-        Parameters
-        ----------
-        tn: Telnet object
-            Optional. If not passed, it will close and reopen
-            the existing telnet connection
-        
-        ..Note: This will make all the old telnet objects point
-             to the new object
+        Reopen.
+        This method should not be called
+        outside the class / standalone
         """
-        self.logger.warning("Restarting Telnet connection")
-        self._closeTelnet(tn)
-        self.tn = None
-        time.sleep(1)
-        self.tn = self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
+        try:
+            self.logger.warning("Restarting Telnet connection")
+            self._closeTelnet()
+            self.tn = None
+            time.sleep(1)
+            self._openTelnet(self.TELNET_HOST, self.TELNET_PORT)
+        except Exception as ex:
+            self.logger.critical("Cannot reset telnet connection: "+ str(ex))
 
-    def _resetFTPConnection(self, ftp=None):
+    def _resetFTPConnection(self):
         """
         Close the FTP connection and
-        Reopen them
-
-        Parameters
-        ----------
-        ftp: FTP object
-            Optional. If not passed, it will close and reopen
-            the existing ftp connection
-        
-        ..Note: This will make all the old FTP objects point
-             to the new object
+        Reopen them.
+        This method should not be called
+        outside the class / standalone
         """
-        self.logger.warning("Restarting FTP connection")
-        self.ftp.quit()
-        time.sleep(1)
-        self.ftp = self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
-        
+        try:
+            self.logger.warning("Restarting FTP connection")
+            self._closeFTP()
+            self.ftp = None
+            time.sleep(1)
+            self._openFTP(self.FTP_HOST, self.FTP_USERNAME, self.FTP_PASSWORD)
+        except Exception as ex:
+            self.logger.critical("Cannot reset FTP connection: "+ str(ex))
+
     # Parse the output
     def read(self, output):
         """
         Parse the output from the camera
         by filtering the padding and other sentinels
         """
+        print("READ CALLED: " + str(output))
         return filter(lambda x: x not in ["", self.eof],
                       output)
 
     # Get cam version
+    @_checkTelnetConnection
     def version(self):
         """
         Get the version information
         of the camera and its individual
         components
         """
-        self.tn.write("version"+self.eof)
-        self.read(self.tn.read_until(self.prompt))
+        try:
+            self.tn.write("version"+self.eof)
+            self.read(self.tn.read_until(self.prompt))
+        except Exception as ex:
+            self.logger.warning("Cannot obtain version: "+ str(ex))
 
     # Zoom
+    @_checkTelnetConnection
     def zoom(self, factor):
         """
         Zoom by a particular factor
@@ -258,21 +263,29 @@ class ICDA320:
 
         Returns: None
         """
-        self.logger.debug("Zooming: "+str(factor)+"x")
-        self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
-        self.read(self.tn.read_until(self.prompt))
+        try:
+            self.logger.debug("Zooming: "+str(factor)+"x")
+            self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
+            self.read(self.tn.read_until(self.prompt))
+        except Exception as ex:
+            self.logger.warning("Cannot zoom: "+ str(ex))
 
     #Non Uniformity Correction.
     # Don't call it frequently.
+    @_checkTelnetConnection
     def nuc(self):
         """
         Perform non unformity correction
         """
-        self.tn.write("rset .image.services.nuc.commit true"+self.eof)
-        self.logger.info("Performing NUC")
-        self.tn.read_until(self.prompt)
-        
+        try:
+            self.tn.write("rset .image.services.nuc.commit true"+self.eof)
+            self.logger.info("Performing NUC")
+            self.tn.read_until(self.prompt)
+        except Exception as ex:
+            self.logger.warning("Cannot perform NUC: "+ str(ex))
+
     #Focus the scene
+    @_checkTelnetConnection
     def focus(self, foctype):
         """
         Perform Full Focus of the current scene
@@ -281,19 +294,23 @@ class ICDA320:
             Type of Focus to perform
             currently only `full` focus is supported
         """
-        if foctype.lower() == "full":
-            self.tn.write("rset .system.focus.autofull true"+self.eof)
-            self.logger.info("Performing AutoFocus")
-            self.tn.read_until(self.prompt)
-        elif foctype.lower() == "fast":
-            self.tn.write("rset .system.focus.autofast true"+self.eof)
-            self.logger.info("Performing FastFocus")
-            self.tn.read_until(self.prompt)
-        else:
-            raise NotImplementedError(self.__class__.__name__ + ". Only full/fast supported")
+        try:
+            if foctype.lower() == "full":
+                self.tn.write("rset .system.focus.autofull true"+self.eof)
+                self.logger.info("Performing AutoFocus")
+                self.tn.read_until(self.prompt)
+            elif foctype.lower() == "fast":
+                self.tn.write("rset .system.focus.autofast true"+self.eof)
+                self.logger.info("Performing FastFocus")
+                self.tn.read_until(self.prompt)
+            else:
+                raise NotImplementedError(self.__class__.__name__ + ". Only full/fast supported")
+        except Exception as ex:
+            self.logger.warning("Cannot perform Focus: "+ str(ex))
 
     # Check if camera is done focussing and
     # ready for next instruction
+    @_checkTelnetConnection
     def ready(self):
         """
         Check if camera is ready
@@ -311,27 +328,35 @@ class ICDA320:
         #self.tn.write("palette"+self.eof)
         #palette = self.read(self.tn.read_until(self.prompt))
         #self.logger.info("Using Palette: "+str(palette))
-        
-    
+
+
     # Capture the image
-    def capture(self):
+    @_checkTelnetConnection
+    def capture(self, img_name=""):
         """
         Capture a single image from the FLIR camera
         and store it locally in the home directory (`/`)
-
+        Parameters
+        ----------
+        img_name: str
+            string to be prepended to the image file
+        
         Returns:
         --------
         fname : str
             Name of the most recent capture
         """
-        
-        fname = str(time.time())
-        self.logger.info("Capturing "+fname)
-        self.tn.write("store -j %s.jpg"%fname+self.eof)
-        self.read(self.tn.read_until(self.prompt))
-        return fname
+        try:
+            fname = str(img_name) + str(time.time())
+            self.logger.info("Capturing "+fname)
+            self.tn.write("store -j %s.jpg"%fname+self.eof)
+            self.read(self.tn.read_until(self.prompt))
+            return fname
+        except Exception as ex:
+            self.logger.warning("Cannot capture the image: "+ str(ex))
 
     # Grab the file back to this device
+    @_checkFTPConnection
     def fetch(self, filename=None, pattern=None):
         """
         Download the file(s) from the Camera
@@ -341,10 +366,10 @@ class ICDA320:
             Name of the file to be fetched.
         pattern: str
             Regex expression for the files to
-            be fetched. 
+            be fetched.
             Note: If `pattern` is passed, `filename`
             will be ignored. Expression is case sensitive
-        
+
         Returns:
         --------
         True: bool
@@ -360,34 +385,25 @@ class ICDA320:
             self.logger.info("Fetching "+str(fname))
             self.ftp.retrbinary('RETR '+fname, open(
                 os.path.join(self.basedir,fname), 'wb').write)
-                
+
         def _removeFile(fname):
             if os.path.isfile(os.path.join(self.basedir,fname)):
                 self.logger.info("Removing "+str(fname))
                 self.ftp.delete(fname)
-                
-        def _enumerateCamFiles():
-            if self._checkFTPConnection():            
-                self.ftp.cwd('/')
-                self.ftp.dir(dirlisting.append)
-                return dirlisting
-            else:
-                # Reset the ftp connection and re-enumerate all files
-                self._resetFTPConnection(self.ftp)
-                _enumerateCamFiles()
 
-        def _downloadCamFiles(files):    
-            if self._checkFTPConnection():
-                for fname in files:
-                    _getFile(fname)
-                    time.sleep(1)
-                    _removeFile(fname)
-            else:
-                self._resetFTPConnection(self.ftp)
-                _downloadCamFiles(files)
+        def _enumerateCamFiles():
+            self.ftp.cwd('/')
+            self.ftp.dir(dirlisting.append)
+            return dirlisting
+
+        def _downloadCamFiles(files):
+            for fname in files:
+                _getFile(fname)
+                time.sleep(1)
+                _removeFile(fname)
 
         try:
-            # List all the files on the camera        
+            # List all the files on the camera
             for i in _enumerateCamFiles():
                 dirs.append(i.split(" ")[-1])
 
@@ -400,12 +416,18 @@ class ICDA320:
             # Download the files
             _downloadCamFiles(files)
         except Exception as e:
-            self.logger.error("Error in fetching: "+str(e))
-                    
+            self.logger.error("Error in fetching: "+ str(e))
+
     def cleanup(self):
         """
         Safely close the ftp and telnet connection before
         exiting
         """
-        self.ftp.quit()
-        self.tn.close()
+        try:
+            self._closeFTP()
+            self.ftp=None
+            self._closeTelnet()
+            self.tn=None
+        except Exception:
+            # Connection Broken, don't do anything
+            pass
