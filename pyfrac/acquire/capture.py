@@ -231,7 +231,6 @@ class ICDA320:
         Parse the output from the camera
         by filtering the padding and other sentinels
         """
-        print("READ CALLED: " + str(output))
         return filter(lambda x: x not in ["", self.eof],
                       output)
 
