@@ -10,6 +10,7 @@ import socket
 import atexit
 import os
 import errno
+import json
 from telnetlib import IAC, NOP
 from functools import wraps
 from pyfrac.utils.misc import ignored
@@ -269,6 +270,27 @@ class ICDA320:
         except Exception as ex:
             self.logger.warning("Cannot zoom: "+ str(ex))
 
+    # Get the temperature Max and Min
+    # from the camera
+    @_checkTelnetConnection
+    def get_temp_max_min(self):
+        """
+        Obtain the current 
+        Max and Min temperature
+        of the scene
+        """
+        try:
+            temp_dic = {"HighT": -1, "LowT": -1}
+            self.tn.write("rls image.sysimg.basicImgData.extraInfo.imgHighT"+self.eof)
+            self.logger.info("Reading HighT")
+            temp_dic["HighT"] = float(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+            self.tn.write("rls image.sysimg.basicImgData.extraInfo.imgLowT"+self.eof)
+            self.logger.info("Reading LowT")
+            temp_dic["LowT"] = float(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+            return temp_dic
+        except Exception as ex:
+            self.logger.warning("Error obtaining max min temp "+str(ex))
+            
     #Non Uniformity Correction.
     # Don't call it frequently.
     @_checkTelnetConnection
@@ -346,7 +368,10 @@ class ICDA320:
             Name of the most recent capture
         """
         try:
+            temp_dic = self.get_temp_max_min()
             fname = str(img_name) + str(time.time())
+            with open(os.path.join(self.basedir,fname+".temp"), 'w') as fh:
+                json.dump(temp_dic, fh)
             self.logger.info("Capturing "+fname)
             self.tn.write("store -j %s.jpg"%fname+self.eof)
             self.read(self.tn.read_until(self.prompt))
