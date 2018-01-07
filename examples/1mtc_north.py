@@ -14,7 +14,7 @@ RPC_QUEUE_NAME = "1mtcNorth_ir_queue"
 RPC_VHOST = "/ir"
 
 IR_IMAGE_DIR          = os.getenv('mtc_ir_dir')
-NORTH_IR_IMG_DIR      = os.path.join(IR_IMAGE_DIR, 'North')
+NORTH_IR_IMG_DIR      = os.path.join(IR_IMAGE_DIR, 'North', 'live')
 
 NORTH_IRCAM_IP        = os.getenv("north_ircam_ip")
 NORTH_IRCAM_FTP_UNAME = os.getenv("north_ircam_ftp_uname")
