@@ -195,7 +195,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
                         count.value = command_dict["count"]
                         capture_event.set()
                     elif command_dict["count"] <= -1:
-                        count.value = command_dict["count"] 
+                        count.value = command_dict["count"]
                         capture_event.set()
                 else:
                     logger.warning("Cannot start capture without the interval field")
@@ -259,10 +259,10 @@ if __name__ == "__main__":
 
     # RPC connection setup
     logger.info("Setting up RPC connection")
-    credentials = pika.PlainCredentials('acapulco', 'acapulco')
+    credentials = pika.PlainCredentials(os.getenv("rpc_user"), os.getenv("rpc_pass"))
     connection = pika.BlockingConnection(
-            pika.ConnectionParameters("172.22.72.53",5672,
-                                      RPC_VHOST,credentials))
+        pika.ConnectionParameters(os.getenv("rpc_server"), os.getenv("rpc_port"),
+                                  RPC_VHOST, credentials))
     channel = connection.channel()
     channel.queue_declare(queue=RPC_QUEUE_NAME)
 
