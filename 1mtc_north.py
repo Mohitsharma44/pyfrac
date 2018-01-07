@@ -23,7 +23,7 @@ NORTH_IRCAM_FTP_PASS  = os.getenv("north_ircam_ftp_pass")
 NORTH_LOC_STRING      = "north"
 
 def _initialize(cam_lock, capture_event, frames_captured,
-                count, interval, capture_die):
+                count, recent_error, interval, capture_die):
     """
     Setup the global events that will be used
     to trigger the capture loop's different functions
@@ -45,6 +45,9 @@ def _initialize(cam_lock, capture_event, frames_captured,
     count: `multiprocessing.Manager.Value`
         This will be used to exchange the number of frames
         to be captured within the capture loop
+    recent_error: `multiprocessing.Manager.Value`
+        This will be used to report the most recent error that
+        occured during capture or some other process
     interval: `multiprocessing.Manager.Value`
         This will be used to exchange the number of seconds
         to wait between successive frame captures
@@ -55,6 +58,7 @@ def _initialize(cam_lock, capture_event, frames_captured,
     _capture.capture_event = capture_event
     _capture.frames_captured = frames_captured
     _capture.count = count
+    _capture.recent_error = recent_error
     _capture.interval = interval
     _capture.capture_die = capture_die
 
@@ -82,7 +86,7 @@ def _capture(cam, *args):
                                                           ".jpg"
                         cam.fetch(filename="", pattern="jpg")
                         _capture.frames_captured.value += 1
-                    
+
                     elif _capture.count.get() > 0:
                         fname = str(cam.capture(img_name=str(NORTH_LOC_STRING)+"-")) +\
                                                           ".jpg"
@@ -90,20 +94,22 @@ def _capture(cam, *args):
                         # Increment frames captured count
                         _capture.frames_captured.value += 1
                         _capture.count.value -= 1
-                        
+
                     elif _capture.count.get() == 0:
                         _capture.capture_event.clear()
                 time.sleep(_capture.interval.get() - (time.time() - start_time))
             except Exception as ex:
                 logger.error("Error in _capture process: "+str(ex))
+                _capture.recent_error.value = "Error in _capture process: "+str(ex)
                 _capture.capture_event.clear()
+
         else:
             cam.cleanup()
     except KeyboardInterrupt as ki:
         logger.info("Exiting from "+str(multiprocessing.current_process().name))
 
 def camera_commands(cam, cam_lock, capture_event, frames_captured,
-                        count, interval, command_dict):
+                        count, recent_error, interval, command_dict):
     """
     Perform actions on the camera based on
     the command dictionary
@@ -111,8 +117,27 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
     ----------
     cam: ICDA320 camera object
     cam_lock: `multiprocessing.Lock`
-        To make sure no two commands are executed
-        on the camera simultaneously
+        For obtaining exclusive lock so that two
+        commands cannot be sent to the camera
+        simultaneously.
+        .. note:  Camera's buffer overflows when it gets hit by
+                  commands at more than 1Hz.
+    capture_event: `multiprocessing.Event`
+        This will be used to trigger the capture
+        start on the cam
+    frames_captured: `multiprocessing.Manager.Value`
+        This will be used to exchange the number of frames captured
+        within the capture loop
+    count: `multiprocessing.Manager.Value`
+        This will be used to exchange the number of frames
+        to be captured within the capture loop
+    recent_error: `multiprocessing.Manager.Value`
+        This will be used to report the most recent error that
+        occured during capture or some other process
+    interval: `multiprocessing.Manager.Value`
+        This will be used to exchange the number of seconds
+        to wait between successive frame captures
+        within the capture loop
     command_dict: dictionary containing (k,v)
         pairs for following keys:
         capture: `bool`
@@ -129,7 +154,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         Parameters:
         ----------
         msg: str, optional
-            If any custom message needs to be returned
+        If any custom message needs to be returned
         """
         with cam_lock:
             kwargs.update({
@@ -138,10 +163,10 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
                 "zoom": cam.zoom(),
                 "focus": cam.focus(),
                 "frames_captured": frames_captured.get(),
-                "msg": msg
+                "msg": msg,
+                "recent_error": recent_error.get()
             })
             return kwargs
-
     try:
         if command_dict["stop"]:
             # Stop capturing images
@@ -214,6 +239,7 @@ if __name__ == "__main__":
     # Setup events and shared Value
     cam_lock = multiprocessing.Lock()
     capture_event = mp_manager.Event()
+    recent_error = mp_manager.Value("recent_error", "")
     frames_captured = mp_manager.Value('frames_captured', 0)
     count = mp_manager.Value('count', 0)
     interval = mp_manager.Value('interval', 0)
@@ -221,8 +247,8 @@ if __name__ == "__main__":
 
     # Setup pool, initialize shared objects and start the process
     logger.info("Starting camera capture process ... ")
-    _initialize(cam_lock, capture_event,
-                frames_captured, count, interval, die)
+    _initialize(cam_lock, capture_event, frames_captured,
+                count, recent_error, interval, die)
     process = multiprocessing.Process(target=_capture, args=(north_cam,))
     #pool = multiprocessing.Pool(1, _initialize,
     #                            (capture_event, frames_captured,
@@ -253,7 +279,7 @@ if __name__ == "__main__":
         command_dict = json.loads(body)
         logger.debug("Correlation id: " + str(props.correlation_id))
         response = camera_commands(north_cam, cam_lock, capture_event,
-                                   frames_captured, count,
+                                   frames_captured, count, recent_error,
                                    interval, command_dict)
         ch.basic_publish(exchange='',
                          routing_key=props.reply_to,
