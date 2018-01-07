@@ -22,7 +22,7 @@ __pycache__/*
 ir_images/*
 grayscale/*
 logs/*
-
+utils/*
 # Package files
 *.egg
 *.eggs/
