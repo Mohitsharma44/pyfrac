@@ -251,7 +251,7 @@ class ICDA320:
 
     # Zoom
     @_checkTelnetConnection
-    def zoom(self, factor):
+    def zoom(self, factor=None):
         """
         Zoom by a particular factor
 
@@ -264,9 +264,15 @@ class ICDA320:
         Returns: None
         """
         try:
-            self.logger.debug("Zooming: "+str(factor)+"x")
-            self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
-            self.read(self.tn.read_until(self.prompt))
+            if factor:
+                self.logger.debug("Zooming: "+str(factor)+"x")
+                self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
+                self.read(self.tn.read_until(self.prompt))
+            else:
+                self.logger.debug("Obtaining current zoom factor")
+                self.tn.write("rls .image.zoom.zoomFactor"+self.eof)
+                output = int(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+                return output
         except Exception as ex:
             self.logger.warning("Cannot zoom: "+ str(ex))
 
@@ -307,7 +313,7 @@ class ICDA320:
 
     #Focus the scene
     @_checkTelnetConnection
-    def focus(self, focus):
+    def focus(self, focus=None):
         """
         Perform focusing of the current scene
         Parameters:
@@ -321,22 +327,29 @@ class ICDA320:
             .. note: if int, then value must be < 3455
         """
         try:
-            if isinstance(focus, str):
-                if focus.lower() == "full":
-                    self.tn.write("rset .system.focus.autofull true"+self.eof)
-                    self.logger.info("Performing AutoFocus")
-                    self.tn.read_until(self.prompt)
-                elif focus.lower() == "fast":
-                    self.tn.write("rset .system.focus.autofast true"+self.eof)
-                    self.logger.info("Performing FastFocus")
-                    self.tn.read_until(self.prompt)
-            elif isinstance(focus, int):
-                if (focus > 0) and (focus <= 3455):
-                    self.tn.write("rset .system.focus.position "+focus+self.eof)
-                    self.logger.info("Focussing to range: "+focus)
-                    self.tn.read_until(self.prompt)
+            if focus:
+                if isinstance(focus, str):
+                    if focus.lower() == "full":
+                        self.tn.write("rset .system.focus.autofull true"+self.eof)
+                        self.logger.info("Performing AutoFocus")
+                        self.tn.read_until(self.prompt)
+                    elif focus.lower() == "fast":
+                        self.tn.write("rset .system.focus.autofast true"+self.eof)
+                        self.logger.info("Performing FastFocus")
+                        self.tn.read_until(self.prompt)
+                elif isinstance(focus, int):
+                    if (focus > 0) and (focus <= 3455):
+                        self.tn.write("rset .system.focus.position "+focus+self.eof)
+                        self.logger.info("Focussing to range: "+focus)
+                        self.tn.read_until(self.prompt)
+                else:
+                    raise NotImplementedError(self.__class__.__name__ + \
+                                              ". Can only accept string or int < 3455")
             else:
-                raise NotImplementedError(self.__class__.__name__ + ". Can only accept string or int < 3455")
+                self.tn.write("rls .system.focus.position "+self.eof)
+                self.logger.info("Obtaining current Focus")
+                output = int(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+                return output
         except Exception as ex:
             self.logger.warning("Cannot perform Focus: "+ str(ex))
 
