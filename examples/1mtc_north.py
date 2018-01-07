@@ -200,14 +200,15 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
             else:
                 logger.warning("Previous capture is already in progress")
                 return _current_status(msg="Previous capture is already in progress")
-
+        return _current_status()
     except Exception as ex:
         logger.warning("Couldn't execute following camera commands: "+str(ex)+\
                        "\n"+str(command_dict))
         return _current_status(msg="Couldn't execute following camera commands: "+str(ex)+\
                        "\n"+str(command_dict))
     finally:
-        return _current_status()
+        # Reset the recent error after it has been sent once
+        recent_error.value = ""
 
 def killChildProc(process):
     """
