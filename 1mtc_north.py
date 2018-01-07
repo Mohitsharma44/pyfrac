@@ -43,11 +43,12 @@ def _initialize(capture_event, frames_captured,
         to wait between successive frame captures
         within the capture loop
     """
-    _capture.event = capture_event
+    logger.info("INITIALIZING")
+    _capture.capture_event = capture_event
     _capture.frames_captured = frames_captured
     _capture.count = count
     _capture.interval = interval
-    _capture.die = capture_die
+    _capture.capture_die = capture_die
 
 def _capture(cam, *args):
     """
@@ -60,20 +61,35 @@ def _capture(cam, *args):
         Camera object using which capture
         operations needs to be performed
     """
-    _capture.frames_captured = 0
+    multiprocessing.current_process().name = "IRCaptureLoop"
+    logger.info("INSIDE CAPTURE")
+    _capture.frames_captured.value = 0
     while not _capture.capture_die.get():
         try:
             _capture.capture_event.wait()
-            fname = str(loc) +\
-                    "-" +\
-                    str(cam.capture(img_name=str(NORTH_LOC_STRING)+"-")) +\
+            time.sleep(_capture.interval.get())
+            
+            if _capture.count.get() == -1:
+                fname = str(cam.capture(img_name=str(NORTH_LOC_STRING)+"-")) +\
+                                                  ".jpg"
+                cam.fetch(filename="", pattern="jpg")
+                _capture.frames_captured.value += 1
+
+            elif _capture.count.get() > 0:
+                fname = str(cam.capture(img_name=str(NORTH_LOC_STRING)+"-")) +\
                     ".jpg"
-            cam.fetch(filename="", pattern="jpg")
-            # Increment frames captured count
-            _capture.frames_captured += 1
-            time.sleep(_capture.interval)
+                cam.fetch(filename="", pattern="jpg")
+                # Increment frames captured count
+                _capture.frames_captured.value += 1
+                _capture.count.value -= 1
+
+            elif _capture.count.get == 0:
+                _capture.capture_event.clear()
+
         except Exception as ex:
             logger.error("Error in _capture process: "+str(ex))
+    else:
+        cam.cleanup()
 
 def camera_commands(cam, capture_event, frames_captured,
                     count, interval, command_dict):
@@ -92,7 +108,7 @@ def camera_commands(cam, capture_event, frames_captured,
         focus: `int`
         zoom: `int`
     """
-    def _current_status(msg=""):
+    def _current_status(msg="", **kwargs):
         """
         This function will return the status
         of the capture system
@@ -101,20 +117,37 @@ def camera_commands(cam, capture_event, frames_captured,
         msg: str, optional
             If any custom message needs to be returned
         """
-        return {
+        # Camera's buffer overflows when it gets hit by
+        # commands at more than 1Hz (WoW!) So block
+        # camera's capture operation momentarily to
+        # obtain the status
+        capture_event.clear()
+        kwargs.update({
             "capture": capture_event.is_set(),
             "interval": interval.get(),
             "zoom": cam.zoom(),
             "focus": cam.focus(),
             "frames_captured": frames_captured.get(),
             "msg": msg
-        }
+        })
+        capture_event.set()
+        return kwargs
 
     try:
         if command_dict["stop"]:
             # Stop capturing images
             capture_event.clear()
+
+        if command_dict["status"]:
             return _current_status()
+
+        if command_dict["zoom"] > 0:
+            print("Sending to zoom: "+str(command_dict["zoom"]))
+            cam.zoom(int(command_dict["zoom"]))
+
+        if command_dict["focus"] > 0:
+            print("Sending to focus: "+str(command_dict["focus"]))
+            cam.focus(command_dict["focus"])
 
         # Make sure before starting capture
         # - any previous capture is not running
@@ -122,6 +155,8 @@ def camera_commands(cam, capture_event, frames_captured,
         if command_dict["capture"]:
             if not capture_event.is_set():
                 if command_dict["interval"] > 0:
+                    interval.value = command_dict["interval"]
+                    print("Sending start capture command now")
                     frames_captured.value = 0
                     if command_dict["count"] > 0:
                         # Start capturing X images
@@ -135,17 +170,6 @@ def camera_commands(cam, capture_event, frames_captured,
                 logger.warning("Previous capture is already in progress")
                 return _current_status(msg="Previous capture is already in progress")
 
-        if command_dict["status"]:
-            return _current_status()
-
-        if command_dict["zoom"] > 0:
-            cam.zoom(int(command_dict["zoom"]))
-            return _current_status()
-
-        if command_dict["focus"]:
-            cam.focus(command_dict["focus"])
-            return _current_status()
-
     except Exception as ex:
         logger.warning("Couldn't execute following camera commands: "+str(ex)+\
                        "\n"+str(command_dict))
@@ -154,16 +178,16 @@ def camera_commands(cam, capture_event, frames_captured,
     finally:
         return _current_status()
 
-def killChildProc(*processes):
+def killChildProc(process):
     """
     Kills child processes before terminating
     due to some non-fatal (and non signal)
     interrupt. e.g. ctrl c or an exception
     """
-    for process in processes:
-        logger.warning("Killing: " + str(process))
-        die = True
-        process.terminate()
+    logger.warning("Killing: " + str(process))
+    die = True
+    time.sleep(6)
+    process.terminate()
 
 if __name__ == "__main__":
     # Obtain the camera
@@ -186,19 +210,22 @@ if __name__ == "__main__":
     count = mp_manager.Value('count', 0)
     interval = mp_manager.Value('interval', 0)
     die = mp_manager.Value('die', False)
-    
+
     # Setup pool, initialize shared objects and start the process
     logger.info("Starting camera capture process ... ")
-    pool = multiprocessing.Pool(1, _initialize,
-                                (capture_event, frames_captured,
-                                 count, interval, die))
-    capture = pool.imap(_capture, (north_cam,))
-
+    _initialize(capture_event, frames_captured, count, interval, die)
+    process = multiprocessing.Process(target=_capture, args=(north_cam,))
+    #pool = multiprocessing.Pool(1, _initialize,
+    #                            (capture_event, frames_captured,
+    #                             count, interval, die))
+    #pool.imap(_capture, [north_cam])
+    process.start()
     # graceful exit (for SIGINT & SIGQUIT)
-    atexit.register(killChildProc, *pool._pool)
+    #atexit.register(killChildProc, *pool._pool)
+    atexit.register(killChildProc, process)
 
     # No more processes to be creates
-    pool.close()
+    #pool.close()
 
     # RPC connection setup
     logger.info("Setting up RPC connection")
