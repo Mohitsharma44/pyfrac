@@ -251,7 +251,7 @@ class ICDA320:
 
     # Zoom
     @_checkTelnetConnection
-    def zoom(self, factor=None):
+    def zoom(self, factor=0):
         """
         Zoom by a particular factor
 
@@ -264,7 +264,7 @@ class ICDA320:
         Returns: None
         """
         try:
-            if factor:
+            if factor > 0:
                 self.logger.debug("Zooming: "+str(factor)+"x")
                 self.tn.write("rset .image.zoom.zoomFactor %s"%str(factor)+self.eof)
                 self.read(self.tn.read_until(self.prompt))
@@ -288,11 +288,13 @@ class ICDA320:
         try:
             temp_dic = {"HighT": -1, "LowT": -1}
             self.tn.write("rls image.sysimg.basicImgData.extraInfo.imgHighT"+self.eof)
-            self.logger.info("Reading HighT")
-            temp_dic["HighT"] = float(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+            self.logger.debug("Reading HighT")
+            high_out = self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1]
+            temp_dic["HighT"] = float(high_out)
             self.tn.write("rls image.sysimg.basicImgData.extraInfo.imgLowT"+self.eof)
-            self.logger.info("Reading LowT")
-            temp_dic["LowT"] = float(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
+            self.logger.debug("Reading LowT")
+            low_out = self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1]
+            temp_dic["LowT"] = float(low_out)
             return temp_dic
         except Exception as ex:
             self.logger.warning("Error obtaining max min temp "+str(ex))
@@ -331,23 +333,23 @@ class ICDA320:
                 if isinstance(focus, str):
                     if focus.lower() == "full":
                         self.tn.write("rset .system.focus.autofull true"+self.eof)
-                        self.logger.info("Performing AutoFocus")
+                        self.logger.debug("Performing AutoFocus")
                         self.tn.read_until(self.prompt)
                     elif focus.lower() == "fast":
                         self.tn.write("rset .system.focus.autofast true"+self.eof)
-                        self.logger.info("Performing FastFocus")
+                        self.logger.debug("Performing FastFocus")
                         self.tn.read_until(self.prompt)
                 elif isinstance(focus, int):
                     if (focus > 0) and (focus <= 3455):
                         self.tn.write("rset .system.focus.position "+focus+self.eof)
-                        self.logger.info("Focussing to range: "+focus)
+                        self.logger.debug("Focussing to range: "+focus)
                         self.tn.read_until(self.prompt)
                 else:
                     raise NotImplementedError(self.__class__.__name__ + \
                                               ". Can only accept string or int < 3455")
             else:
                 self.tn.write("rls .system.focus.position "+self.eof)
-                self.logger.info("Obtaining current Focus")
+                self.logger.debug("Obtaining current Focus")
                 output = int(self.read(self.tn.read_until(self.prompt)).splitlines()[0].split()[1])
                 return output
         except Exception as ex:
@@ -447,7 +449,7 @@ class ICDA320:
         def _downloadCamFiles(files):
             for fname in files:
                 _getFile(fname)
-                time.sleep(1)
+                #time.sleep(1)
                 _removeFile(fname)
 
         try:
