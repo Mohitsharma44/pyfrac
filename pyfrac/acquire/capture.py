@@ -341,8 +341,8 @@ class ICDA320:
                         self.tn.read_until(self.prompt)
                 elif isinstance(focus, int):
                     if (focus > 0) and (focus <= 3455):
-                        self.tn.write("rset .system.focus.position "+focus+self.eof)
-                        self.logger.debug("Focussing to range: "+focus)
+                        self.tn.write("rset .system.focus.position "+str(focus)+self.eof)
+                        self.logger.debug("Focussing to range: "+str(focus))
                         self.tn.read_until(self.prompt)
                 else:
                     raise NotImplementedError(self.__class__.__name__ + \
