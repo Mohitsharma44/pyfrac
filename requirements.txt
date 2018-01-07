@@ -6,3 +6,4 @@ pyscaffold
 six
 sphinx
 sphinx_rtd_theme
+pika
