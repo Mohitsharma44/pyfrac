@@ -179,7 +179,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         if command_dict["zoom"] > 0:
             cam.zoom(int(command_dict["zoom"]))
 
-        if command_dict["focus"] > 0:
+        if command_dict["focus"]:
             cam.focus(command_dict["focus"])
 
         # Make sure before starting capture
