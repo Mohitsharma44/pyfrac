@@ -354,7 +354,7 @@ class ICDA320:
         if self.tn.read_until(self.prompt).splitlines()[0].split()[1].strip('"') == "BUSY":
             return False
         else:
-            self.logger.debug("AutoFocus Done ")
+            self.logger.debug("System Ready ")
             return True
 
         #self.tn.write("palette"+self.eof)
