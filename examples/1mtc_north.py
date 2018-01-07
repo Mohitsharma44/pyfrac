@@ -170,6 +170,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
     try:
         if command_dict["stop"]:
             # Stop capturing images
+            logger.info("Stopping current capture")
             capture_event.clear()
 
         if command_dict["status"]:
@@ -193,7 +194,8 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
                         # Start capturing X images
                         count.value = command_dict["count"]
                         capture_event.set()
-                    else:
+                    elif command_dict["count"] <= -1:
+                        count.value = command_dict["count"] 
                         capture_event.set()
                 else:
                     logger.warning("Cannot start capture without the interval field")
