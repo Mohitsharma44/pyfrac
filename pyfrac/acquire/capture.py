@@ -307,25 +307,36 @@ class ICDA320:
 
     #Focus the scene
     @_checkTelnetConnection
-    def focus(self, foctype):
+    def focus(self, focus):
         """
-        Perform Full Focus of the current scene
+        Perform focusing of the current scene
         Parameters:
-        foctype : str
-            Type of Focus to perform
-            currently only `full` focus is supported
+        focus : str or int
+            if int, then absolute focus to that literal 
+            will be performed
+            if str, then it should be either "full" or "fast"
+            and accordingly either coarse autofocus will be performed
+            (using complete focus range) or fine autofocus will be 
+            performed (using proximity focus range)
+            .. note: if int, then value must be < 3455
         """
         try:
-            if foctype.lower() == "full":
-                self.tn.write("rset .system.focus.autofull true"+self.eof)
-                self.logger.info("Performing AutoFocus")
-                self.tn.read_until(self.prompt)
-            elif foctype.lower() == "fast":
-                self.tn.write("rset .system.focus.autofast true"+self.eof)
-                self.logger.info("Performing FastFocus")
-                self.tn.read_until(self.prompt)
+            if isinstance(focus, str):
+                if focus.lower() == "full":
+                    self.tn.write("rset .system.focus.autofull true"+self.eof)
+                    self.logger.info("Performing AutoFocus")
+                    self.tn.read_until(self.prompt)
+                elif focus.lower() == "fast":
+                    self.tn.write("rset .system.focus.autofast true"+self.eof)
+                    self.logger.info("Performing FastFocus")
+                    self.tn.read_until(self.prompt)
+            elif isinstance(focus, int):
+                if (focus > 0) and (focus <= 3455):
+                    self.tn.write("rset .system.focus.position "+focus+self.eof)
+                    self.logger.info("Focussing to range: "+focus)
+                    self.tn.read_until(self.prompt)
             else:
-                raise NotImplementedError(self.__class__.__name__ + ". Only full/fast supported")
+                raise NotImplementedError(self.__class__.__name__ + ". Can only accept string or int < 3455")
         except Exception as ex:
             self.logger.warning("Cannot perform Focus: "+ str(ex))
 
