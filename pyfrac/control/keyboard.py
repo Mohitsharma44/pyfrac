@@ -4,7 +4,7 @@
 # NYU CUSP 2016
 
 import telnetlib
-import curses
+#import curses
 import atexit
 import sys
 import time
@@ -15,10 +15,10 @@ from pyfrac.utils import pyfraclogger
 from pyfrac.utils.misc import ignored
 import traceback
 
-screen = curses.initscr()
-curses.noecho()
-curses.curs_set(0)
-screen.keypad(1)
+#screen = curses.initscr()
+#curses.noecho()
+#curses.curs_set(0)
+#screen.keypad(1)
 
 # Max Pan and Tilt allowed
 PPmax = 4000
@@ -45,12 +45,12 @@ class KeyboardController(object):
         atexit.register(self.cleanup)
         
         # Allow Screen Scrolling
-        screen.scrollok(1)
-        screen.idlok(1)
+        #screen.scrollok(1)
+        #screen.idlok(1)
 
-        screen.addstr(0, int(screen.getmaxyx()[0]),
-                      "This is a sample curses script\n",
-                      curses.A_REVERSE)
+        #screen.addstr(0, int(screen.getmaxyx()[0]),
+        #              "This is a sample curses script\n",
+        #              curses.A_REVERSE)
         self.resetPT()
 
     def _openTelnet(self, host, port):
@@ -221,15 +221,15 @@ class KeyboardController(object):
             self.execute(command)
         else:
             self.logger.warning("Cannot go beyond Limits ")
-
+    """
     def move(self):
-        """
+        
         Blocking method to monitor the keypress on the
         keyboard and perform panning and tilting of the camera.
         Note: There is a delay of 500ms added to prevent 
         overwhleming the camera with commands
 
-        """
+        
         cur_pan = 0
         cur_tilt = 0
         cur_pan = [int(s) for s in self.execute("PP").split() if s.isdigit()][-1]
@@ -257,7 +257,7 @@ class KeyboardController(object):
                 self.logger.info("Panning RIGHT ")
             time.sleep(.05)
             curses.flushinp()
-
+    """
     def cleanup(self):
         """
         Make sure to close the telnet connection and curses window
@@ -265,7 +265,7 @@ class KeyboardController(object):
         """
         self.logger.info("Quitting Control ")
         self._closeTelnet(self.tn)
-        curses.endwin()
+        #curses.endwin()
         traceback.print_exc()
         #sys.exit(1)
 
