@@ -101,8 +101,8 @@ def _capture(cam, *args):
             except Exception as ex:
                 logger.error("Error in _capture process: "+str(ex))
                 _capture.recent_error.value = "Error in _capture process: "+str(ex)
-                _capture.capture_event.clear()
-
+                continue
+                #_capture.capture_event.clear()
         else:
             cam.cleanup()
     except KeyboardInterrupt as ki:
@@ -158,7 +158,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         """
         with cam_lock:
             kwargs.update({
-                "capture": capture_event.is_set(),
+                "capture": count.get(),
                 "interval": interval.get(),
                 "zoom": cam.zoom(),
                 "focus": cam.focus(),
@@ -212,14 +212,14 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         # Reset the recent error after it has been sent once
         recent_error.value = ""
 
-def killChildProc(process):
+def killChildProc(process, die):
     """
     Kills child processes before terminating
     due to some non-fatal (and non signal)
     interrupt. e.g. ctrl c or an exception
     """
     logger.warning("Killing: " + str(process))
-    die = True
+    die.value = True
     time.sleep(2)
     process.terminate()
     process.join()
@@ -253,24 +253,16 @@ if __name__ == "__main__":
     _initialize(cam_lock, capture_event, frames_captured,
                 count, recent_error, interval, die)
     process = multiprocessing.Process(target=_capture, args=(north_cam,))
-    #pool = multiprocessing.Pool(1, _initialize,
-    #                            (capture_event, frames_captured,
-    #                             count, interval, die))
-    #pool.imap(_capture, [north_cam])
     process.start()
     # graceful exit (for SIGINT & SIGQUIT)
-    #atexit.register(killChildProc, *pool._pool)
-    atexit.register(killChildProc, process)
-
-    # No more processes to be creates
-    #pool.close()
+    atexit.register(killChildProc, process, die)
 
     # RPC connection setup
     logger.info("Setting up RPC connection")
     credentials = pika.PlainCredentials(os.getenv("rpc_user"), os.getenv("rpc_pass"))
     connection = pika.BlockingConnection(
-            pika.ConnectionParameters(os.getenv("rpc_server"), os.getenv("rpc_port"),
-                                      RPC_VHOST, credentials))
+        pika.ConnectionParameters(os.getenv("rpc_server"), os.getenv("rpc_port"),
+                                  RPC_VHOST, credentials))
     channel = connection.channel()
     channel.queue_declare(queue=RPC_QUEUE_NAME)
 
@@ -298,3 +290,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt as ki:
         print()
         logger.info("Exiting now")
+    except Exception as ex:
+        logger.critical("Critical Exception in main: "+str(ex))

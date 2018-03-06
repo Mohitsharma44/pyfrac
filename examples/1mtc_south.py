@@ -8,6 +8,8 @@ import json
 import pika
 import time
 import os
+import logging
+logging.getLogger('pika').setLevel(logging.DEBUG)
 
 logger = pyfraclogger.pyfraclogger(tofile=True)
 RPC_QUEUE_NAME = "1mtcSouth_ir_queue"
@@ -101,8 +103,8 @@ def _capture(cam, *args):
             except Exception as ex:
                 logger.error("Error in _capture process: "+str(ex))
                 _capture.recent_error.value = "Error in _capture process: "+str(ex)
-                _capture.capture_event.clear()
-
+                #_capture.capture_event.clear()
+                continue
         else:
             cam.cleanup()
     except KeyboardInterrupt as ki:
@@ -158,7 +160,7 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         """
         with cam_lock:
             kwargs.update({
-                "capture": capture_event.is_set(),
+                "capture": count.get(),
                 "interval": interval.get(),
                 "zoom": cam.zoom(),
                 "focus": cam.focus(),
@@ -173,8 +175,8 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
             logger.info("Stopping current capture")
             capture_event.clear()
 
-        #if command_dict["status"]:
-        #    return _current_status()
+        if command_dict["status"]:
+            return _current_status()
 
         if command_dict["zoom"] > 0:
             cam.zoom(int(command_dict["zoom"]))
@@ -212,14 +214,14 @@ def camera_commands(cam, cam_lock, capture_event, frames_captured,
         # Reset the recent error after it has been sent once
         recent_error.value = ""
 
-def killChildProc(process):
+def killChildProc(process, die):
     """
     Kills child processes before terminating
     due to some non-fatal (and non signal)
     interrupt. e.g. ctrl c or an exception
     """
     logger.warning("Killing: " + str(process))
-    die = True
+    die.value = True
     time.sleep(2)
     process.terminate()
     process.join()
@@ -255,7 +257,7 @@ if __name__ == "__main__":
     process = multiprocessing.Process(target=_capture, args=(south_cam,))
     process.start()
     # graceful exit (for SIGINT & SIGQUIT)
-    atexit.register(killChildProc, process)
+    atexit.register(killChildProc, process, die)
 
     # RPC connection setup
     logger.info("Setting up RPC connection")
@@ -290,3 +292,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt as ki:
         print()
         logger.info("Exiting now")
+    except Exception as ex:
+        logger.critical("Critical Exception in main: "+str(ex))
+
